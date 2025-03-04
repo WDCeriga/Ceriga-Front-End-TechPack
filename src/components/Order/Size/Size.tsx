@@ -29,6 +29,10 @@ const OrderSize: FC = () => {
   const { productType, tableSize } = useSelector(
     (state: RootState) => state.order
   );
+  const productinfo = useSelector(
+    (state: RootState) => state.products.productOpen,
+  );
+
   const order = useSelector(
     (state: RootState) => state.order
   );
@@ -51,14 +55,20 @@ const OrderSize: FC = () => {
         <Progress value={10} />
       </div>
       {!sizeOpen ? (
-        <div className={sOrder.center}>
-          <DefaultImg />
-        </div>
+        <>
+          <div className={sOrder.center}>
+            <DefaultImg />
+            <p style={{ textAlign: "center" }}>${productinfo?.startingPrice}</p>
+          </div>
+
+        </>
       ) : (
         <div className={centerClassname}>
           <ImageSize product={productType || ""} />
         </div>
       )}
+
+
 
       <div className={sOrder.right}>
         <div className={s.params}>

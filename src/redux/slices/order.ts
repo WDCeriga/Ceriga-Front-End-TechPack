@@ -110,6 +110,7 @@ const orderSlice = createSlice({
       state.orderStep = "size";
       state.name = payload.productType;
       state.productType = payload.productType;
+      state.productId = payload?.productId;
     },
     loadOrder: (_, { payload }: PayloadAction<IOrderState>) => {
       return payload;

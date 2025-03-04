@@ -35,7 +35,7 @@ const ModalProduct: FC = () => {
 
   const handleCreateNewOrder = () => {
     dispatch(resetColors());
-    product && dispatch(createNewOrder({ productType: product.categories[0] }));
+    product && productId && dispatch(createNewOrder({ productType: product.categories[0], productId: productId }));
     navigate(routes.order);
   };
 
@@ -43,8 +43,8 @@ const ModalProduct: FC = () => {
     return null;
   }
   const imgSrc = `${routes.server.base}${product.images && product.images[0]
-      ? product.images[0]
-      : routes.server.products.defaultImg
+    ? product.images[0]
+    : routes.server.products.defaultImg
     }`;
 
   return (
@@ -106,25 +106,31 @@ const ModalProduct: FC = () => {
               <li className={s.item}>
                 <p className={s.item_left}>Origin</p>
                 <p className={s.item_right}>
-                  {"Our production line is in Lisbon, Portugal"}
+                  {product?.origin}
+                  {/* {"Our production line is in Lisbon, Portugal"} */}
                 </p>
               </li>
               <li className={s.item}>
                 <p className={s.item_left}>Label option</p>
-                <p className={s.item_right}>{"We provide custom labelling"}</p>
+                <p className={s.item_right}>
+                  {/* {"We provide custom labelling"} */}
+                  {product?.labelOptions?.map((lable) => `${lable.type} `).join(", ")}
+                </p>
               </li>
               <li className={s.item}>
                 <p className={s.item_left}>Packaging</p>
                 <p className={s.item_right}>
+                  {/* {product?.pac} */}
                   {"Custom packaging is available  "}
                 </p>
               </li>
               <li className={s.item}>
                 <p className={s.item_left}>Fading</p>
                 <p className={s.item_right}>
-                  {
+                  {product?.fadingOptions?.map((fading) => `${fading.type} `).join(", ")}
+                  {/* {
                     "We produce Shoulder Sun fading, Shoulder & Bottom Sun fading, Circular Sun fading and All-over Sun fading"
-                  }
+                  } */}
                 </p>
               </li>
             </ul>

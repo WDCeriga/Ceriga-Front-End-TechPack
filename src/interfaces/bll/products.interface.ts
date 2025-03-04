@@ -34,7 +34,8 @@ export interface IProduct {
   name: string;
   images: string[];
   categories: string[];
-  fits: string[]
+  fits: string[];
+  startingPrice: string[];
 }
 
 export interface IProductFull {

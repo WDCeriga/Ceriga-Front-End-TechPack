@@ -65,8 +65,10 @@ export interface IOrderState {
   moq: number;
   tableSize: ITableSizeRow[];
   tableType: string | null;
+  productId:string
 }
 
 export interface ICreateNewOrder {
   productType: string;
+  productId: string;
 }
