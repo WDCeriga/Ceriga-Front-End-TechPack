@@ -1,15 +1,15 @@
 import {
   IPrintingItem as IPrinting,
-  printingType,
 } from "@interfaces/order/printing.interface";
 import classNames from "classnames";
 import { FC } from "react";
 
 import s from "./item.module.scss";
+import routes from "@routes/index";
 
 interface IPrintingItem extends IPrinting {
   isActive: boolean;
-  handleClick: (value: printingType) => void;
+  handleClick: (value: string) => void;
 }
 
 const PrintingItem: FC<IPrintingItem> = ({
@@ -25,7 +25,7 @@ const PrintingItem: FC<IPrintingItem> = ({
   return (
     <li className={s.item}>
       <button onClick={() => handleClick(name)} className={buttonClassnames}>
-        <img className={s.item_button_img} src={imgPath} alt={name} />
+        <img className={s.item_button_img} src={routes.server.base + imgPath} alt={name} crossOrigin="anonymous" />
         <p className={s.item_button_text}>{name}</p>
       </button>
     </li>

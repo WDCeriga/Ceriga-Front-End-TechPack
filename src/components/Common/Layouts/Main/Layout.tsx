@@ -25,10 +25,8 @@ const MainLayout: FC<IMainLayout> = ({ children, background }) => {
   const listLength = useSelector(
     (state: RootState) => state.products.list.length
   );
-  console.log(location.pathname);
   useEffect(() => {
     if (token && token !== "error") {
-      console.log(token);
       dispatch(getInfo());
       dispatch(getNotification());
     }

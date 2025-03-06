@@ -1,10 +1,7 @@
 import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { CloseIcon } from "@common/Icons/CommonIcon";
-import { printingStore } from "@constants/order/printing";
 import { AppDispatch, RootState } from "@redux/store";
-import { printingType } from "@interfaces/order/printing.interface";
 import { updatePrinting } from "@redux/slices/order";
 
 import PrintingItem from "./Item/Item";
@@ -18,9 +15,14 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { printing } = useSelector((state: RootState) => state.order);
-  const handleChoosePrinting = (value: printingType) => {
+  const handleChoosePrinting = (value: string) => {
     dispatch(updatePrinting(value));
   };
+
+  const productinfo = useSelector(
+    (state: RootState) => state.products.productOpen,
+  );
+
   return (
     <section className={s.container}>
       <div className={s.container_group}>
@@ -30,11 +32,13 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
         </button>
       </div>
       <ul className={s.container_list}>
-        {printingStore.map((item) => (
+        {productinfo?.printing?.map((item) => (
           <PrintingItem
-            key={item.name}
-            {...item}
-            isActive={printing === item.name}
+            key={item.type}
+            name={item.type}
+            imgPath={item.printingImgUrl}
+            cost={item.cost}
+            isActive={printing === item.type}
             handleClick={handleChoosePrinting}
           />
         ))}

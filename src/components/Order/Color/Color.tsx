@@ -20,26 +20,27 @@ import sOrder from "../order.module.scss";
 import s from "./color.module.scss";
 
 const OrderColor: FC = () => {
-  const { color, material, dyeStyle, printing, quantity } = useSelector(
+  const { color, material, dyeStyle, printing, subtotal } = useSelector(
     (state: RootState) => state.order
   );
   const dispatch = useDispatch<AppDispatch>();
+  const productinfo = useSelector(
+    (state: RootState) => state.products.productOpen,
+  );
+
   const [menuState, setMenuState] = useState({
-    colorIsOpen: false,
     materialIsOpen: false,
+    colorIsOpen: false,
     printingIsOpen: false,
   });
 
-  const handleToggleMenu = (menu: "color" | "material" | "printing") => {
-    setMenuState((prevState) => {
-      const newState = {
-        colorIsOpen: false,
-        materialIsOpen: false,
-        printingIsOpen: false,
-        [`${menu}IsOpen`]: !prevState[`${menu}IsOpen`],
-      };
-      return newState;
-    });
+  const handleToggleMenu = (name: keyof typeof menuState) => {
+    setMenuState((prev) => ({
+      materialIsOpen: false,
+      colorIsOpen: false,
+      printingIsOpen: false,
+      [name]: !prev[name],
+    }));
   };
 
   const handlePrevStep = () => {
@@ -50,91 +51,8 @@ const OrderColor: FC = () => {
     dispatch(changeOrderStep("design"));
   };
 
-  const RenderMaterial = () => {
-    if (menuState.colorIsOpen || menuState.printingIsOpen || quantity.type === "Bulk") {
-      return null;
-    }
-
-    return (
-      <>
-        {!menuState.materialIsOpen ? (
-          material.name === null || material.value === null ? (
-            <ButtonSelect
-              onEvent={() => handleToggleMenu("material")}
-              text="Choose a fabric"
-            />
-          ) : (
-            <FinalMaterial
-              title="Selected fabric"
-              materialName={material.name}
-              materialValue={material.value}
-              onEvent={() => handleToggleMenu("material")}
-            />
-          )
-        ) : (
-          <ChooseMaterial closeEvent={() => handleToggleMenu("material")} />
-        )}
-      </>
-    );
-  };
-
-  const RenderColor = () => {
-    if (material.value === null) {
-      return null;
-    }
-    if (menuState.materialIsOpen || menuState.printingIsOpen) {
-      return null;
-    }
-
-    return (
-      <>
-        {menuState.colorIsOpen ? (
-          <ChooseColor closeEvent={() => handleToggleMenu("color")} />
-        ) : color.hex === null && dyeStyle === null ? (
-          <ButtonSelect
-            onEvent={() => handleToggleMenu("color")}
-            text="Choose a color"
-          />
-        ) : (
-          <FinalColor
-            title="Selected color"
-            color={color.hex || ""}
-            dyeStyle={dyeStyle || ""}
-            onEvent={() => handleToggleMenu("color")}
-          />
-        )}
-      </>
-    );
-  };
-
-  const RenderPrinting = () => {
-    if (material.value === null) {
-      return null;
-    }
-    if (menuState.colorIsOpen || menuState.materialIsOpen) {
-      return null;
-    }
-
-    return (
-      <>
-        {menuState.printingIsOpen ? (
-          <ChoosePrinting onClose={() => handleToggleMenu("printing")} />
-        ) : printing === null ? (
-          <ButtonSelect
-            onEvent={() => handleToggleMenu("printing")}
-            text="Choose printing"
-          />
-        ) : (
-          <FinalPrinting
-            title="Selected Printing"
-            printingValue={printing}
-            onEvent={() => handleToggleMenu("printing")}
-          />
-        )}
-      </>
-    );
-  };
-
+  const minimumQuantity = productinfo?.printing?.find(x => x.type == printing)?.minimumQuantity
+  const isMinimumRequired = productinfo?.printing?.find(x => x.type == printing)?.isMinimumRequired
   return (
     <>
       <div className={sOrder.left}>
@@ -145,13 +63,89 @@ const OrderColor: FC = () => {
         <Progress value={20} />
       </div>
       <div className={sOrder.center}>
+        {isMinimumRequired ?
+          <p style={{
+            color: 'red',
+            position: "absolute",
+            right: 0,
+            top: '-5vw',
+            height: "auto",
+          }}>The minimum order quantity is {minimumQuantity}</p>
+          :
+          <></>
+        }
         <DefaultImg />
+        {subtotal ?
+          <p style={{
+            position: "absolute",
+            left: '45%',
+            bottom: 0,
+            height: "auto",
+          }}>€ {subtotal}</p>
+          :
+          <></>
+        }
       </div>
       <div className={sOrder.right}>
         <div className={s.params}>
-          <RenderMaterial />
+          {/* <RenderMaterial />
           <RenderColor />
-          <RenderPrinting />
+          <RenderPrinting /> */}
+          {!menuState.materialIsOpen &&
+            (material.name === null || material.value === null ? (
+              <ButtonSelect
+                onEvent={() => handleToggleMenu("materialIsOpen")}
+                text="Choose a fabric"
+              />
+            ) : (
+              <FinalMaterial
+                title="Selected fabric"
+                materialName={material.name}
+                materialValue={material.value}
+                onEvent={() => handleToggleMenu("materialIsOpen")}
+              />
+            ))}
+
+          {menuState.materialIsOpen && (
+            <ChooseMaterial closeEvent={() => handleToggleMenu("materialIsOpen")} />
+          )}
+
+          {!menuState.colorIsOpen &&
+            (color.hex === null && dyeStyle === null ? (
+              <ButtonSelect
+                onEvent={() => handleToggleMenu("colorIsOpen")}
+                text="Choose a color"
+              />
+            ) : (
+              <FinalColor
+                title="Selected color"
+                color={color.hex || ""}
+                dyeStyle={dyeStyle || ""}
+                onEvent={() => handleToggleMenu("colorIsOpen")}
+              />
+            ))}
+
+          {menuState.colorIsOpen && (
+            <ChooseColor closeEvent={() => handleToggleMenu("colorIsOpen")} />
+          )}
+
+          {!menuState.printingIsOpen &&
+            (printing === null ? (
+              <ButtonSelect
+                onEvent={() => handleToggleMenu("printingIsOpen")}
+                text="Choose printing"
+              />
+            ) : (
+              <FinalPrinting
+                title="Selected Printing"
+                printingValue={printing}
+                onEvent={() => handleToggleMenu("printingIsOpen")}
+              />
+            ))}
+
+          {menuState.printingIsOpen && (
+            <ChoosePrinting onClose={() => handleToggleMenu("printingIsOpen")} />
+          )}
         </div>
         <ButtonsOrder
           handlePrevStep={handlePrevStep}

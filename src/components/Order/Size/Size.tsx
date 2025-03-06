@@ -26,17 +26,14 @@ const OrderSize: FC = () => {
   const [sizeOpen, setSizeOpen] = useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();
-  const { productType, tableSize } = useSelector(
+  const { productType, tableSize, subtotal } = useSelector(
     (state: RootState) => state.order
-  );
-  const productinfo = useSelector(
-    (state: RootState) => state.products.productOpen,
   );
 
   const order = useSelector(
     (state: RootState) => state.order
   );
-  console.log('PraveenOrder==>', order)
+
   const handleNextStep = () => {
     dispatch(changeOrderStep("color"));
   };
@@ -58,7 +55,17 @@ const OrderSize: FC = () => {
         <>
           <div className={sOrder.center}>
             <DefaultImg />
-            <p style={{ textAlign: "center" }}>${productinfo?.startingPrice}</p>
+            {subtotal ?
+              <p style={{
+                position: "absolute",
+                left: '45%',
+                bottom: 0,
+                height: "auto",
+              }}>€ {subtotal}</p>
+              :
+              <></>
+
+            }
           </div>
 
         </>
@@ -67,8 +74,6 @@ const OrderSize: FC = () => {
           <ImageSize product={productType || ""} />
         </div>
       )}
-
-
 
       <div className={sOrder.right}>
         <div className={s.params}>

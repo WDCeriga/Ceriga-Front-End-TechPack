@@ -10,7 +10,6 @@ import "./style.scss"
 const ColorPicker: FC = () => {
   const [color, setColor] = useState<IRgba>({ r: 200, g: 150, b: 35, a: 0.5 });
   const handleChangeColor = (newColor:IRgba) => { 
-    console.log(rgbaToHex(newColor))
     setColor(newColor)
   }
   return (
@@ -30,10 +29,8 @@ const ColorPicker: FC = () => {
     .padStart(2, "0")}`;
   const handleOpacityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOpacity(Number(event.target.value));
-    console.log(rgbaColor)
   };
 
-  console.log(rgbaColor);
 
   return (
     <div>

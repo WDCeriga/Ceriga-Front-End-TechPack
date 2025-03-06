@@ -20,6 +20,7 @@ const ModalProduct: FC = () => {
     (state: RootState) => state.products,
   );
   useEffect(() => {
+    // dispatch(getProductInfo(productId || ""));
     dispatch(getProductInfo(productId || ""));
   }, [productId, dispatch]);
 
@@ -35,7 +36,7 @@ const ModalProduct: FC = () => {
 
   const handleCreateNewOrder = () => {
     dispatch(resetColors());
-    product && productId && dispatch(createNewOrder({ productType: product.categories[0], productId: productId }));
+    product && productId && dispatch(createNewOrder({ productType: product.categories[0] }));
     navigate(routes.order);
   };
 

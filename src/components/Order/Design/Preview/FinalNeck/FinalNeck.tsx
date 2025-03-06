@@ -38,7 +38,7 @@ const FinalNeck: FC<IFinalNeck> = ({ title, onEvent, neck }) => {
           <ItemFinalDesign title="Neck Label Description" value={neckDescription} />
         )
       }
-      
+
     </FinalPreviewLayout>
   );
 };

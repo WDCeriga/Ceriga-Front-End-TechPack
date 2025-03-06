@@ -18,18 +18,23 @@ const CustomizeLabelsTop: FC<ICustomizeLabelsTop> = ({ handleClose }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { type } = useSelector((state: RootState) => state.order.fading);
 
-  const handleChangeItem = (newType: FadingType) => {
+  const handleChangeItem = (newType: string) => {
     dispatch(changeFadingType(newType));
   };
+
+  const productinfo = useSelector(
+    (state: RootState) => state.products.productOpen,
+  );
   return (
     <div className={s.top}>
       <ul className={s.top_list}>
-        {customizeLabelStore.map((item) => (
+        {productinfo?.fadingOptions?.map((item) => (
           <CheckBoxCustomizeLabel
-            key={item.id}
-            {...item}
-            isActive={item.name === type}
-            handleChange = {handleChangeItem}
+            key={item.type}
+            name={item.type}
+            id={item.type}
+            isActive={item.type === type}
+            handleChange={handleChangeItem}
           />
         ))}
       </ul>

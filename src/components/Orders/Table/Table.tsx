@@ -39,7 +39,6 @@ const TableOrders: FC = () => {
         ? new Date(b.orderData).getTime() - new Date(a.orderData).getTime()
         : new Date(a.orderData).getTime() - new Date(b.orderData).getTime()
     );
-  console.log(currentOrdersList);
   return (
     <table className={s.table}>
       <HeadTableOrders />

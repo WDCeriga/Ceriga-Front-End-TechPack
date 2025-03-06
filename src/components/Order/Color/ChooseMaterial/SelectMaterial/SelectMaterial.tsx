@@ -1,9 +1,8 @@
 import { FC, useState } from "react";
-
 import { ArrowVerticalIcon } from "@common/Icons/NavIcons";
-import { materialTypesStore } from "@constants/order/material";
-
 import s from "./selectMaterial.module.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/store";
 
 interface ISelectMaterial {
   typeActive: string;
@@ -18,6 +17,9 @@ const SelectMaterial: FC<ISelectMaterial> = ({ typeActive, handleUpdateItem }) =
     handleToggleSelect();
     handleUpdateItem(item);
   };
+  const productinfo = useSelector(
+    (state: RootState) => state.products.productOpen,
+  );
 
   return (
     <div className={s.container}>
@@ -32,17 +34,17 @@ const SelectMaterial: FC<ISelectMaterial> = ({ typeActive, handleUpdateItem }) =
       </button>
       {selectOpen && (
         <ul className={s.list}>
-          {materialTypesStore.map(item => ( 
-            <li key={item} className={s.list_item}>
-            <button
-              onClick={() => handleSelectItem(item)}
-              className={s.list_item_button}
-            >
-              {item}
-            </button>
-          </li>
+          {productinfo?.fabric?.map(item => (
+            <li key={item?.type} className={s.list_item}>
+              <button
+                onClick={() => handleSelectItem(item?.type)}
+                className={s.list_item_button}
+              >
+                {item?.type}
+              </button>
+            </li>
           ))}
-          
+
         </ul>
       )}
     </div>

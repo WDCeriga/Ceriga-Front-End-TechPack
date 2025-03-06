@@ -2,6 +2,8 @@ interface FabricOption {
   type: string;
   cost: number;
   availableColors?: string[];
+  imgurl: string;
+  fabricValue: number[];
 }
 
 interface DyeStyle {
@@ -22,12 +24,23 @@ interface LabelMaterial {
 interface StitchingOption {
   type: string;
   cost: number;
+  stitchingImgUrl: string;
 }
 
 interface FadingOption {
   type: string;
   cost: number;
+  fadingImgUrl: string;
 }
+
+interface Printing {
+  type: string;
+  cost: number;
+  isMinimumRequired: boolean;
+  minimumQuantity: number;
+  printingImgUrl: string;
+}
+
 
 export interface IProduct {
   _id: string;
@@ -57,6 +70,8 @@ export interface IProductFull {
   fadingOptions: FadingOption[];
   images?: string[];
   createdAt?: Date;
+  stitchingPdfUrl: string;
+  printing: Printing[]
 }
 
 export interface IProductsState {

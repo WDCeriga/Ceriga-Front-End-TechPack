@@ -10,21 +10,22 @@ import { updateDeyStyle } from "@redux/slices/order";
 
 const SelectColorStyle: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const active = useSelector((state: RootState) => state.order.dyeStyle) as selectStyleType;
+  const active = useSelector((state: RootState) => state.order.dyeStyle);
 
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const selectRef = useRef<HTMLDivElement>(null);
+  const productinfo = useSelector(
+    (state: RootState) => state.products.productOpen,
+  );
 
   useEffect(() => {
-    console.log("Active style dispatched:", active);
   }, [active, dispatch]);
 
   const toggleMenu = () => {
     setMenuIsOpen((prev) => !prev);
   };
 
-  const handleSelect = (style: selectStyleType) => {
-    console.log("Selected style:", style);
+  const handleSelect = (style: string) => {
     dispatch(updateDeyStyle(style));
     setMenuIsOpen(false);
   };
@@ -47,13 +48,11 @@ const SelectColorStyle: FC = () => {
     menuIsOpen && s.select_list__open
   );
 
-  console.log("Rendering with active:", active);
-
   return (
     <div className={s.select} ref={selectRef}>
       <button className={s.select_btn} onClick={toggleMenu}>
         <p className={s.select_btn_text}>
-          {active ? (stylesStore[active]?.text || "Select an option") : "Select an option"}
+          {active ? (active || "Select an option") : "Select an option"}
         </p>
         <div className={s.select_btn_icon}>
           <ArrowVerticalIcon
@@ -66,10 +65,10 @@ const SelectColorStyle: FC = () => {
       </button>
 
       <ul className={listClassnames}>
-        {Object.keys(stylesStore).map((key) => {
-          const styleKey = key as selectStyleType;
+        {productinfo?.dyeStyles?.map((key) => {
+          const styleKey = key.type;
           return (
-            <li key={stylesStore[styleKey].id} className={s.select_list_item}>
+            <li key={key.type} className={s.select_list_item}>
               <button
                 className={classNames(
                   s.select_list_item_btn,
@@ -77,7 +76,7 @@ const SelectColorStyle: FC = () => {
                 )}
                 onClick={() => handleSelect(styleKey)}
               >
-                {stylesStore[styleKey].text}
+                {styleKey}
               </button>
             </li>
           );

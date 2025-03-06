@@ -34,6 +34,7 @@ const CustomChooseMaterial: FC<ICustomChooseMaterial> = ({ closeEvent }) => {
         updateMaterial({
           name: typeActive as materialTitle,
           value: parsedValue,
+          cost: 1
         })
       );
       closeEvent();

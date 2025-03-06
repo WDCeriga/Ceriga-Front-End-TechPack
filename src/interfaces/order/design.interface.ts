@@ -13,12 +13,12 @@ export type FadingType =
   | "No Fading";
 
 export interface IStitching {
-  type: StitchingType | "";
+  type: string | "";
   description: string;
 }
 
 export interface IFading {
-  type: FadingType | "";
+  type: string | "";
 }
 
 export interface INeck {

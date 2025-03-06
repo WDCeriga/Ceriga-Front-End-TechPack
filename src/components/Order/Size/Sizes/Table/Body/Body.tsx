@@ -38,9 +38,8 @@ const BodyTableSize: FC<ISizeTable> = ({ isPreview, sizes }) => {
           key={row.char}
         >
           <td
-            className={`${s.body_row_text} ${
-              activeChar === row.char && s.body_row_text__active
-            }`}
+            className={`${s.body_row_text} ${activeChar === row.char && s.body_row_text__active
+              }`}
           >
             <p className={s.body_row_char}>{row.char}</p>
             <p className={s.body_row_name}>{row.name}</p>

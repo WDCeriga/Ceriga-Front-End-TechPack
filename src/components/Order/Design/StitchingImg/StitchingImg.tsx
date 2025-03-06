@@ -2,12 +2,17 @@ import { FC } from "react";
 import { useSelector } from "react-redux";
 
 import { RootState } from "@redux/store";
+import routes from "@routes/index";
 
 const StitchingImg: FC = () => {
   const { productType, stitching } = useSelector(
     (state: RootState) => state.order
   );
+  const productinfo = useSelector(
+    (state: RootState) => state.products.productOpen,
+  );
   const { type } = stitching;
+  const imageurl = productinfo?.stitchingOptions?.find(x => x.type == type)?.stitchingImgUrl
   if (productType === "Sweat Pants") {
     return (
       <>
@@ -18,7 +23,8 @@ const StitchingImg: FC = () => {
             height: "auto",
             marginLeft: "25%"
           }}
-          src={`/img/stitching/${productType}/${type}.png`}
+          crossOrigin="anonymous"
+          src={`${routes.server.base}${imageurl}`}
           alt={`${productType} - ${type}`}
         />
       </>
@@ -27,14 +33,14 @@ const StitchingImg: FC = () => {
     return (
       <>
         <img
-
           style={{
-            marginTop: "-5vw",
+            marginTop: "-10vw",
             maxWidth: "60%",
             height: "auto",
             marginLeft: "25%"
           }}
-          src={`/img/stitching/${productType}/${type}.png`}
+          crossOrigin="anonymous"
+          src={`${routes.server.base}${imageurl}`}
           alt={`${productType} - ${type}`}
         />
       </>
@@ -47,7 +53,8 @@ const StitchingImg: FC = () => {
           maxWidth: "100%",
           height: "auto",
         }}
-        src={`/img/stitching/${productType}/${type}.png`}
+        crossOrigin="anonymous"
+        src={`${routes.server.base}${imageurl}`}
         alt={`${productType} - ${type}`}
       />
     </>

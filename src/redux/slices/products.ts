@@ -5,7 +5,7 @@ import {
 } from "@interfaces/bll/products.interface";
 import { Loading } from "notiflix";
 
-import { getListProductsApi, getProductInfoApi } from "@api/requests/default";
+import { getListProductsApi, getProductInfoApi, getProductInfoApibyName } from "@api/requests/default";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@redux/store";
 
@@ -20,7 +20,6 @@ export const getProductsList = createAsyncThunk<
   { state: RootState }
 >("get-products", async () => {
   const data = await getListProductsApi();
-  console.log('Praveendata===>', data)
   return data;
 });
 
@@ -30,6 +29,15 @@ export const getProductInfo = createAsyncThunk<
   { state: RootState }
 >("get-product", async (id: string) => {
   const data = await getProductInfoApi(id);
+  return data;
+});
+
+export const getProductInfobyName = createAsyncThunk<
+  IProductFull,
+  string,
+  { state: RootState }
+>("get-product", async (name: string) => {
+  const data = await getProductInfoApibyName(name);
   return data;
 });
 

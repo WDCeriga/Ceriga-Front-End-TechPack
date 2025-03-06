@@ -4,32 +4,32 @@ import {
   materialTitle,
 } from "@interfaces/order/material.interface";
 
-export const materialStore: IMaterialCard[] = [
-  {
-    title: "Wool",
-    list: {
-      img: "wool.jpeg",
-    },
-  },
-  {
-    title: "100% Cotton",
-    list: {
-      img: "100PercentCotton.jpeg",
-    },
-  },
-  {
-    title: "Fleece 100% cotton",
-    list: {
-      img: "fleece.jpeg",
-    },
-  },
-  {
-    title: "French terry 100% cotton",
-    list: {
-      img: "frenchTerry.jpeg",
-    },
-  },
-];
+// export const materialStore: IMaterialCard[] = [
+//   {
+//     title: "Wool",
+//     list: {
+//       img: "wool.jpeg",
+//     },
+//   },
+//   {
+//     title: "100% Cotton",
+//     list: {
+//       img: "100PercentCotton.jpeg",
+//     },
+//   },
+//   {
+//     title: "Fleece 100% cotton",
+//     list: {
+//       img: "fleece.jpeg",
+//     },
+//   },
+//   {
+//     title: "French terry 100% cotton",
+//     list: {
+//       img: "frenchTerry.jpeg",
+//     },
+//   },
+// ];
 
 export const materialTypesStore: materialTitle[] = [
   "Wool",

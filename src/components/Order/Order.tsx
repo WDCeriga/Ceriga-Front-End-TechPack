@@ -14,23 +14,20 @@ import OrderPackage from "./Package/Package";
 import OrderPreview from "./Preview/Preview";
 import OrderSize from "./Size/Size";
 import s from "./order.module.scss";
-import { getProductInfo } from "@redux/slices/products";
+import { getProductInfobyName } from "@redux/slices/products";
 
 const Order: FC = () => {
   const hasCreatedDraft = useRef(false);
   const dispatch = useDispatch<AppDispatch>();
   const { order } = useSelector((state: RootState) => state);
   const { product, list } = useSelector((state: RootState) => state.colors);
-  const { productId } = useSelector((state: RootState) => state.order);
   const { orderStep, draftId } = order;
-  const productinfo = useSelector(
-    (state: RootState) => state.products.productOpen,
-  );
-  console.log('productinfo===>', productinfo)
-
+ 
   useEffect(() => {
-    dispatch(getProductInfo(productId || ""));
-  }, [productId, dispatch]);
+    if (order.productType) {
+      dispatch(getProductInfobyName(order.productType || ""));
+    }
+  }, [order.productType, dispatch]);
 
   useEffect(() => {
     if (orderStep === null) {

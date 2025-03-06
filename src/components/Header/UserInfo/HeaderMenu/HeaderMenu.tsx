@@ -1,15 +1,12 @@
 import { FC, useEffect, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-
 import { CameraIcon, CloseIcon } from "@common/Icons/CommonIcon";
 import { formatRole } from "@services/formatRole";
 import { usersRoleWithAllType } from "@interfaces/bll/dashboard.interface";
-import { LogOutIcon, SettingsIcon } from "@common/Icons/UserHeaderMenu";
+import { LogOutIcon, } from "@common/Icons/UserHeaderMenu";
 import { AppDispatch } from "@redux/store";
 import { uploadUserProfile } from "@redux/slices/user";
-import routes from "@routes/index";
 
 import s from "./headerMenu.module.scss";
 
@@ -55,7 +52,6 @@ const HeaderMenu: FC<IMenuInfo> = ({
     files.forEach((file) => {
       formData.append("image", file);
     });
-    console.log(files)
     dispatch(uploadUserProfile(formData));
     handleClose();
   };
@@ -88,12 +84,12 @@ const HeaderMenu: FC<IMenuInfo> = ({
         <p className={s.menu_info_role}>{formatRole(role)}</p>
       </div>
       <ul className={s.menu_list}>
- {/*    <li className={s.menu_list_item}>
+        {/*    <li className={s.menu_list_item}>
           <Link className={s.menu_list_item_link} to={routes.setting}>
             <p className={s.menu_list_item_link_text}>Setting</p>
             <SettingsIcon width="16" height="16" />
           </Link>
-        </li>*/}  
+        </li>*/}
         <li className={s.menu_list_item}>
           <button className={s.menu_list_item_link} onClick={handleLogOut}>
             <p className={s.menu_list_item_link_text}>Log Out</p>

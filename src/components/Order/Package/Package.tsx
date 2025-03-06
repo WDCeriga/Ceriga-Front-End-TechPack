@@ -18,7 +18,7 @@ import sOrder from "../order.module.scss";
 import s from "./package.module.scss";
 
 const OrderPackage: FC = () => {
-  const { moq, quantity, packageUploads } = useSelector(
+  const { moq, quantity, packageUploads, subtotal } = useSelector(
     (state: RootState) => state.order
   );
   const packageInfo = useSelector((state: RootState) => state.order.package);
@@ -62,6 +62,17 @@ const OrderPackage: FC = () => {
       </div>
       <div className={`${sOrder.center} ${s.packageWrap}`}>
         <img src="/img/package.png" alt="package" className={s.packageImg} />
+        {subtotal ?
+          <p style={{
+            position: "absolute",
+            left: '45%',
+            bottom: 0,
+            height: "auto",
+          }}>€ {subtotal}</p>
+          :
+          <></>
+
+        }
       </div>
       <div className={sOrder.right}>
         <div className={s.params}>
@@ -108,9 +119,9 @@ const OrderPackage: FC = () => {
         </div>
 
         <ButtonsOrder
-          isHaveNext ={ 
+          isHaveNext={
             quantity.type !== null &&
-            packageInfo.isPackage !== null 
+            packageInfo.isPackage !== null
           }
           onlyNext={false}
           handlePrevStep={handlePrevStep}

@@ -3,7 +3,6 @@ import { IParamPreviewOrder } from "@interfaces/order/paramsPreview.interface";
 
 export const mapOrderStateToParams = async (state: IOrderState) => {
   const currentId = state.draftId ?? state._id;
-  console.log(currentId);
   let links = {
     design: '',
     neck: '',
@@ -18,8 +17,6 @@ export const mapOrderStateToParams = async (state: IOrderState) => {
     if (Array.isArray(data.items)) {
       const names = data.items.map((item) => item.name);
 
-      console.log("Names:", names);
-
       // Helper function to find a valid file link
       const findValidLink = (folder: string) => {
         const folderContent = names.filter(name => name.startsWith(`${currentId}/${folder}/`) && name !== `${currentId}/${folder}/`);
@@ -31,8 +28,6 @@ export const mapOrderStateToParams = async (state: IOrderState) => {
       links.label = findValidLink('labelUploads');
       links.package = findValidLink('packageUploads');
 
-      console.log("Links:", links);
-
       // Update the links with the full URL
       Object.keys(links).forEach(key => {
         if (links[key]) {
@@ -42,8 +37,6 @@ export const mapOrderStateToParams = async (state: IOrderState) => {
     } else {
       console.error('No items found or invalid items structure in the response.');
     }
-
-    console.log("Updated Links:", links);
 
   } catch (error) {
     console.error('Error fetching data:', error);

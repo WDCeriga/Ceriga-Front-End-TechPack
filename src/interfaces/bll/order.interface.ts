@@ -20,9 +20,16 @@ export type orderStep =
   | "delivery"
   | "preview";
 
+// export interface IMaterial {
+//   name: materialTitle | null;
+//   value: materialValue | null;
+//   cost: number;
+// }
+
 export interface IMaterial {
-  name: materialTitle | null;
+  name: string | null;
   value: materialValue | null;
+  cost: number;
 }
 
 export interface IPackage {
@@ -35,9 +42,9 @@ export interface IOrderState {
   orderId?: string;
   name: string | null;
   orderStep: orderStep | null;
-  printing: printingType | "" | null;
+  printing: string | "" | null;
   productType: string | null;
-  dyeStyle: selectStyleType | null;
+  dyeStyle: string | null;
   color: {
     hex: string | null;
     path: string | null;
@@ -65,10 +72,8 @@ export interface IOrderState {
   moq: number;
   tableSize: ITableSizeRow[];
   tableType: string | null;
-  productId:string
 }
 
 export interface ICreateNewOrder {
   productType: string;
-  productId: string;
 }

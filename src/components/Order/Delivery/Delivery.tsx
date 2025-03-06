@@ -65,8 +65,6 @@ const OrderDelivery: FC = () => {
     if (isValid) {
       dispatch(changeOrderStep("preview"));
     } else {
-      console.log(delivery)
-      console.log("Invalid delivery data");
     }
   };
 

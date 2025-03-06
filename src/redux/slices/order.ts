@@ -110,7 +110,6 @@ const orderSlice = createSlice({
       state.orderStep = "size";
       state.name = payload.productType;
       state.productType = payload.productType;
-      state.productId = payload?.productId;
     },
     loadOrder: (_, { payload }: PayloadAction<IOrderState>) => {
       return payload;
@@ -155,7 +154,7 @@ const orderSlice = createSlice({
     },
     updateDeyStyle: (
       state: IOrderState,
-      { payload }: PayloadAction<selectStyleType>
+      { payload }: PayloadAction<string>
     ) => {
       state.dyeStyle = payload;
     },
@@ -171,12 +170,12 @@ const orderSlice = createSlice({
     ) => {
       state.material = payload;
     },
-    updatePrinting: (state, { payload }: PayloadAction<printingType>) => {
+    updatePrinting: (state, { payload }: PayloadAction<string>) => {
       state.printing = payload;
     },
     changeStitchingType: (
       state: IOrderState,
-      { payload }: PayloadAction<StitchingType>
+      { payload }: PayloadAction<string>
     ) => {
       state.stitching.type = payload;
     },
@@ -188,7 +187,7 @@ const orderSlice = createSlice({
     },
     changeFadingType: (
       state: IOrderState,
-      { payload }: PayloadAction<FadingType>
+      { payload }: PayloadAction<string>
     ) => {
       state.fading.type = payload;
     },

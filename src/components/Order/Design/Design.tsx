@@ -23,14 +23,14 @@ import sOrder from "../order.module.scss";
 import s from "./design.module.scss";
 
 const OrderDesign: FC = () => {
- 
+
   const [menuOpen, setMenuOpen] = useState({
     uploadDesign: false,
     customizeLabels: false,
     selectNeck: false,
   });
   const dispatch = useDispatch<AppDispatch>();
-  const { stitching, designUploads, labelUploads, fading, neck } = useSelector(
+  const { stitching, designUploads, labelUploads, fading, neck, subtotal } = useSelector(
     (state: RootState) => state.order
   );
 
@@ -60,15 +60,66 @@ const OrderDesign: FC = () => {
         />
         <Progress value={50} />
       </div>
-      <div className={sOrder.center}>
+      <div className={sOrder.center} style={{ top: '50%' }}>
         {menuOpen.uploadDesign && stitching.type !== "" ? (
-          <StitchingImg />
-        ) : menuOpen.customizeLabels && fading.type !== "" &&  fading.type !== "No printing"  ? (
-          <FadingImg />
+          <>
+            <StitchingImg />
+            {subtotal ?
+              <p style={{
+                position: "absolute",
+                left: '48%',
+                bottom: '5vw',
+                height: "auto",
+              }}>€ {subtotal}</p>
+              :
+              <></>
+
+            }
+          </>
+        ) : menuOpen.customizeLabels && fading.type !== "" ? (
+          <>
+            <FadingImg />
+            {subtotal ?
+              <p style={{
+                position: "absolute",
+                left: '48%',
+                bottom: '5vw',
+                height: "auto",
+              }}>€ {subtotal}</p>
+              :
+              <></>
+            }
+          </>
         ) : menuOpen.selectNeck && neck && neck.type?.length !== 0 ? (
-          <NeckImg />
+          <>
+            <NeckImg />
+            {subtotal ?
+              <p style={{
+                position: "absolute",
+                left: '45%',
+                bottom: 0,
+                height: "auto",
+              }}>€ {subtotal}</p>
+              :
+              <></>
+
+            }
+          </>
         ) : (
-          <DefaultImg />
+          <>
+            <DefaultImg />
+            {subtotal ?
+              <p style={{
+                position: "absolute",
+                left: '45%',
+                bottom: 0,
+                height: "auto",
+              }}>€ {subtotal}</p>
+              :
+              <></>
+
+            }
+          </>
         )}
       </div>
       <div className={sOrder.right}>
@@ -134,7 +185,7 @@ const OrderDesign: FC = () => {
           handlePrevStep={handlePrevStep}
           handleNextStep={handleNextStep}
           onlyNext={false}
-          isHaveNext = { 
+          isHaveNext={
             stitching.type.length !== 0 &&
             neck.type !== ""
           }

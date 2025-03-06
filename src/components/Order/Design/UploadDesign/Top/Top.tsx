@@ -17,18 +17,23 @@ interface IUploadDesignTop {
 const UploadDesignTop: FC<IUploadDesignTop> = ({ handleClose }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { type } = useSelector((state: RootState) => state.order.stitching);
-  const handleChangeActiveType = (newParam: StitchingType) => {
+  const handleChangeActiveType = (newParam: string) => {
     dispatch(changeStitchingType(newParam));
   };
+
+  const productinfo = useSelector(
+    (state: RootState) => state.products.productOpen,
+  );
   return (
     <div className={s.top}>
       <ul className={s.top_list}>
-        {uploadsTypeStore.map((item) => (
+        {productinfo?.stitchingOptions?.map((item) => (
           <CheckboxUploadDesign
             handleChange={handleChangeActiveType}
-            isActive={item.name === type}
-            key={item.id}
-            {...item}
+            isActive={item.type === type}
+            key={item.type}
+            name={item.type}
+            id={item.type}
           />
         ))}
       </ul>
