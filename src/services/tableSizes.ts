@@ -19,7 +19,7 @@ export const resetValuesToZero = (arr: Measurement[]): Measurement[] => {
 };
 
 export const checkCorrectTableSizes = (arr: Measurement[]): boolean => {
-  let isCorrect = true;
+  let isCorrect = false;
   arr?.forEach((measurement) => {
     measurement.list?.forEach((item) => {
       if (item.value <= 0) {
@@ -32,6 +32,7 @@ export const checkCorrectTableSizes = (arr: Measurement[]): boolean => {
 
 export const checkOneSizeTableSizes = (arr: Measurement[]): boolean => {
   if (!arr || arr.length === 0 || !arr[0].list || arr[0].list.length === 0) {
+    
     return false;
   }
   const columnLength = arr.length;

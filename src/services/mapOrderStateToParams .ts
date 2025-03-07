@@ -12,8 +12,9 @@ export const mapOrderStateToParams = async (state: IOrderState) => {
 
   try {
     const response = await fetch('https://storage.googleapis.com/storage/v1/b/ceriga-storage-bucket/o/');
+    console.log("response15==>", response)
     const data = await response.json();
-
+    console.log("data==>", data)
     if (Array.isArray(data.items)) {
       const names = data.items.map((item) => item.name);
 

@@ -8,13 +8,17 @@ export const initialState: IOrderState = {
   dyeStyle: null,
   printing: null,
   color: {
-    hex: null,
-    path: null,
-    description: "",
+    hex:  null,
+    path:  null,
+    name: "",
+    cost: 0,
+    colortype: "",
+    description: ""
   },
   material: {
     name: null,
     value: null,
+    cost: 0,
   },
   stitching: {
     type: "",

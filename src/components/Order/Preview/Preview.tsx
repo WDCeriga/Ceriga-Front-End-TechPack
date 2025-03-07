@@ -36,16 +36,20 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
   useEffect(() => {
     const fetchOrderData = async () => {
       try {
+        console.log("isOrder==>" , isOrder)
+        console.log("id==>" , id)
         if (isOrder && id) {
           const data = await getOrderItemApi(id);
           setPhoto(data.productType || "");
           setColor(data.color.hex);
           const mappedData = await mapOrderStateToParams(data);
+          console.log("mappedData==>" , mappedData);
           setPreviewData(mappedData);
         } else if (previewData === null) {
           setPhoto(order.productType || "");
           setColor(order.color.hex || "#333");
           const mappedData = await mapOrderStateToParams(order);
+          console.log("mappedData52==>" , mappedData);
           setPreviewData(mappedData);
         }
       } catch (error) {

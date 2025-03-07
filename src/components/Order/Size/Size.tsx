@@ -29,6 +29,7 @@ const OrderSize: FC = () => {
   const { productType, tableSize, subtotal } = useSelector(
     (state: RootState) => state.order
   );
+ 
 
   const order = useSelector(
     (state: RootState) => state.order
@@ -85,6 +86,7 @@ const OrderSize: FC = () => {
           )}
           {sizeOpen && <SizesSettings handleClose={handleToggleSize} />}
         </div>
+        
         <ButtonsOrder
           onlyNext={true}
           handleNextStep={handleNextStep}
