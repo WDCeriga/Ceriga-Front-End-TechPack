@@ -48,6 +48,9 @@ export interface IOrderState {
   color: {
     hex: string | null;
     path: string | null;
+    name: string,
+    cost: number,
+    colortype: string
     description: string;
   };
   material: IMaterial;

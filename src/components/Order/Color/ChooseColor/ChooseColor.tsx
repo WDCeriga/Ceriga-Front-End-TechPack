@@ -62,7 +62,7 @@ const ChooseColor: FC<IChooseColor> = ({ closeEvent }) => {
           <CloseIcon width="22" height="22" color="#000" />
         </button>
       </div>
-      <SelectColorStyle />
+      {/* <SelectColorStyle /> */}
       <Colors />
       <TextareaColors
         value={descriptionValue}

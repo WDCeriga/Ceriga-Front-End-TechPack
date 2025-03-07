@@ -22,7 +22,7 @@ const Order: FC = () => {
   const { order } = useSelector((state: RootState) => state);
   const { product, list } = useSelector((state: RootState) => state.colors);
   const { orderStep, draftId } = order;
- 
+
   useEffect(() => {
     if (order.productType) {
       dispatch(getProductInfobyName(order.productType || ""));
@@ -69,6 +69,9 @@ const Order: FC = () => {
           updateColor({
             colorHex: correctVariant.hexValue,
             path: correctVariant.path,
+            name: correctVariant.name,
+            cost: correctVariant.cost,
+            colortype: correctColor ? correctColor?.color : "",
           })
         );
       }

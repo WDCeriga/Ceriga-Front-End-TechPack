@@ -10,12 +10,13 @@ import s from "./variant.module.scss";
 
 interface IColorVariant extends IColorType {
   isActiveColor: boolean;
+  colortype: string
 }
 
-const ColorVariant: FC<IColorVariant> = ({ hexValue, path, isActiveColor }) => {
+const ColorVariant: FC<IColorVariant> = ({ hexValue, path, name, cost, isActiveColor, colortype }) => {
   const dispatch = useDispatch<AppDispatch>();
   const handleClick = () => {
-    dispatch(updateColor({ colorHex: hexValue, path: path }));
+    dispatch(updateColor({ colorHex: hexValue, path: path, name: name, cost: cost, colortype: colortype }));
   };
   const buttonClassNames = classNames(
     s.container_block,

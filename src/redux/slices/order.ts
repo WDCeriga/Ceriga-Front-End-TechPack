@@ -147,10 +147,13 @@ const orderSlice = createSlice({
     },
     updateColor: (
       state: IOrderState,
-      { payload }: PayloadAction<{ colorHex: string; path: string }>
+      { payload }: PayloadAction<{ colorHex: string; path: string, name: string, cost: number, colortype: string }>
     ) => {
       state.color.hex = payload.colorHex;
       state.color.path = payload.path;
+      state.color.name = payload.name;
+      state.color.cost = payload.cost;
+      state.color.colortype = payload.colortype;
     },
     updateDeyStyle: (
       state: IOrderState,
@@ -301,6 +304,9 @@ const orderSlice = createSlice({
       state.color = {
         hex: null,
         path: null,
+        name : "",
+        cost : 0,
+        colortype : "",
         description: "",
       };
       state.moq = Number(payload.moq);
