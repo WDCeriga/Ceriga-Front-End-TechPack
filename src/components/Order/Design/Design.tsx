@@ -23,16 +23,14 @@ import sOrder from "../order.module.scss";
 import s from "./design.module.scss";
 
 const OrderDesign: FC = () => {
-
   const [menuOpen, setMenuOpen] = useState({
     uploadDesign: false,
     customizeLabels: false,
     selectNeck: false,
   });
   const dispatch = useDispatch<AppDispatch>();
-  const { stitching, designUploads, labelUploads, fading, neck, subtotal } = useSelector(
-    (state: RootState) => state.order
-  );
+  const { stitching, designUploads, labelUploads, fading, neck, subtotal } =
+    useSelector((state: RootState) => state.order);
 
   const handlePrevStep = () => {
     dispatch(changeOrderStep("color"));
@@ -51,6 +49,21 @@ const OrderDesign: FC = () => {
     }));
   };
 
+  const { type } = useSelector((state: RootState) => state?.order?.stitching);
+
+  const fadingitem = useSelector((state: RootState) => state?.order?.fading);
+
+  const productinfo = useSelector(
+    (state: RootState) => state.products.productOpen
+  );
+
+  
+  const stitchingminimumQuantity = productinfo?.stitchingOptions?.find((x) => x.type == type)?.minimumQuantity;
+  const stitchingisMinimumRequired = productinfo?.stitchingOptions?.find( (x) => x.type == type)?.isMinimumRequired;
+
+  const fadingminimumQuantity = productinfo?.fadingOptions?.find((x) => x.type == fadingitem?.type)?.minimumQuantity;
+  const fadingisMinimumRequired = productinfo?.fadingOptions?.find((x) => x.type == fadingitem?.type)?.isMinimumRequired;
+
   return (
     <>
       <div className={sOrder.left}>
@@ -60,65 +73,109 @@ const OrderDesign: FC = () => {
         />
         <Progress value={50} />
       </div>
-      <div className={sOrder.center} style={{ top: '50%' }}>
+      {/* <div className={sOrder.center} style={{ top: "50%" }}> */}
+      <div className={sOrder.center}>
         {menuOpen.uploadDesign && stitching.type !== "" ? (
           <>
-            <StitchingImg />
-            {subtotal ?
-              <p style={{
-                position: "absolute",
-                left: '48%',
-                bottom: '5vw',
-                height: "auto",
-              }}>€ {subtotal}</p>
-              :
+            {stitchingisMinimumRequired ? (
+              <p
+                style={{
+                  color: "red",
+                  position: "absolute",
+                  right: 0,
+                  top: "-5vw",
+                  height: "auto",
+                }}
+              >
+                The minimum order quantity is {stitchingminimumQuantity}
+              </p>
+            ) : (
               <></>
-
-            }
+            )}
+            <StitchingImg />
+            {subtotal ? (
+              <p
+                style={{
+                  position: "absolute",
+                  left: "48%",
+                  bottom: "5vw",
+                  height: "auto",
+                }}
+              >
+                € {subtotal}
+              </p>
+            ) : (
+              <></>
+            )}
           </>
         ) : menuOpen.customizeLabels && fading.type !== "" ? (
           <>
-            <FadingImg />
-            {subtotal ?
-              <p style={{
-                position: "absolute",
-                left: '48%',
-                bottom: '5vw',
-                height: "auto",
-              }}>€ {subtotal}</p>
-              :
+            {fadingisMinimumRequired ? (
+              <p
+                style={{
+                  color: "red",
+                  position: "absolute",
+                  right: 0,
+                  top: "-5vw",
+                  height: "auto",
+                }}
+              >
+                The minimum order quantity is {fadingminimumQuantity}
+              </p>
+            ) : (
               <></>
-            }
+            )}
+            <FadingImg />
+            {subtotal ? (
+              <p
+                style={{
+                  position: "absolute",
+                  left: "48%",
+                  bottom: "5vw",
+                  height: "auto",
+                }}
+              >
+                € {subtotal}
+              </p>
+            ) : (
+              <></>
+            )}
           </>
         ) : menuOpen.selectNeck && neck && neck.type?.length !== 0 ? (
           <>
             <NeckImg />
-            {subtotal ?
-              <p style={{
-                position: "absolute",
-                left: '45%',
-                bottom: 0,
-                height: "auto",
-              }}>€ {subtotal}</p>
-              :
+            {subtotal ? (
+              <p
+                style={{
+                  position: "absolute",
+                  left: "45%",
+                  bottom: 0,
+                  height: "auto",
+                }}
+              >
+                € {subtotal}
+              </p>
+            ) : (
               <></>
-
-            }
+            )}
           </>
         ) : (
           <>
             <DefaultImg />
-            {subtotal ?
-              <p style={{
-                position: "absolute",
-                left: '45%',
-                bottom: 0,
-                height: "auto",
-              }}>€ {subtotal}</p>
-              :
+            {subtotal ? (
+              <p
+                style={{
+                  position: "absolute",
+                  left: "45%",
+                  bottom: 0,
+                  height: "auto",
+                }}
+              >
+                € {subtotal}
+              </p>
+            ) : (
               <></>
-
-            }
+            )}
           </>
         )}
       </div>
@@ -185,10 +242,7 @@ const OrderDesign: FC = () => {
           handlePrevStep={handlePrevStep}
           handleNextStep={handleNextStep}
           onlyNext={false}
-          isHaveNext={
-            stitching.type.length !== 0 &&
-            neck.type !== ""
-          }
+          isHaveNext={stitching.type.length !== 0 && neck.type !== ""}
         />
       </div>
     </>

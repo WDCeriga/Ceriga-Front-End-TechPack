@@ -55,7 +55,7 @@ const Product: FC<IProductCard> = ({
         {fits && fits.length !== 0 ? fits.length : 1} styles
       </div> */}
       <div className={s.content_size}>
-        ${startingPrice ? startingPrice : 0}
+      €{startingPrice ? startingPrice : 0}
       </div>
       <img
         crossOrigin="anonymous"

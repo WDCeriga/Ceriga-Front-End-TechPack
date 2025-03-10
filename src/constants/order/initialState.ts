@@ -98,4 +98,5 @@ export const initialState: IOrderState = {
   createAt: new Date().toISOString(),
   tableSize: [],
   tableType: null,
+  minimumQuantity:1
 };

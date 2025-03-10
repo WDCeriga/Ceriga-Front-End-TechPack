@@ -18,14 +18,16 @@ interface IUploadDesign {
 const UploadDesign: FC<IUploadDesign> = ({ handleClose }) => {
   const orderState = useSelector((state: RootState) => state.order);
   const dispatch = useDispatch<AppDispatch>();
-  const { description } = useSelector(
+  const { description ,type } = useSelector(
     (state: RootState) => state.order.stitching
   );
-
 
   const [descriptionValue, setDescriptionValue] = useState<string>(description);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
+
+
+ 
   const handleToggleModal = () => {
     setModalOpen((prev) => !prev);
   };
@@ -78,7 +80,7 @@ const UploadDesign: FC<IUploadDesign> = ({ handleClose }) => {
           const filePath = `${routes.server.base}${productinfo?.stitchingPdfUrl}`; // Ensure `routes.server.base` is correct
           handleDownload(filePath);
         }} text="Download PDF" />
-        <ButtonUploadDesign onEvent={handleToggleModal} />
+        {/* <ButtonUploadDesign onEvent={handleToggleModal} /> */}
       </section>
       {modalOpen && (
         <UploadFile type="uploadDesign" handleClose={handleToggleModal} />

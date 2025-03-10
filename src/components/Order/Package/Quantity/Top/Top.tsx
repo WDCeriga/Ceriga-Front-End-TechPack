@@ -12,16 +12,24 @@ interface ITopQuantity {
 }
 
 const TopQuantity: FC<ITopQuantity> = ({ handleClose }) => {
-  const { quantity, material } = useSelector((state: RootState) => state.order);
+  const { quantity, material, minimumQuantity } = useSelector(
+    (state: RootState) => state.order
+  );
   const moq: number = (material.value as number) >= 50 ? 50 : 50;
   return (
     <div className={s.top}>
       <div>
         <h3 className={s.top_title}>Details about packaging</h3>
-        {quantity.type === "Bulk" &&
-          quantity.list.reduce((sum, item) => sum + item.value, 0) < moq && (
-            <ErrorMessage text={`The minimum order quantity is ${moq}.`} />
-          )}
+        {/* {quantity.type === "Bulk" &&
+          quantity.list.reduce((sum, item) => sum + item.value, 0) < minimumQuantity && (
+            <ErrorMessage text={`The minimum order quantity is ${minimumQuantity}.`} />
+          )} */}
+        {quantity.list.reduce((sum, item) => sum + item.value, 0) <
+          minimumQuantity && (
+          <ErrorMessage
+            text={`The minimum order quantity is ${minimumQuantity}.`}
+          />
+        )}
       </div>
       <button onClick={handleClose} className={s.top_button}>
         <CloseIcon width="22" height="22" color="#111" />

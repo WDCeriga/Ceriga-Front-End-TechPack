@@ -25,12 +25,17 @@ interface StitchingOption {
   type: string;
   cost: number;
   stitchingImgUrl: string;
+  minimumQuantity:number,
+  isMinimumRequired: boolean;
+
 }
 
 interface FadingOption {
   type: string;
   cost: number;
   fadingImgUrl: string;
+  minimumQuantity:number,
+  isMinimumRequired: boolean;
 }
 
 interface Printing {

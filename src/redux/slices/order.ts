@@ -50,6 +50,7 @@ export const continueOrder = createAsyncThunk<
   { state: RootState }
 >("continue-order", async (draftId) => {
   const data: IOrderState = await continueOrderApi(draftId);
+  console.log("data==>" , data)
   return data;
 });
 
@@ -147,7 +148,15 @@ const orderSlice = createSlice({
     },
     updateColor: (
       state: IOrderState,
-      { payload }: PayloadAction<{ colorHex: string; path: string, name: string, cost: number, colortype: string }>
+      {
+        payload,
+      }: PayloadAction<{
+        colorHex: string;
+        path: string;
+        name: string;
+        cost: number;
+        colortype: string;
+      }>
     ) => {
       state.color.hex = payload.colorHex;
       state.color.path = payload.path;
@@ -249,17 +258,36 @@ const orderSlice = createSlice({
         }
         return item;
       });
-      if (payload.value > 5) {
-        state.quantity.type = "Bulk";
-      } else {
-        const allValuesAreLessOrEqual5 = state.quantity.list.every(
-          (item) => item.value <= 5
-        );
+      state.quantity.type = "Sample Selection";
 
-        if (allValuesAreLessOrEqual5) {
-          state.quantity.type = "Sample Selection";
-        }
+      let minimumQuantity = state?.minimumQuantity;
+      console.log("minimumQuantity==>", minimumQuantity);
+      const totalQuantity = state.quantity.list.reduce((sum, item) => {
+        return sum + (item.value || 0);
+      }, 0);
+
+      console.log("totalQuantity==>", totalQuantity);
+
+      if (
+        minimumQuantity &&
+        totalQuantity &&
+        parseInt(totalQuantity?.toString()) >
+          parseInt(minimumQuantity?.toString())
+      ) {
+        state.quantity.type = "Bulk";
       }
+
+      // if (payload.value > 5) {
+      //   state.quantity.type = "Bulk";
+      // } else {
+      //   const allValuesAreLessOrEqual5 = state.quantity.list.every(
+      //     (item) => item.value <= 5
+      //   );
+
+      //   if (allValuesAreLessOrEqual5) {
+      //     state.quantity.type = "Sample Selection";
+      //   }
+      // }
     },
     changeColorInNeck: (
       state: IOrderState,
@@ -297,6 +325,9 @@ const orderSlice = createSlice({
     setSubtotal: (state: IOrderState, { payload }: PayloadAction<number>) => {
       state.subtotal = payload;
     },
+    setMinimumQuantity: (state: IOrderState, { payload }: PayloadAction<number>) => {
+      state.minimumQuantity = payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(createNewDraft.fulfilled, (state, { payload }) => {
@@ -304,9 +335,9 @@ const orderSlice = createSlice({
       state.color = {
         hex: null,
         path: null,
-        name : "",
-        cost : 0,
-        colortype : "",
+        name: "",
+        cost: 0,
+        colortype: "",
         description: "",
       };
       state.moq = Number(payload.moq);
@@ -396,6 +427,7 @@ export const {
   resetOrderState,
   loadOrder,
   setSubtotal,
+  setMinimumQuantity,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

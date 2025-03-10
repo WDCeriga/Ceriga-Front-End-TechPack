@@ -18,9 +18,8 @@ import sOrder from "../order.module.scss";
 import s from "./package.module.scss";
 
 const OrderPackage: FC = () => {
-  const { moq, quantity, packageUploads, subtotal } = useSelector(
-    (state: RootState) => state.order
-  );
+  const { moq, quantity, packageUploads, subtotal, minimumQuantity } =
+    useSelector((state: RootState) => state.order);
   const packageInfo = useSelector((state: RootState) => state.order.package);
   const [menuOpen, setMenuOpen] = useState({
     packageConfiguration: false,
@@ -31,16 +30,35 @@ const OrderPackage: FC = () => {
   const handlePrevStep = () => {
     dispatch(changeOrderStep("design"));
   };
+  console.log("minimumQuantity===>", useSelector((state: RootState) => state.order))
   const handleNextStep = () => {
+    // if (
+    //   quantity.type === "Bulk" &&
+    //   quantity.list.reduce((sum, item) => sum + item.value, 0) < moq
+    // ) {
+    //   notification.error(
+    //     "Please select a quantity that meets the minimum order quantity"
+    //   );
+    // } else {
+    //   dispatch(changeOrderStep("delivery"));
+    // }
+
+
     if (
       quantity.type === "Bulk" &&
-      quantity.list.reduce((sum, item) => sum + item.value, 0) < moq
+      quantity.list.reduce((sum, item) => sum + item.value, 0) < minimumQuantity
     ) {
       notification.error(
         "Please select a quantity that meets the minimum order quantity"
       );
     } else {
-      dispatch(changeOrderStep("delivery"));
+      if (quantity.list.reduce((sum, item) => sum + item.value, 0) < minimumQuantity) {
+        notification.error(
+          "Please select a quantity that meets the minimum order quantity"
+        );
+      } else {
+        dispatch(changeOrderStep("delivery"));
+      }
     }
   };
   const handleToggleMenu = (name: keyof typeof menuOpen) => {
@@ -50,6 +68,8 @@ const OrderPackage: FC = () => {
       [name]: !prev[name],
     }));
   };
+
+  
 
   return (
     <>
@@ -62,17 +82,20 @@ const OrderPackage: FC = () => {
       </div>
       <div className={`${sOrder.center} ${s.packageWrap}`}>
         <img src="/img/package.png" alt="package" className={s.packageImg} />
-        {subtotal ?
-          <p style={{
-            position: "absolute",
-            left: '45%',
-            bottom: 0,
-            height: "auto",
-          }}>€ {subtotal}</p>
-          :
+        {subtotal ? (
+          <p
+            style={{
+              position: "absolute",
+              left: "45%",
+              bottom: 0,
+              height: "auto",
+            }}
+          >
+            € {subtotal}
+          </p>
+        ) : (
           <></>
-
-        }
+        )}
       </div>
       <div className={sOrder.right}>
         <div className={s.params}>
@@ -119,10 +142,7 @@ const OrderPackage: FC = () => {
         </div>
 
         <ButtonsOrder
-          isHaveNext={
-            quantity.type !== null &&
-            packageInfo.isPackage !== null
-          }
+          isHaveNext={quantity.type !== null && packageInfo.isPackage !== null}
           onlyNext={false}
           handlePrevStep={handlePrevStep}
           handleNextStep={handleNextStep}

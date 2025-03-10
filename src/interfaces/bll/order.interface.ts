@@ -75,6 +75,7 @@ export interface IOrderState {
   moq: number;
   tableSize: ITableSizeRow[];
   tableType: string | null;
+  minimumQuantity:number;
 }
 
 export interface ICreateNewOrder {
