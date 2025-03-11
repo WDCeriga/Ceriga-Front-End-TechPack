@@ -25,7 +25,7 @@ const OrderColor: FC = () => {
   );
   const dispatch = useDispatch<AppDispatch>();
   const productinfo = useSelector(
-    (state: RootState) => state.products.productOpen,
+    (state: RootState) => state.products.productOpen
   );
 
   const [menuState, setMenuState] = useState({
@@ -51,8 +51,12 @@ const OrderColor: FC = () => {
     dispatch(changeOrderStep("design"));
   };
 
-  const minimumQuantity = productinfo?.printing?.find(x => x.type == printing)?.minimumQuantity
-  const isMinimumRequired = productinfo?.printing?.find(x => x.type == printing)?.isMinimumRequired
+  const minimumQuantity = productinfo?.printing?.find(
+    (x) => x.type == printing
+  )?.minimumQuantity;
+  const isMinimumRequired = productinfo?.printing?.find(
+    (x) => x.type == printing
+  )?.isMinimumRequired;
   return (
     <>
       <div className={sOrder.left}>
@@ -62,29 +66,53 @@ const OrderColor: FC = () => {
         />
         <Progress value={20} />
       </div>
+      <div>
+        {isMinimumRequired ? (
+          <p
+            style={{
+              position: "absolute",
+              top: '10%',
+              right: '25%',
+              color: "red",
+            }}
+          >
+            The minimum order quantity is {minimumQuantity}
+          </p>
+        ) : (
+          <></>
+        )}
+      </div>
       <div className={sOrder.center}>
-        {isMinimumRequired ?
-          <p style={{
-            color: 'red',
-            position: "absolute",
-            right: 0,
-            top: '-5vw',
-            height: "auto",
-          }}>The minimum order quantity is {minimumQuantity}</p>
-          :
+        {/* {isMinimumRequired ? (
+          <p
+            style={{
+              color: "red",
+              position: "absolute",
+              right: 0,
+              top: "-5vw",
+              height: "auto",
+            }}
+          >
+            The minimum order quantity is {minimumQuantity}
+          </p>
+        ) : (
           <></>
-        }
+        )} */}
         <DefaultImg />
-        {subtotal ?
-          <p style={{
-            position: "absolute",
-            left: '45%',
-            bottom: 0,
-            height: "auto",
-          }}>€ {subtotal}</p>
-          :
+        {subtotal ? (
+          <p
+            style={{
+              position: "absolute",
+              left: "45%",
+              bottom: 0,
+              height: "auto",
+            }}
+          >
+            € {subtotal}
+          </p>
+        ) : (
           <></>
-        }
+        )}
       </div>
       <div className={sOrder.right}>
         <div className={s.params}>
@@ -107,7 +135,9 @@ const OrderColor: FC = () => {
             ))}
 
           {menuState.materialIsOpen && (
-            <ChooseMaterial closeEvent={() => handleToggleMenu("materialIsOpen")} />
+            <ChooseMaterial
+              closeEvent={() => handleToggleMenu("materialIsOpen")}
+            />
           )}
 
           {!menuState.colorIsOpen &&
@@ -144,16 +174,16 @@ const OrderColor: FC = () => {
             ))}
 
           {menuState.printingIsOpen && (
-            <ChoosePrinting onClose={() => handleToggleMenu("printingIsOpen")} />
+            <ChoosePrinting
+              onClose={() => handleToggleMenu("printingIsOpen")}
+            />
           )}
         </div>
         <ButtonsOrder
           handlePrevStep={handlePrevStep}
           handleNextStep={handleNextStep}
           onlyNext={false}
-          isHaveNext={
-            material.name !== null
-          }
+          isHaveNext={material.name !== null}
         />
       </div>
     </>

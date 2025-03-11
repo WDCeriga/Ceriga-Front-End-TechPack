@@ -1,12 +1,14 @@
 const routes = {
-  baseURL: import.meta.env.VITE_BASE_URL || "http://localhost:5173",
+   //baseURL: import.meta.env.VITE_BASE_URL || "http://localhost:5173",
+  baseURL: import.meta.env.VITE_BASE_URL || "http://www.ceriga.eagletechsolutions.uk.servepreview.net/",
 
   //API ROUTES
   server: {
-    // base: "https://ceriga-backend-test.vercel.app",
+    base: "https://ceriga-backend-test.vercel.app",
     //base: "https://sudio-ceriga-backend.onrender.com",
     // base: "http://localhost:4000",
-    base: "http://192.168.1.18:4000",
+    //base: "http://192.168.1.18:4000",
+    //base: "http://api.ceriga.eagletechsolutions.uk.servepreview.net",
     auth: "/auth",
     refresh: "/auth/refresh",
 

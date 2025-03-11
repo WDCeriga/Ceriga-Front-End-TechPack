@@ -30,7 +30,7 @@ const OrderPackage: FC = () => {
   const handlePrevStep = () => {
     dispatch(changeOrderStep("design"));
   };
-  console.log("minimumQuantity===>", useSelector((state: RootState) => state.order))
+  
   const handleNextStep = () => {
     // if (
     //   quantity.type === "Bulk" &&
