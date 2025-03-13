@@ -9,6 +9,7 @@ import { AppDispatch } from "@redux/store";
 import { uploadUserProfile } from "@redux/slices/user";
 
 import s from "./headerMenu.module.scss";
+import routes  from "../../../../routes/index";
 
 interface IMenuInfo {
   name: string;
@@ -43,7 +44,8 @@ const HeaderMenu: FC<IMenuInfo> = ({
   const dispatch = useDispatch<AppDispatch>();
   const handleLogOut = () => {
     localStorage.clear();
-    window.location.href = "https://ceriga.co/";
+    // window.location.href = "https://ceriga.co/";
+    window.location.href = routes.fronturl +"auth/sign-in";
     // redirect to link
 
   };
