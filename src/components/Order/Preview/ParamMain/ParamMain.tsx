@@ -13,6 +13,7 @@ const ParamMainPreview: FC<IParamPreviewOrder> = ({
   paramsType,
   subparameters,
 }) => {
+  console.log("title===>", title);
   return (
     <li className={s.item}>
       <h3 className={s.item_title}>{title}</h3>
@@ -25,6 +26,10 @@ const ParamMainPreview: FC<IParamPreviewOrder> = ({
       )}
       {paramsType === "text" && typeof subparameters === "string" && (
         <p className={s.item_text}>{subparameters}</p>
+      )}
+
+      {paramsType === "cost" && typeof subparameters === "string" && (
+        <p className={s.item_text}>€ {subparameters}</p>
       )}
       {paramsType === "table" && Array.isArray(subparameters) && (
         <TablePreviewOrder

@@ -52,18 +52,39 @@ const OrderDesign: FC = () => {
   const { type } = useSelector((state: RootState) => state?.order?.stitching);
 
   const fadingitem = useSelector((state: RootState) => state?.order?.fading);
+  const neckitem = useSelector((state: RootState) => state?.order?.neck);
 
   const productinfo = useSelector(
     (state: RootState) => state.products.productOpen
   );
 
-  
-  const stitchingminimumQuantity = productinfo?.stitchingOptions?.find((x) => x.type == type)?.minimumQuantity;
-  const stitchingisMinimumRequired = productinfo?.stitchingOptions?.find( (x) => x.type == type)?.isMinimumRequired;
+  const stitchingminimumQuantity = productinfo?.stitchingOptions?.find(
+    (x) => x.type == type
+  )?.minimumQuantity;
+  const stitchingisMinimumRequired = productinfo?.stitchingOptions?.find(
+    (x) => x.type == type
+  )?.isMinimumRequired;
 
-  const fadingminimumQuantity = productinfo?.fadingOptions?.find((x) => x.type == fadingitem?.type)?.minimumQuantity;
-  const fadingisMinimumRequired = productinfo?.fadingOptions?.find((x) => x.type == fadingitem?.type)?.isMinimumRequired;
+  const fadingminimumQuantity = productinfo?.fadingOptions?.find(
+    (x) => x.type == fadingitem?.type
+  )?.minimumQuantity;
+  const fadingisMinimumRequired = productinfo?.fadingOptions?.find(
+    (x) => x.type == fadingitem?.type
+  )?.isMinimumRequired;
 
+  let labelOptionsneminimumQuantity = 0;
+  let labelOptionsneminimumRequired = false;
+  if (neckitem?.noLabels === false) {
+    let qty = productinfo?.labelOptions?.find((x) => x.type == "Custom Label")?.minimumQuantity;
+    if (qty) {
+      labelOptionsneminimumQuantity = parseInt(qty.toString());
+    }
+    let isRequired = productinfo?.labelOptions?.find((x) => x.type == "Custom Label")?.isMinimumRequired;
+    if (isRequired) {
+      labelOptionsneminimumRequired = isRequired;
+
+    }
+  }
   return (
     <>
       <div className={sOrder.left}>
@@ -143,6 +164,21 @@ const OrderDesign: FC = () => {
           </>
         ) : menuOpen.selectNeck && neck && neck.type?.length !== 0 ? (
           <>
+            {labelOptionsneminimumRequired ? (
+              <p
+                style={{
+                  color: "red",
+                  position: "absolute",
+                  right: 0,
+                  top: "-5vw",
+                  height: "auto",
+                }}
+              >
+                The minimum order quantity is {labelOptionsneminimumQuantity}
+              </p>
+            ) : (
+              <></>
+            )}
             <NeckImg />
             {subtotal ? (
               <p

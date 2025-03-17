@@ -8,6 +8,7 @@ export type titleType =
   | "Design"
   | "Packaging"
   | "Quantity"
+  | "Total Price";
 
 export interface ISubparametersPreviewTable {
   title: string;
@@ -28,6 +29,10 @@ export interface ISubparametersPreviewOrder {
 
 export interface IParamPreviewOrder {
   title: titleType;
-  paramsType: "list" | "table" | "link"  | "text"
-  subparameters: ISubparametersPreviewOrder[] | ISubparametersPreviewTable[] | ILinkPreviewTable | string;
+  paramsType: "list" | "table" | "link" | "text" | "cost";
+  subparameters:
+    | ISubparametersPreviewOrder[]
+    | ISubparametersPreviewTable[]
+    | ILinkPreviewTable
+    | string;
 }

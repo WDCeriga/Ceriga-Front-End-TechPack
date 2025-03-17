@@ -76,6 +76,7 @@ export interface IOrderState {
   tableSize: ITableSizeRow[];
   tableType: string | null;
   minimumQuantity:number;
+  totalcost:number;
 }
 
 export interface ICreateNewOrder {

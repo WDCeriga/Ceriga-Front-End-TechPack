@@ -7,6 +7,7 @@ import {
   setSubtotal,
   updateColor,
   setMinimumQuantity,
+  setTotalcost
 } from "@redux/slices/order";
 import { updateDraftApi } from "@api/requests/protected";
 import { getColorsForProduct } from "@redux/slices/colors";
@@ -20,18 +21,18 @@ import OrderPreview from "./Preview/Preview";
 import OrderSize from "./Size/Size";
 import s from "./order.module.scss";
 import { getProductInfobyName } from "@redux/slices/products";
-import { continueOrder } from "@redux/slices/order";
-import { initialState as firstState } from "@constants/order/initialState";
+// import { continueOrder } from "@redux/slices/order";
+// import { initialState as firstState } from "@constants/order/initialState";
 import { IOrderState } from "../../interfaces/bll/order.interface";
 import { continueOrderApi } from "@api/requests/protected";
-const initialState: IOrderState = firstState;
+// const initialState: IOrderState = firstState;
 const Order: FC = () => {
   const hasCreatedDraft = useRef(false);
   const dispatch = useDispatch<AppDispatch>();
   const { order } = useSelector((state: RootState) => state);
   const { product, list } = useSelector((state: RootState) => state.colors);
   const { orderStep, draftId } = order;
-  const packageInfo = useSelector((state: RootState) => state.order.package);
+  // const packageInfo = useSelector((state: RootState) => state.order.package);
 
   useEffect(() => {
     if (order.productType) {
@@ -69,6 +70,9 @@ const Order: FC = () => {
       const data: IOrderState = await continueOrderApi(id);
       dispatch(
         setMinimumQuantity(data?.minimumQuantity ? data?.minimumQuantity : 1)
+      );
+      dispatch(
+        setTotalcost(data?.totalcost ? data?.totalcost : 0)
       );
     }
   };

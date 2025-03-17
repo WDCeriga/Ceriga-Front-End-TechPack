@@ -14,6 +14,8 @@ interface DyeStyle {
 interface LabelOption {
   type: string;
   cost?: number;
+  minimumQuantity:number,
+  isMinimumRequired: boolean;
 }
 
 interface LabelMaterial {

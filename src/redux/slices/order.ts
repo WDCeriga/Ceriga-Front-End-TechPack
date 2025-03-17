@@ -328,6 +328,9 @@ const orderSlice = createSlice({
     setMinimumQuantity: (state: IOrderState, { payload }: PayloadAction<number>) => {
       state.minimumQuantity = payload;
     },
+    setTotalcost:(state: IOrderState, { payload }: PayloadAction<number>) => {
+      state.totalcost = payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(createNewDraft.fulfilled, (state, { payload }) => {
@@ -428,6 +431,7 @@ export const {
   loadOrder,
   setSubtotal,
   setMinimumQuantity,
+  setTotalcost,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

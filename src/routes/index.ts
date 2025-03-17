@@ -1,5 +1,5 @@
 const routes = {
-   baseURL: import.meta.env.VITE_BASE_URL || "http://localhost:5173",
+   //baseURL: import.meta.env.VITE_BASE_URL || "http://localhost:5173",
   //baseURL: import.meta.env.VITE_BASE_URL || "http://www.ceriga.eagletechsolutions.uk.servepreview.net/",
   fronturl:"http://www.ceriga.eagletechsolutions.uk.servepreview.net/",
   //API ROUTES

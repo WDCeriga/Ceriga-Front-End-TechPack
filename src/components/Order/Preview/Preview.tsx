@@ -28,7 +28,9 @@ interface IOrderPreview {
 const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
   const [photo, setPhoto] = useState<string>("");
   const [color, setColor] = useState<string>("");
-  const [previewData, setPreviewData] = useState<IParamPreviewOrder[] | null>(null);
+  const [previewData, setPreviewData] = useState<IParamPreviewOrder[] | null>(
+    null
+  );
   const { order } = useSelector((state: RootState) => state);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -36,20 +38,20 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
   useEffect(() => {
     const fetchOrderData = async () => {
       try {
-        console.log("isOrder==>" , isOrder)
-        console.log("id==>" , id)
+        console.log("isOrder==>", isOrder);
+        console.log("id==>", id);
         if (isOrder && id) {
           const data = await getOrderItemApi(id);
           setPhoto(data.productType || "");
           setColor(data.color.hex);
           const mappedData = await mapOrderStateToParams(data);
-          console.log("mappedData==>" , mappedData);
+          console.log("mappedData==>", mappedData);
           setPreviewData(mappedData);
         } else if (previewData === null) {
           setPhoto(order.productType || "");
           setColor(order.color.hex || "#333");
           const mappedData = await mapOrderStateToParams(order);
-          console.log("mappedData52==>" , mappedData);
+          console.log("mappedData52==>", mappedData);
           setPreviewData(mappedData);
         }
       } catch (error) {
@@ -57,7 +59,8 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
       }
     };
 
-    if (!previewData) { // Prevent unnecessary API calls if previewData is already set
+    if (!previewData) {
+      // Prevent unnecessary API calls if previewData is already set
       fetchOrderData();
     }
   }, [isOrder, id, order]); // Only re-run when isOrder, id, or order changes
@@ -103,12 +106,18 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
         />
       </div>
       <section className={s.preview}>
-        <div className={s.preview_left}style={{
-              paddingTop: "100px",   // Add padding
-            }}>
-         
-            <ProductWithColor color={color} product={photo} path={order.color.path} />
-            {/* <ul className={s.preview_left_list}>
+        <div
+          className={s.preview_left}
+          style={{
+            paddingTop: "100px", // Add padding
+          }}
+        >
+          <ProductWithColor
+            color={color}
+            product={photo}
+            path={order.color.path}
+          />
+          {/* <ul className={s.preview_left_list}>
             <ParamPreviewSmall
               name="Subtotal"
               value={`${formatCost(order.subtotal)} $`}
@@ -120,15 +129,18 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
             />
             <ParamPreviewSmall name="Production time" value="6 business days" />
           </ul>*/}
-          </div>
-          <div className={s.preview_right}>
-            <TitlePreview product={order.productType || ""} />
-            <ul className={s.preview_right_list}>
-              {previewData.map((item) => (
-                <ParamMainPreview key={item.title} {...item} />
-              ))}
-            </ul>
-          </div>
+        </div>
+        <div className={s.preview_right}>
+          <TitlePreview product={order.productType || ""} />
+          <ul className={s.preview_right_list}>
+            {previewData.map(
+              (item) => (
+                console.log("item===>", item),
+                (<ParamMainPreview key={item.title} {...item} />)
+              )
+            )}
+          </ul>
+        </div>
       </section>
       <div>
         {!isOrder && (

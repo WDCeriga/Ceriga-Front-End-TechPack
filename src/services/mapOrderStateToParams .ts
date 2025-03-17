@@ -4,43 +4,52 @@ import { IParamPreviewOrder } from "@interfaces/order/paramsPreview.interface";
 export const mapOrderStateToParams = async (state: IOrderState) => {
   const currentId = state.draftId ?? state._id;
   let links = {
-    design: '',
-    neck: '',
-    label: '',
-    package: ''
+    design: "",
+    neck: "",
+    label: "",
+    package: "",
   };
 
   try {
-    const response = await fetch('https://storage.googleapis.com/storage/v1/b/ceriga-storage-bucket/o/');
-    console.log("response15==>", response)
+    const response = await fetch(
+      "https://storage.googleapis.com/storage/v1/b/ceriga-storage-bucket/o/"
+    );
+    console.log("response15==>", response);
     const data = await response.json();
-    console.log("data==>", data)
+    console.log("data==>", data);
     if (Array.isArray(data.items)) {
       const names = data.items.map((item) => item.name);
 
       // Helper function to find a valid file link
       const findValidLink = (folder: string) => {
-        const folderContent = names.filter(name => name.startsWith(`${currentId}/${folder}/`) && name !== `${currentId}/${folder}/`);
-        return folderContent.length > 0 ? folderContent[0] : '';
+        const folderContent = names.filter(
+          (name) =>
+            name.startsWith(`${currentId}/${folder}/`) &&
+            name !== `${currentId}/${folder}/`
+        );
+        return folderContent.length > 0 ? folderContent[0] : "";
       };
 
-      links.design = findValidLink('designUploads');
-      links.neck = findValidLink('neckUploads');
-      links.label = findValidLink('labelUploads');
-      links.package = findValidLink('packageUploads');
+      links.design = findValidLink("designUploads");
+      links.neck = findValidLink("neckUploads");
+      links.label = findValidLink("labelUploads");
+      links.package = findValidLink("packageUploads");
 
       // Update the links with the full URL
-      Object.keys(links).forEach(key => {
+      Object.keys(links).forEach((key) => {
         if (links[key]) {
-          links[key] = `https://storage.googleapis.com/ceriga-storage-bucket/${links[key]}`;
+          links[
+            key
+          ] = `https://storage.googleapis.com/ceriga-storage-bucket/${links[key]}`;
         }
       });
     } else {
-      console.error('No items found or invalid items structure in the response.');
+      console.error(
+        "No items found or invalid items structure in the response."
+      );
     }
-
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error("Error fetching data:", error);
   }
 
   const data: IParamPreviewOrder[] = [
@@ -134,7 +143,11 @@ export const mapOrderStateToParams = async (state: IOrderState) => {
         value: item.value.toString(),
       })),
     },
+    {
+      title: "Total Price",
+      paramsType: "cost",
+      subparameters: state.totalcost.toString(),
+    },
   ];
   return data;
 };
-

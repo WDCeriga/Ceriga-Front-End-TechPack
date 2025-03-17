@@ -18,13 +18,14 @@ import sOrder from "../order.module.scss";
 import s from "./package.module.scss";
 
 const OrderPackage: FC = () => {
-  const { moq, quantity, packageUploads, subtotal, minimumQuantity } =
+  const { moq, quantity, packageUploads, subtotal, minimumQuantity ,  totalcost} =
     useSelector((state: RootState) => state.order);
   const packageInfo = useSelector((state: RootState) => state.order.package);
   const [menuOpen, setMenuOpen] = useState({
     packageConfiguration: false,
     quantity: false,
   });
+  console.log("state.order==>", useSelector((state: RootState) => state.order))
   const dispatch = useDispatch<AppDispatch>();
 
   const handlePrevStep = () => {
@@ -82,7 +83,7 @@ const OrderPackage: FC = () => {
       </div>
       <div className={`${sOrder.center} ${s.packageWrap}`}>
         <img src="/img/package.png" alt="package" className={s.packageImg} />
-        {subtotal ? (
+        {/* {subtotal ? (
           <p
             style={{
               position: "absolute",
@@ -92,6 +93,20 @@ const OrderPackage: FC = () => {
             }}
           >
             € {subtotal}
+          </p>
+        ) : (
+          <></>
+        )} */}
+        {totalcost ? (
+          <p
+            style={{
+              position: "absolute",
+              left: "45%",
+              bottom: 0,
+              height: "auto",
+            }}
+          >
+            € {totalcost}
           </p>
         ) : (
           <></>
