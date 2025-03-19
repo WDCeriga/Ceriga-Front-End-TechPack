@@ -3,5 +3,14 @@
 }
 
 *::-webkit-scrollbar {
-  display: none !important; 
+  display: none !important;
 }
+
+/* .MuiTooltip-tooltipPlacementBottom {
+  min-width: 200px !important;
+  text-align: center !important;
+  font-size: 14px !important;
+  background-color: #e33c12 !important;
+  padding: 7px 4px !important;
+  border-radius: 8px !important;
+} */

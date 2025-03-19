@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CloseIcon } from "@common/Icons/CommonIcon";
 import { AppDispatch, RootState } from "@redux/store";
@@ -20,8 +20,15 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
   };
 
   const productinfo = useSelector(
-    (state: RootState) => state.products.productOpen,
+    (state: RootState) => state.products.productOpen
   );
+
+  const [message, setMessage] = useState<string>("");
+
+  const handleItemClick = (itemName: string) => {
+    handleChoosePrinting(itemName);
+    setMessage(`Minimum order quantity for ${itemName} is 50`);
+  };
 
   return (
     <section className={s.container}>
@@ -31,7 +38,14 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
           <CloseIcon width="22" height="22" color="#000" />
         </button>
       </div>
-      <ul className={s.container_list}>
+
+      {message && (
+        <p style={{ marginTop: "1.5rem", color: "red", fontSize: "15px" }}>
+          {message}
+        </p>
+      )}
+
+      <ul className={s.container_list} style={{marginTop: '0.5rem'}}>
         {productinfo?.printing?.map((item) => (
           <PrintingItem
             key={item.type}
@@ -39,7 +53,7 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
             imgPath={item.printingImgUrl}
             cost={item.cost}
             isActive={printing === item.type}
-            handleClick={handleChoosePrinting}
+            handleClick={handleItemClick}
           />
         ))}
       </ul>

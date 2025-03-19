@@ -7,7 +7,6 @@ import { changeOrderStep } from "@redux/slices/order";
 import ButtonSelect from "@common/ButtonSelect/ButtonSelect";
 import Progress from "@common/Progress/Progress";
 import TitleWithDescription from "@common/Title/Description/Description";
-
 import ButtonsOrder from "../Buttons/Buttons";
 import DefaultImg from "../DefaultImg/DefaultImg";
 import ChooseColor from "./ChooseColor/ChooseColor";
@@ -51,9 +50,6 @@ const OrderColor: FC = () => {
     dispatch(changeOrderStep("design"));
   };
 
-  const minimumQuantity = productinfo?.printing?.find(
-    (x) => x.type == printing
-  )?.minimumQuantity;
   const isMinimumRequired = productinfo?.printing?.find(
     (x) => x.type == printing
   )?.isMinimumRequired;
@@ -71,12 +67,12 @@ const OrderColor: FC = () => {
           <p
             style={{
               position: "absolute",
-              top: '10%',
-              right: '25%',
+              top: "10%",
+              right: "25%",
               color: "red",
             }}
           >
-            The minimum order quantity is {minimumQuantity}
+            {/* The minimum order quantity is {minimumQuantity} */}
           </p>
         ) : (
           <></>
