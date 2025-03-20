@@ -40,7 +40,7 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
       </div>
 
       {message && (
-        <p style={{ marginTop: "1.5rem", color: "red", fontSize: "15px" }}>
+        <p style={{ marginTop: "1.5rem", color: "red", fontSize: "14px" }}>
           {message}
         </p>
       )}

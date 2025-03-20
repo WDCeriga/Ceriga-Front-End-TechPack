@@ -3,9 +3,9 @@ import classNames from "classnames";
 import { FC } from "react";
 import s from "./item.module.scss";
 import routes from "@routes/index";
-import InfoIcon from "@mui/icons-material/Info";
-import Tooltip from "react-bootstrap/Tooltip";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+// import InfoIcon from "@mui/icons-material/Info";
+// import Tooltip from "react-bootstrap/Tooltip";
+// import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
 interface IPrintingItem extends IPrinting {
   isActive: boolean;
@@ -24,10 +24,10 @@ const PrintingItem: FC<IPrintingItem> = ({
     isActive && s.item_button__active
   );
 
-  const tooltipContent = "Minimum order quantity is 50";
+  // const tooltipContent = "Minimum order quantity is 50";
 
   return (
-    <li className={s.item} style={{ position: "relative" }}>
+    <li className={s.item}>
       <button onClick={() => handleClick(name)} className={buttonClassnames}>
         <img
           className={s.item_button_img}
@@ -38,7 +38,7 @@ const PrintingItem: FC<IPrintingItem> = ({
         <p className={s.item_button_text}>{name}</p>
       </button>
 
-      <OverlayTrigger
+      {/* <OverlayTrigger
         placement="bottom"
         overlay={
           <Tooltip
@@ -83,7 +83,8 @@ const PrintingItem: FC<IPrintingItem> = ({
         >
           <InfoIcon style={{ fontSize: "14px", color: "#444" }} />
         </div>
-      </OverlayTrigger>
+      </OverlayTrigger> */}
+      
     </li>
   );
 };
