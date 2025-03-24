@@ -5,18 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "@redux/store";
 import { mapOrderStateToParams } from "@services/mapOrderStateToParams ";
 import { changeOrderStep } from "@redux/slices/order";
-import { createOrderApi, getOrderItemApi } from "@api/requests/protected";
+import { getOrderItemApi } from "@api/requests/protected";
 import { IParamPreviewOrder } from "@interfaces/order/paramsPreview.interface";
 import ButtonSelect from "@common/ButtonSelect/ButtonSelect";
-import formatCost from "@services/ formatCost";
-import notification from "@services/notification";
+// import formatCost from "@services/ formatCost";
+// import notification from "@services/notification";
 import routes from "@routes/index";
 import TitleWithDescription from "@common/Title/Description/Description";
 
 import ButtonsOrder from "../Buttons/Buttons";
 import ProductWithColor from "../ProductWithColor/ProductWithColor";
 import ParamMainPreview from "./ParamMain/ParamMain";
-import ParamPreviewSmall from "./ParamSmall/ParamSmall";
+// import ParamPreviewSmall from "./ParamSmall/ParamSmall";
 import TitlePreview from "./Title/Title";
 import s from "./preview.module.scss";
 
@@ -67,7 +67,7 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
 
   const handlePrevStep = () => {
     if (!isOrder) {
-      dispatch(changeOrderStep("delivery"));
+      dispatch(changeOrderStep("package"));
     }
   };
 
@@ -75,21 +75,25 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
     navigate(routes.catalog);
   };
 
-  const handleFinishOrder = async () => {
-    if (order.draftId) {
-      try {
-        const response = await createOrderApi(order.draftId);
-        if (response.status === 200) {
-          navigate(routes.orders);
-        } else {
-          notification.error("Error creating order");
-          console.error("Error creating order", response);
-        }
-      } catch (error) {
-        notification.error("Failed to create order");
-        console.error("Order creation failed", error);
-      }
-    }
+  // const handleFinishOrder = async () => {
+  //   if (order.draftId) {
+  //     try {
+  //       const response = await createOrderApi(order.draftId);
+  //       if (response.status === 200) {
+  //         navigate(routes.orders);
+  //       } else {
+  //         notification.error("Error creating order");
+  //         console.error("Error creating order", response);
+  //       }
+  //     } catch (error) {
+  //       notification.error("Failed to create order");
+  //       console.error("Order creation failed", error);
+  //     }
+  //   }
+  // };
+
+  const handleNextStep = async () => {
+    dispatch(changeOrderStep("delivery"));
   };
 
   if (previewData === null) {
@@ -147,8 +151,7 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
           <ButtonsOrder
             onlyNext={false}
             handlePrevStep={handlePrevStep}
-            handleNextStep={handleFinishOrder}
-            isFinish={true}
+            handleNextStep={handleNextStep}
             isHaveNext={true}
           />
         )}

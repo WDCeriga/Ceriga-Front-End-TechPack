@@ -75,14 +75,17 @@ const OrderDesign: FC = () => {
   let labelOptionsneminimumQuantity = 0;
   let labelOptionsneminimumRequired = false;
   if (neckitem?.noLabels === false) {
-    let qty = productinfo?.labelOptions?.find((x) => x.type == "Custom Label")?.minimumQuantity;
+    let qty = productinfo?.labelOptions?.find(
+      (x) => x.type == "Custom Label"
+    )?.minimumQuantity;
     if (qty) {
       labelOptionsneminimumQuantity = parseInt(qty.toString());
     }
-    let isRequired = productinfo?.labelOptions?.find((x) => x.type == "Custom Label")?.isMinimumRequired;
+    let isRequired = productinfo?.labelOptions?.find(
+      (x) => x.type == "Custom Label"
+    )?.isMinimumRequired;
     if (isRequired) {
       labelOptionsneminimumRequired = isRequired;
-
     }
   }
   return (
@@ -113,14 +116,17 @@ const OrderDesign: FC = () => {
             ) : (
               <></>
             )}
-            <StitchingImg />
             {subtotal ? (
               <p
                 style={{
                   position: "absolute",
-                  left: "48%",
-                  bottom: "5vw",
-                  height: "auto",
+                  top: "-14.8vw",
+                  right: "47.5%",
+                  fontSize: "20px",
+                  border: "1px solid black",
+                  padding: "15px",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
                 }}
               >
                 € {subtotal}
@@ -128,6 +134,7 @@ const OrderDesign: FC = () => {
             ) : (
               <></>
             )}
+            <StitchingImg />
           </>
         ) : menuOpen.customizeLabels && fading.type !== "" ? (
           <>
@@ -151,9 +158,13 @@ const OrderDesign: FC = () => {
               <p
                 style={{
                   position: "absolute",
-                  left: "48%",
-                  bottom: "5vw",
-                  height: "auto",
+                  top: "-14.8vw",
+                  right: "47.5%",
+                  fontSize: "20px",
+                  border: "1px solid black",
+                  padding: "15px",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
                 }}
               >
                 € {subtotal}
@@ -179,14 +190,17 @@ const OrderDesign: FC = () => {
             ) : (
               <></>
             )}
-            <NeckImg />
             {subtotal ? (
               <p
                 style={{
                   position: "absolute",
-                  left: "45%",
-                  bottom: 0,
-                  height: "auto",
+                  top: "-14.8vw",
+                  right: "47.5%",
+                  fontSize: "20px",
+                  border: "1px solid black",
+                  padding: "15px",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
                 }}
               >
                 € {subtotal}
@@ -194,17 +208,21 @@ const OrderDesign: FC = () => {
             ) : (
               <></>
             )}
+            <NeckImg />
           </>
         ) : (
           <>
-            <DefaultImg />
             {subtotal ? (
               <p
                 style={{
                   position: "absolute",
-                  left: "45%",
-                  bottom: 0,
-                  height: "auto",
+                  top: "-14.8vw",
+                  right: "42%",
+                  fontSize: "20px",
+                  border: "1px solid black",
+                  padding: "15px",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
                 }}
               >
                 € {subtotal}
@@ -212,6 +230,7 @@ const OrderDesign: FC = () => {
             ) : (
               <></>
             )}
+            <DefaultImg />
           </>
         )}
       </div>

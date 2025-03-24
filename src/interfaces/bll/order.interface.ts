@@ -17,8 +17,9 @@ export type orderStep =
   | "color"
   | "design"
   | "package"
+  | "preview"
   | "delivery"
-  | "preview";
+  | "tshirt";
 
 // export interface IMaterial {
 //   name: materialTitle | null;

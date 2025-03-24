@@ -29,14 +29,11 @@ const OrderSize: FC = () => {
   const { productType, tableSize, subtotal } = useSelector(
     (state: RootState) => state.order
   );
- 
 
-  const order = useSelector(
-    (state: RootState) => state.order
-  );
+  const order = useSelector((state: RootState) => state.order);
 
   const handleNextStep = () => {
-    dispatch(changeOrderStep("color"));
+    dispatch(changeOrderStep("tshirt"));
   };
   const handleToggleSize = () => {
     setSizeOpen((prev) => !prev);
@@ -54,27 +51,34 @@ const OrderSize: FC = () => {
       </div>
       {!sizeOpen ? (
         <>
+          {subtotal ? (
+            <p
+              style={{
+                position: "absolute",
+                top: "5.5%",
+                right: "47.5%",
+                fontSize: "20px",
+                border: "1px solid black",
+                padding: "15px",
+                borderEndStartRadius: "10px",
+                borderEndEndRadius: "10px"
+              }}
+            >
+              € {subtotal}
+            </p>
+          ) : (
+            <></>
+          )}
           <div className={sOrder.center}>
             <DefaultImg />
-            {subtotal ?
-              <p style={{
-                position: "absolute",
-                left: '45%',
-                bottom: 0,
-                height: "auto",
-              }}>€ {subtotal}</p>
-              :
-              <></>
-
-            }
           </div>
-
         </>
       ) : (
         <div className={centerClassname}>
           <ImageSize product={productType || ""} />
         </div>
       )}
+      
 
       <div className={sOrder.right}>
         <div className={s.params}>
@@ -86,7 +90,7 @@ const OrderSize: FC = () => {
           )}
           {sizeOpen && <SizesSettings handleClose={handleToggleSize} />}
         </div>
-        
+
         <ButtonsOrder
           onlyNext={true}
           handleNextStep={handleNextStep}

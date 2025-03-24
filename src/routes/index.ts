@@ -129,7 +129,6 @@ const routes = {
   resetPassword: "reset-password",
   entryCode: "entry-code/:userId",
   confirmSocial: "social/:id",
-
   dashboard: "/dashboard",
   changePrice: "/change-price",
 

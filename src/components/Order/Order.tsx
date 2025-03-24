@@ -7,7 +7,7 @@ import {
   setSubtotal,
   updateColor,
   setMinimumQuantity,
-  setTotalcost
+  setTotalcost,
 } from "@redux/slices/order";
 import { updateDraftApi } from "@api/requests/protected";
 import { getColorsForProduct } from "@redux/slices/colors";
@@ -25,6 +25,7 @@ import { getProductInfobyName } from "@redux/slices/products";
 // import { initialState as firstState } from "@constants/order/initialState";
 import { IOrderState } from "../../interfaces/bll/order.interface";
 import { continueOrderApi } from "@api/requests/protected";
+import TshirtImage from "./tshirtimage/TshirtImage";
 // const initialState: IOrderState = firstState;
 const Order: FC = () => {
   const hasCreatedDraft = useRef(false);
@@ -71,9 +72,7 @@ const Order: FC = () => {
       dispatch(
         setMinimumQuantity(data?.minimumQuantity ? data?.minimumQuantity : 1)
       );
-      dispatch(
-        setTotalcost(data?.totalcost ? data?.totalcost : 0)
-      );
+      dispatch(setTotalcost(data?.totalcost ? data?.totalcost : 0));
     }
   };
 
@@ -105,6 +104,10 @@ const Order: FC = () => {
   }, [dispatch, list, order.color.hex]);
 
   const renderOrderStep = () => {
+    console.log(
+      "Current orderStep =======================================> ",
+      orderStep
+    );
     switch (orderStep) {
       case "size":
         return <OrderSize />;
@@ -114,10 +117,12 @@ const Order: FC = () => {
         return <OrderDesign />;
       case "package":
         return <OrderPackage />;
-      case "delivery":
-        return <OrderDelivery />;
       case "preview":
         return <OrderPreview />;
+      case "delivery":
+        return <OrderDelivery />;
+      case "tshirt":
+        return <TshirtImage />;
       default:
         return null;
     }

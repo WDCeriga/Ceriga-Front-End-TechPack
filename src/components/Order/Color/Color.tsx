@@ -78,6 +78,24 @@ const OrderColor: FC = () => {
           <></>
         )}
       </div>
+      {subtotal ? (
+          <p
+            style={{
+              position: "absolute",
+              top: "5.5%",
+              right: "47.5%",
+              fontSize: "20px",
+              border: "1px solid black",
+              padding: "15px",
+              borderEndStartRadius: "10px",
+              borderEndEndRadius: "10px"
+            }}
+          >
+            € {subtotal}
+          </p>
+        ) : (
+          <></>
+        )}
       <div className={sOrder.center}>
         {/* {isMinimumRequired ? (
           <p
@@ -95,20 +113,6 @@ const OrderColor: FC = () => {
           <></>
         )} */}
         <DefaultImg />
-        {subtotal ? (
-          <p
-            style={{
-              position: "absolute",
-              left: "45%",
-              bottom: 0,
-              height: "auto",
-            }}
-          >
-            € {subtotal}
-          </p>
-        ) : (
-          <></>
-        )}
       </div>
       <div className={sOrder.right}>
         <div className={s.params}>

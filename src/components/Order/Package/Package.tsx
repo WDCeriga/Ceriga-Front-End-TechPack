@@ -18,20 +18,29 @@ import sOrder from "../order.module.scss";
 import s from "./package.module.scss";
 
 const OrderPackage: FC = () => {
-  const { moq, quantity, packageUploads, subtotal, minimumQuantity ,  totalcost} =
-    useSelector((state: RootState) => state.order);
+  const {
+    moq,
+    quantity,
+    packageUploads,
+    subtotal,
+    minimumQuantity,
+    totalcost,
+  } = useSelector((state: RootState) => state.order);
   const packageInfo = useSelector((state: RootState) => state.order.package);
   const [menuOpen, setMenuOpen] = useState({
     packageConfiguration: false,
     quantity: false,
   });
-  console.log("state.order==>", useSelector((state: RootState) => state.order))
+  console.log(
+    "state.order==>",
+    useSelector((state: RootState) => state.order)
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   const handlePrevStep = () => {
     dispatch(changeOrderStep("design"));
   };
-  
+
   const handleNextStep = () => {
     // if (
     //   quantity.type === "Bulk" &&
@@ -44,7 +53,6 @@ const OrderPackage: FC = () => {
     //   dispatch(changeOrderStep("delivery"));
     // }
 
-
     if (
       quantity.type === "Bulk" &&
       quantity.list.reduce((sum, item) => sum + item.value, 0) < minimumQuantity
@@ -53,12 +61,15 @@ const OrderPackage: FC = () => {
         "Please select a quantity that meets the minimum order quantity"
       );
     } else {
-      if (quantity.list.reduce((sum, item) => sum + item.value, 0) < minimumQuantity) {
+      if (
+        quantity.list.reduce((sum, item) => sum + item.value, 0) <
+        minimumQuantity
+      ) {
         notification.error(
           "Please select a quantity that meets the minimum order quantity"
         );
       } else {
-        dispatch(changeOrderStep("delivery"));
+        dispatch(changeOrderStep("preview"));
       }
     }
   };
@@ -70,8 +81,6 @@ const OrderPackage: FC = () => {
     }));
   };
 
-  
-
   return (
     <>
       <div className={sOrder.left}>
@@ -82,6 +91,24 @@ const OrderPackage: FC = () => {
         <Progress value={75} />
       </div>
       <div className={`${sOrder.center} ${s.packageWrap}`}>
+        {totalcost ? (
+          <p
+            style={{
+              position: "absolute",
+              top: "-74%",
+              right: "42%",
+              fontSize: "20px",
+              border: "1px solid black",
+              padding: "15px",
+              borderEndStartRadius: "10px",
+              borderEndEndRadius: "10px"
+            }}
+          >
+            € {totalcost}
+          </p>
+        ) : (
+          <></>
+        )}
         <img src="/img/package.png" alt="package" className={s.packageImg} />
         {/* {subtotal ? (
           <p
@@ -97,20 +124,6 @@ const OrderPackage: FC = () => {
         ) : (
           <></>
         )} */}
-        {totalcost ? (
-          <p
-            style={{
-              position: "absolute",
-              left: "45%",
-              bottom: 0,
-              height: "auto",
-            }}
-          >
-            € {totalcost}
-          </p>
-        ) : (
-          <></>
-        )}
       </div>
       <div className={sOrder.right}>
         <div className={s.params}>

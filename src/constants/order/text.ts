@@ -12,6 +12,11 @@ export const orderDescription = {
     ,
     
   },
+  timage: {
+    title: "Design & Wear It.",
+    text: "Make a bold statement with custom-designed t-shirts that reflect your personality, passion, or brand. Whether you're promoting your business, celebrating a special event, or simply standing out from the crowd, personalized t-shirts let you showcase your creativity. Add unique graphics, meaningful text, or eye-catching designs to turn everyday apparel into a powerful expression of who you are.",
+  },
+
   design: {
     title: "Design and Label",
     text: `Add your unique touch by uploading your design and specifying placement. 

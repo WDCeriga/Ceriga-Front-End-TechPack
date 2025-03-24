@@ -70,9 +70,7 @@ const AdminOrderItem: FC<IAdminOrderComponent> = ({
     <tr className={s.row}>
       <td className={`${s.row_item} ${s.typeProd}`}>
         <div className={s.typeWrap}>
-          <div className={s.typeName}>
-            {productType}
-          </div>
+          <div className={s.typeName}>{productType}</div>
           <span className={s.row_item__gray}>{id}</span>
         </div>
       </td>
