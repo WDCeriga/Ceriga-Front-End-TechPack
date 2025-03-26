@@ -21,12 +21,15 @@ const SelectNeck: FC<ISelectNeck> = ({ handleClose }) => {
   const { neckDescription } = useSelector((state: RootState) => state.order);
   const [description, setDescription] = useState<string>(neckDescription);
   const [configurationOpen, setConfigurationOpen] = useState<boolean>(false);
+
   const handleCheckNoLabel = () => {
     dispatch(setNoLabel());
   };
+
   const handleToggleConfiguration = () => {
     setConfigurationOpen((prev) => !prev);
   };
+
   if (configurationOpen) {
     return (
       <>
@@ -34,17 +37,49 @@ const SelectNeck: FC<ISelectNeck> = ({ handleClose }) => {
       </>
     );
   }
+
   const handleUpdateDescription = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setDescription(event.currentTarget.value);
     dispatch(updateNeckDescription(event.currentTarget.value));
   };
+
+  // Fetching the product info to check minimum quantity requirement for labels
+  const productinfo = useSelector(
+    (state: RootState) => state.products.productOpen
+  );
+  const labelOptions = productinfo?.labelOptions?.find(
+    (x) => x.type === "Custom Label"
+  );
+  const labelOptionsMinimumQuantity = labelOptions?.minimumQuantity;
+  const labelOptionsIsMinimumRequired = labelOptions?.isMinimumRequired;
+
   return (
     <section className={s.content}>
-      <button onClick={handleClose} className={s.content_buttonClose}>
-        <CloseIcon width="22" height="22" color="#111" />
-      </button>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: '100%'
+        }}
+      >
+        {labelOptionsIsMinimumRequired && labelOptionsMinimumQuantity && (
+          <div
+            style={{
+              marginBottom: "1rem",
+              color: "red",
+            }}
+          >
+            The minimum order quantity is {labelOptionsMinimumQuantity}
+          </div>
+        )}
+        <button onClick={handleClose} className={s.content_buttonClose}>
+          <CloseIcon width="22" height="22" color="#111" />
+        </button>
+      </div>
+
       <label className={s.content_label}>
         <input
           onClick={handleCheckNoLabel}

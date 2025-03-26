@@ -12,8 +12,11 @@ const FilesList: FC<IFilesList> = ({ files }) => {
       <h3 className={s.container_title}>Uploaded</h3>
       <ul className={s.container_list}>
         {files.map((file) => (
-          <li key={file} className={s.container_list_item}>
-            {file}
+          // <li key={file} className={s.container_list_item}>
+          //   {file}
+          // </li>
+          <li>
+            <img src={file} alt="onlywatch" style={{ width: "100%" }} />
           </li>
         ))}
       </ul>

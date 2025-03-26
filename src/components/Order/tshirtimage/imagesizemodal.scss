@@ -1,0 +1,44 @@
+/* ImageSizeModal.scss */
+
+.modal-content {
+  border-radius: 8px;
+  text-align: center;
+}
+
+.size-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  table-layout: fixed; 
+}
+
+.size-table th,
+.size-table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.size-table th {
+  background-color: #c80f0f;
+  color: white;
+}
+
+.size-table td {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.size-table td:hover {
+  background-color: #f1f1f1;
+}
+
+.size-table tr {
+  transition: background-color 0.3s ease;
+}
+
+.size-table td.selected {
+  background-color: #cceecd;
+  color: black;
+}

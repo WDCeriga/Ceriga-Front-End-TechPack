@@ -101,7 +101,7 @@ const OrderDesign: FC = () => {
       <div className={sOrder.center}>
         {menuOpen.uploadDesign && stitching.type !== "" ? (
           <>
-            {stitchingisMinimumRequired ? (
+            {/* {stitchingisMinimumRequired ? (
               <p
                 style={{
                   color: "red",
@@ -115,7 +115,7 @@ const OrderDesign: FC = () => {
               </p>
             ) : (
               <></>
-            )}
+            )} */}
             {subtotal ? (
               <p
                 style={{
@@ -138,7 +138,7 @@ const OrderDesign: FC = () => {
           </>
         ) : menuOpen.customizeLabels && fading.type !== "" ? (
           <>
-            {fadingisMinimumRequired ? (
+            {/* {fadingisMinimumRequired ? (
               <p
                 style={{
                   color: "red",
@@ -152,7 +152,7 @@ const OrderDesign: FC = () => {
               </p>
             ) : (
               <></>
-            )}
+            )} */}
             <FadingImg />
             {subtotal ? (
               <p
@@ -175,7 +175,7 @@ const OrderDesign: FC = () => {
           </>
         ) : menuOpen.selectNeck && neck && neck.type?.length !== 0 ? (
           <>
-            {labelOptionsneminimumRequired ? (
+            {/* {labelOptionsneminimumRequired ? (
               <p
                 style={{
                   color: "red",
@@ -189,7 +189,7 @@ const OrderDesign: FC = () => {
               </p>
             ) : (
               <></>
-            )}
+            )} */}
             {subtotal ? (
               <p
                 style={{
