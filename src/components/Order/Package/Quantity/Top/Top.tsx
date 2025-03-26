@@ -19,17 +19,17 @@ const TopQuantity: FC<ITopQuantity> = ({ handleClose }) => {
   return (
     <div className={s.top}>
       <div>
-        <h3 className={s.top_title}>Details about packaging</h3>
-        {/* {quantity.type === "Bulk" &&
-          quantity.list.reduce((sum, item) => sum + item.value, 0) < minimumQuantity && (
-            <ErrorMessage text={`The minimum order quantity is ${minimumQuantity}.`} />
-          )} */}
-        {quantity.list.reduce((sum, item) => sum + item.value, 0) <
+      {quantity.list.reduce((sum, item) => sum + item.value, 0) <
           minimumQuantity && (
           <ErrorMessage
             text={`The minimum order quantity is ${minimumQuantity}.`}
           />
         )}
+        <h3 className={s.top_title}>Details about packaging</h3>
+        {/* {quantity.type === "Bulk" &&
+          quantity.list.reduce((sum, item) => sum + item.value, 0) < minimumQuantity && (
+            <ErrorMessage text={`The minimum order quantity is ${minimumQuantity}.`} />
+          )} */}
       </div>
       <button onClick={handleClose} className={s.top_button}>
         <CloseIcon width="22" height="22" color="#111" />

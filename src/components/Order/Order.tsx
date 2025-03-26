@@ -113,6 +113,8 @@ const Order: FC = () => {
         return <OrderSize />;
       case "color":
         return <OrderColor />;
+      case "tshirt":
+        return <TshirtImage />;
       case "design":
         return <OrderDesign />;
       case "package":
@@ -121,8 +123,6 @@ const Order: FC = () => {
         return <OrderPreview />;
       case "delivery":
         return <OrderDelivery />;
-      case "tshirt":
-        return <TshirtImage />;
       default:
         return null;
     }
