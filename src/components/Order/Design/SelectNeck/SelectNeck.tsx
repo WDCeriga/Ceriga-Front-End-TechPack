@@ -33,14 +33,6 @@ const SelectNeck: FC<ISelectNeck> = ({ handleClose }) => {
     setConfigurationOpen((prev) => !prev);
   };
 
-  if (configurationOpen) {
-    return (
-      <>
-        <ConfigurationLabel handleClose={handleToggleConfiguration} />
-      </>
-    );
-  }
-
   const handleOpenUploadModalNeck = () => {
     setIsUploadModalOpenNeck(true); // Open the UploadFile modal
   };
@@ -60,11 +52,31 @@ const SelectNeck: FC<ISelectNeck> = ({ handleClose }) => {
   const productinfo = useSelector(
     (state: RootState) => state.products.productOpen
   );
-  const labelOptions = productinfo?.labelOptions?.find(
-    (x) => x.type === "Custom Label"
-  );
-  const labelOptionsMinimumQuantity = labelOptions?.minimumQuantity;
-  const labelOptionsIsMinimumRequired = labelOptions?.isMinimumRequired;
+
+  let labelOptionsMinimumQuantity = 0;
+  let labelOptionsIsMinimumRequired = false;
+  if (noLabels === false) {
+    let qty = productinfo?.labelOptions?.find(
+      (x) => x.type == "Custom Label"
+    )?.minimumQuantity;
+    if (qty) {
+      labelOptionsMinimumQuantity = parseInt(qty.toString());
+    }
+    let isRequired = productinfo?.labelOptions?.find(
+      (x) => x.type == "Custom Label"
+    )?.isMinimumRequired;
+    if (isRequired) {
+      labelOptionsIsMinimumRequired = isRequired;
+    }
+  }
+
+  if (configurationOpen) {
+    return (
+      <>
+        <ConfigurationLabel handleClose={handleToggleConfiguration} />
+      </>
+    );
+  }
 
   return (
     <section className={s.content}>

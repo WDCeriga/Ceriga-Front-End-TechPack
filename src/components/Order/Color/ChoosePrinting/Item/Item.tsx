@@ -10,12 +10,16 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 interface IPrintingItem extends IPrinting {
   isActive: boolean;
   handleClick: (value: string) => void;
+  minimumQuantity: Number;
+  isMinimumRequired: boolean;
 }
 
 const PrintingItem: FC<IPrintingItem> = ({
   name,
   imgPath,
   isActive,
+  minimumQuantity,
+  isMinimumRequired,
   handleClick,
 }) => {
   const buttonClassnames = classNames(
@@ -23,7 +27,10 @@ const PrintingItem: FC<IPrintingItem> = ({
     isActive && s.item_button__active
   );
 
-  const tooltipContent = "Minimum order quantity is 50";
+  let tooltipContent = "No minimum order quantity required";
+  if (isMinimumRequired) {
+    tooltipContent = `Minimum order quantity is ${minimumQuantity}`;
+  }
 
   return (
     <li className={s.item} style={{ position: "relative" }}>

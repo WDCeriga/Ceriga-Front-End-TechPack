@@ -50,7 +50,7 @@ export const continueOrder = createAsyncThunk<
   { state: RootState }
 >("continue-order", async (draftId) => {
   const data: IOrderState = await continueOrderApi(draftId);
-  console.log("data==>" , data)
+  console.log("data==>", data)
   return data;
 });
 
@@ -272,7 +272,7 @@ const orderSlice = createSlice({
         minimumQuantity &&
         totalQuantity &&
         parseInt(totalQuantity?.toString()) >
-          parseInt(minimumQuantity?.toString())
+        parseInt(minimumQuantity?.toString())
       ) {
         state.quantity.type = "Bulk";
       }
@@ -328,7 +328,7 @@ const orderSlice = createSlice({
     setMinimumQuantity: (state: IOrderState, { payload }: PayloadAction<number>) => {
       state.minimumQuantity = payload;
     },
-    setTotalcost:(state: IOrderState, { payload }: PayloadAction<number>) => {
+    setTotalcost: (state: IOrderState, { payload }: PayloadAction<number>) => {
       state.totalcost = payload;
     },
   },

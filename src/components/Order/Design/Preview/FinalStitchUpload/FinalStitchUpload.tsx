@@ -23,9 +23,9 @@ const FinalStitchUpload: FC<IFinalStitchUpload> = ({
   return (
     <FinalDesignPreviewLayout onEvent={onEvent} title={title}>
       <ItemFinalDesign title="Stitching" value={stitching} />
-      {imagesList && imagesList.length !== 0 && (
+      {/* {imagesList && imagesList.length !== 0 && (
         <ItemFinalDesign title="Upload Design" type="array" array={imagesList} />
-      )}
+      )} */}
       {description.length > 0 && <ItemFinalDesign title="Description" value={description} />}
     </FinalDesignPreviewLayout>
   );

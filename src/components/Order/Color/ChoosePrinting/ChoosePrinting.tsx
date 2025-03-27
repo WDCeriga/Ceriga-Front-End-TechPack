@@ -27,8 +27,16 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
 
   const handleItemClick = (itemName: string) => {
     handleChoosePrinting(itemName);
-    setMessage(`Minimum order quantity for ${itemName} is 50`);
   };
+
+  const isMinimumRequired = productinfo?.printing?.find(
+    (x) => x.type == printing
+  )?.isMinimumRequired;
+
+  const minimumquantity = productinfo?.printing?.find(
+    (x) => x.type == printing
+  )?.minimumQuantity;
+
 
   return (
     <section className={s.container}>
@@ -39,13 +47,11 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
         </button>
       </div>
 
-      {message && (
-        <p style={{ marginTop: "1.5rem", color: "red", fontSize: "14px" }}>
-          {message}
-        </p>
-      )}
+      {isMinimumRequired && (
+        <p style={{ marginTop: "1.5rem", color: "red", fontSize: "14px" }}>{`Minimum order quantity for ${printing} is ${minimumquantity}`}</p>)
+      }
 
-      <ul className={s.container_list} style={{marginTop: '0.5rem'}}>
+      <ul className={s.container_list} style={{ marginTop: '0.5rem' }}>
         {productinfo?.printing?.map((item) => (
           <PrintingItem
             key={item.type}
@@ -54,6 +60,8 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
             cost={item.cost}
             isActive={printing === item.type}
             handleClick={handleItemClick}
+            isMinimumRequired={item.isMinimumRequired}
+            minimumQuantity={item.minimumQuantity}
           />
         ))}
       </ul>
