@@ -3,20 +3,14 @@ import React, { useState } from "react";
 interface ExtraCommentsModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSaveComment: (comment: string) => void;
 }
 
-const ExtraComments: React.FC<ExtraCommentsModalProps> = ({ isOpen, onClose, onSaveComment }) => {
+const ExtraComments: React.FC<ExtraCommentsModalProps> = ({ isOpen, onClose, }) => {
   const [comment, setComment] = useState<string>("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
   };
-
-//   const handleSave = () => {
-//     onSaveComment(comment); // Pass the comment to the parent component
-//     onClose(); // Close the modal after saving
-//   };
 
   if (!isOpen) return null;
 
@@ -31,9 +25,6 @@ const ExtraComments: React.FC<ExtraCommentsModalProps> = ({ isOpen, onClose, onS
             className="comment-input"
           />
         </div>
-        {/* <div className="modal-footer">
-          <button onClick={handleSave} className="save-btn">Save</button>
-        </div> */}
       </div>
     </div>
   );

@@ -47,7 +47,8 @@ const OrderColor: FC = () => {
   };
 
   const handleNextStep = () => {
-    dispatch(changeOrderStep("tshirt"));
+    dispatch(changeOrderStep("design"));
+
   };
 
   const isMinimumRequired = productinfo?.printing?.find(
@@ -79,23 +80,23 @@ const OrderColor: FC = () => {
         )}
       </div>
       {subtotal ? (
-          <p
-            style={{
-              position: "absolute",
-              top: "5.5%",
-              right: "47.5%",
-              fontSize: "20px",
-              border: "1px solid black",
-              padding: "15px",
-              borderEndStartRadius: "10px",
-              borderEndEndRadius: "10px"
-            }}
-          >
-            € {subtotal}
-          </p>
-        ) : (
-          <></>
-        )}
+        <p
+          style={{
+            position: "absolute",
+            top: "5.5%",
+            right: "47.5%",
+            fontSize: "20px",
+            border: "1px solid black",
+            padding: "15px",
+            borderEndStartRadius: "10px",
+            borderEndEndRadius: "10px"
+          }}
+        >
+          € {subtotal}
+        </p>
+      ) : (
+        <></>
+      )}
       <div className={sOrder.center}>
         {/* {isMinimumRequired ? (
           <p
@@ -146,7 +147,7 @@ const OrderColor: FC = () => {
                 onEvent={() => handleToggleMenu("colorIsOpen")}
                 text="Choose a color"
               />
-            ) : ( 
+            ) : (
               <FinalColor
                 title="Selected color"
                 color={color.hex || ""}

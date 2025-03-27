@@ -20,64 +20,37 @@ import ImageSizeDisplay from "./ImageSizeDisplay";
 
 const TshirtImage = () => {
   const [activeModal, setActiveModal] = useState<string | null>(null);
-  // const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  // const [isSizeSelected, setIsSizeSelected] = useState<boolean>(false);
-  const [userComment, setUserComment] = useState<string>("");
-
-  const [isBackModalOpen, setIsBackModalOpen] = useState<boolean>(false);
-  const [isFrontModalOpen, setIsFrontModalOpen] = useState<boolean>(false);
-
   const dispatch = useDispatch<AppDispatch>();
 
   const handlePrevStep = () => {
-    dispatch(changeOrderStep("color"));
+    dispatch(changeOrderStep("design"));
   };
 
   const handleNextStep = () => {
-    dispatch(changeOrderStep("design"));
+    dispatch(changeOrderStep("package"));
   };
 
   const toggleExtraCommentsModal = () => {
     setActiveModal(activeModal === "extraComments" ? null : "extraComments");
   };
 
-  const handleSaveComment = (comment: string) => {
-    setUserComment(comment);
-  };
-
-  // const toggleSizeModal = () => {
-  //   setActiveModal(activeModal === "size" ? null : "size");
-  // };
-
   const toggleFrontModal = () => {
-    setIsBackModalOpen(false);
-    setIsFrontModalOpen(true);
-    setActiveModal("front");
+    if (activeModal == "front") {
+      setActiveModal(null);
+    }
+    else {
+      setActiveModal("front");
+    }
   };
 
   const toggleBackModal = () => {
-    setIsFrontModalOpen(false);
-    setIsBackModalOpen(true);
-    setActiveModal("back");
+    if (activeModal == "back") {
+      setActiveModal(null);
+    }
+    else {
+      setActiveModal("back");
+    }
   };
-
-  // const handleSizeSelection = (size: string) => {
-  //   if (selectedSize !== size) {
-  //     setSelectedSize(size);
-  //     setIsSizeSelected(true);
-  //     setActiveModal("front");
-  //   }
-  // };
-
-  // const getImageForDisplay = () => {
-  //   if (isBackModalOpen) {
-  //     return <img src={backImage} alt="Back View" style={{ height: "30vw" }} />;
-  //   } else if (isFrontModalOpen) {
-  //     return <DefaultImg />;
-  //   } else {
-  //     return <DefaultImg />;
-  //   }
-  // };
 
   return (
     <>
@@ -86,12 +59,12 @@ const TshirtImage = () => {
           title={orderDescription.timage.title}
           text={orderDescription.timage.text}
         />
-        <Progress value={40} />
+        <Progress value={55} />
       </div>
 
       <div className={sOrder.center}>
         <div className="movelogoaway">
-          {/* <ImageSizeDisplay selectedSize={selectedSize || "300x300"} /> */}
+          <ImageSizeDisplay selectedSize={"200x200"} />
         </div>
         <div>
           <DefaultImg />
@@ -110,12 +83,11 @@ const TshirtImage = () => {
           >
             <div className="tshirt-modal" style={{ marginTop: "3rem" }}>
               <div
-                className={`modal-header ${
-                  activeModal === "front" ? "no-border" : "with-border"
-                }`}
+                className={`modal-header ${activeModal === "front" ? "no-border" : "with-border"
+                  }`}
               >
                 <h3>
-                  {activeModal === "front" ? "Logos" : "Choose Front Logos"}
+                  {activeModal === "front" ? "Front View size selection" : "Front View Sizes"}
                 </h3>
                 <div onClick={toggleFrontModal}>
                   <IconButton>
@@ -138,12 +110,11 @@ const TshirtImage = () => {
 
             <div className="tshirt-modal" style={{ marginTop: "3rem" }}>
               <div
-                className={`modal-header ${
-                  activeModal === "back" ? "no-border" : "with-border"
-                }`}
+                className={`modal-header ${activeModal === "back" ? "no-border" : "with-border"
+                  }`}
               >
                 <h3>
-                  {activeModal === "back" ? "Logos" : "Choose Back Logos"}
+                  {activeModal === "back" ? "Back View size selection" : "Back View sizes"}
                 </h3>
                 <div onClick={toggleBackModal}>
                   <IconButton>
@@ -166,9 +137,8 @@ const TshirtImage = () => {
 
             <div className="tshirt-modal" style={{ marginTop: "3rem" }}>
               <div
-                className={`modal-header ${
-                  activeModal === "extraComments" ? "no-border" : "with-border"
-                }`}
+                className={`modal-header ${activeModal === "extraComments" ? "no-border" : "with-border"
+                  }`}
               >
                 <h3>
                   {activeModal === "extraComments"
@@ -190,7 +160,6 @@ const TshirtImage = () => {
                 <ExtraComments
                   isOpen={activeModal === "extraComments"}
                   onClose={() => setActiveModal(null)}
-                  onSaveComment={handleSaveComment}
                 />
               )}
             </div>

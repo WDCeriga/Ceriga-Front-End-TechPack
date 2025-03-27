@@ -2,7 +2,9 @@ import {
   ICreateNewOrder,
   IMaterial,
   IOrderState,
+  Logodetails,
   orderStep,
+  Type,
 } from "../../interfaces/bll/order.interface";
 import {
   IQuantityItem,
@@ -331,6 +333,11 @@ const orderSlice = createSlice({
     setTotalcost: (state: IOrderState, { payload }: PayloadAction<number>) => {
       state.totalcost = payload;
     },
+
+    changeSizes: (state: IOrderState, { payload }: PayloadAction<Logodetails>) => {
+
+    }
+
   },
   extraReducers: (builder) => {
     builder.addCase(createNewDraft.fulfilled, (state, { payload }) => {

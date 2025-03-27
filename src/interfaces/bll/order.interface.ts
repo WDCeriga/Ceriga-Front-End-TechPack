@@ -76,8 +76,21 @@ export interface IOrderState {
   moq: number;
   tableSize: ITableSizeRow[];
   tableType: string | null;
-  minimumQuantity:number;
-  totalcost:number;
+  minimumQuantity: number;
+  totalcost: number;
+  logodetails: Logodetails;
+  frontlogoUploads: string[];
+  backlogoUploads: string[];
+}
+
+export interface Logodetails {
+  frontlogo: Type;
+  backlogo: Type;
+  description: String;
+}
+
+export interface Type {
+  type: String;
 }
 
 export interface ICreateNewOrder {

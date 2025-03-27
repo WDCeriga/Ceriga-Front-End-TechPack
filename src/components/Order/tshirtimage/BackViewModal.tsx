@@ -7,12 +7,8 @@ interface FrontViewModalProps {
   onClose: () => void;
 }
 
-const BackViewModal: React.FC<FrontViewModalProps> = ({
-  // checkcolor = "blue",
-}) => {
-  const [selectedLogo, setSelectedLogo] = useState<string | null>(null);
+const BackViewModal: React.FC<FrontViewModalProps> = ({ onClose }) => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const [isSizeSelected, setIsSizeSelected] = useState<boolean>(false);
   const [isUploadModalOpenBack, setIsUploadModalOpenBack] =
     useState<boolean>(false);
 
@@ -20,15 +16,10 @@ const BackViewModal: React.FC<FrontViewModalProps> = ({
     setIsUploadModalOpenBack(false);
   };
 
-  // const handleLogoChange = (logo: string) => {
-  //   setSelectedLogo((prev) => (prev === logo ? null : logo));
-  // };
-
   const handleSizeSelection = (size: string) => {
     if (selectedSize !== size) {
       setSelectedSize(size);
-      setIsSizeSelected(true);
-    }
+   }
   };
 
   const handleOpenUploadModalBack = () => {
@@ -36,35 +27,10 @@ const BackViewModal: React.FC<FrontViewModalProps> = ({
   };
 
   return (
-    <div className="modal">
+    <div className="modal" onClick={onClose}>
       <div className="modal-content">
-        {/* <div className="checkbox-option">
-          <input
-            type="checkbox"
-            checked={selectedLogo === "logo1"}
-            onChange={() => handleLogoChange("logo1")}
-            className="custom-checkbox"
-            id="logo1"
-            style={{ accentColor: checkcolor }}
-          />
-          <label htmlFor="logo1">Logos Redondos</label>
-        </div> */}
-        {/* <div className="checkbox-option">
-          <input
-            type="checkbox"
-            checked={selectedLogo === "logo2"}
-            onChange={() => handleLogoChange("logo2")}
-            className="custom-checkbox"
-            id="logo2"
-            style={{ accentColor: checkcolor }}
-          />
-          <label htmlFor="logo2">Opcao MaisCara</label>
-        </div> */}
-
         <div>
           <ImageSizeModal
-            // isOpen={activeModal === "size"}
-            // onClose={() => setActiveModal(null)}
             setSelectedSize={handleSizeSelection}
             selectedSize={selectedSize}
           />

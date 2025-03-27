@@ -36,7 +36,7 @@ const OrderPackage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handlePrevStep = () => {
-    dispatch(changeOrderStep("design"));
+    dispatch(changeOrderStep("tshirt"));
   };
 
   const handleNextStep = () => {
