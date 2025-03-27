@@ -2,15 +2,15 @@ import React, { useEffect } from "react";
 import "./imagesizemodal.scss";
 
 interface ImageSizeModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  // isOpen: boolean;
+  // onClose: () => void;
   setSelectedSize: (size: string) => void;
   selectedSize: string | null;
 }
 
 const ImageSizeModal: React.FC<ImageSizeModalProps> = ({
-  isOpen,
-  onClose,
+  // isOpen,
+  // onClose,
   setSelectedSize,
   selectedSize,
 }) => {
@@ -34,10 +34,10 @@ const ImageSizeModal: React.FC<ImageSizeModalProps> = ({
     setSelectedSize(size);
   };
 
-  if (!isOpen) return null;
+  // if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay">
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="size-grid">
           {sizes.map((size) => {

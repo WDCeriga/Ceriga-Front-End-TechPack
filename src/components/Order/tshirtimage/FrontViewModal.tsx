@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 import UploadFile from "../Design/UploadFile/UploadFile";
+import ImageSizeModal from "./ImageSizeModal";
 
 interface FrontViewModalProps {
   checkcolor?: string;
   onClose: () => void;
+  
 }
 
 const FrontViewModal: React.FC<FrontViewModalProps> = ({
-  checkcolor = "blue",
+  // checkcolor = "blue",
 }) => {
   const [selectedLogo, setSelectedLogo] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [isSizeSelected, setIsSizeSelected] = useState<boolean>(false);
   const [isUploadModalOpenFront, setIsUploadModalOpenFront] =
     useState<boolean>(false);
 
-  const handleLogoChange = (logo: string) => {
-    setSelectedLogo((prev) => (prev === logo ? null : logo));
-  };
+  // const handleLogoChange = (logo: string) => {
+  //   setSelectedLogo((prev) => (prev === logo ? null : logo));
+  // };
 
   const handleOpenUploadModalFront = () => {
     setIsUploadModalOpenFront(true);
@@ -25,10 +29,17 @@ const FrontViewModal: React.FC<FrontViewModalProps> = ({
     setIsUploadModalOpenFront(false);
   };
 
+  const handleSizeSelection = (size: string) => {
+    if (selectedSize !== size) {
+      setSelectedSize(size);
+      setIsSizeSelected(true);
+    }
+  };
+
   return (
     <div className="modal">
       <div className="modal-content">
-        <div className="checkbox-option">
+        {/* <div className="checkbox-option">
           <input
             type="checkbox"
             checked={selectedLogo === "logo1"}
@@ -38,8 +49,8 @@ const FrontViewModal: React.FC<FrontViewModalProps> = ({
             style={{ accentColor: checkcolor }}
           />
           <label htmlFor="logo1">Pequenos Logos 1</label>
-        </div>
-        <div className="checkbox-option">
+        </div> */}
+        {/* <div className="checkbox-option">
           <input
             type="checkbox"
             checked={selectedLogo === "logo2"}
@@ -49,6 +60,15 @@ const FrontViewModal: React.FC<FrontViewModalProps> = ({
             style={{ accentColor: checkcolor }}
           />
           <label htmlFor="logo2">Pequenos Logos 2</label>
+        </div> */}
+
+        <div>
+          <ImageSizeModal
+            // isOpen={activeModal === "size"}
+            // onClose={() => setActiveModal(null)}
+            setSelectedSize={handleSizeSelection}
+            selectedSize={selectedSize}
+          />
         </div>
       </div>
       <div className="uplodefilebtn">

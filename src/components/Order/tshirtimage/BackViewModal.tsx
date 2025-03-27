@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import UploadFile from "../Design/UploadFile/UploadFile";
+import ImageSizeModal from "./ImageSizeModal";
 
 interface FrontViewModalProps {
   checkcolor?: string;
@@ -7,17 +8,27 @@ interface FrontViewModalProps {
 }
 
 const BackViewModal: React.FC<FrontViewModalProps> = ({
-  checkcolor = "blue",
+  // checkcolor = "blue",
 }) => {
   const [selectedLogo, setSelectedLogo] = useState<string | null>(null);
-  const [isUploadModalOpenBack, setIsUploadModalOpenBack] = useState<boolean>(false);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [isSizeSelected, setIsSizeSelected] = useState<boolean>(false);
+  const [isUploadModalOpenBack, setIsUploadModalOpenBack] =
+    useState<boolean>(false);
 
   const handleCloseUploadModalBack = () => {
     setIsUploadModalOpenBack(false);
   };
 
-  const handleLogoChange = (logo: string) => {
-    setSelectedLogo((prev) => (prev === logo ? null : logo));
+  // const handleLogoChange = (logo: string) => {
+  //   setSelectedLogo((prev) => (prev === logo ? null : logo));
+  // };
+
+  const handleSizeSelection = (size: string) => {
+    if (selectedSize !== size) {
+      setSelectedSize(size);
+      setIsSizeSelected(true);
+    }
   };
 
   const handleOpenUploadModalBack = () => {
@@ -27,7 +38,7 @@ const BackViewModal: React.FC<FrontViewModalProps> = ({
   return (
     <div className="modal">
       <div className="modal-content">
-        <div className="checkbox-option">
+        {/* <div className="checkbox-option">
           <input
             type="checkbox"
             checked={selectedLogo === "logo1"}
@@ -37,8 +48,8 @@ const BackViewModal: React.FC<FrontViewModalProps> = ({
             style={{ accentColor: checkcolor }}
           />
           <label htmlFor="logo1">Logos Redondos</label>
-        </div>
-        <div className="checkbox-option">
+        </div> */}
+        {/* <div className="checkbox-option">
           <input
             type="checkbox"
             checked={selectedLogo === "logo2"}
@@ -48,6 +59,15 @@ const BackViewModal: React.FC<FrontViewModalProps> = ({
             style={{ accentColor: checkcolor }}
           />
           <label htmlFor="logo2">Opcao MaisCara</label>
+        </div> */}
+
+        <div>
+          <ImageSizeModal
+            // isOpen={activeModal === "size"}
+            // onClose={() => setActiveModal(null)}
+            setSelectedSize={handleSizeSelection}
+            selectedSize={selectedSize}
+          />
         </div>
       </div>
       <div className="uplodefilebtn">
@@ -93,7 +113,10 @@ const BackViewModal: React.FC<FrontViewModalProps> = ({
         </div>
       </div>
       {isUploadModalOpenBack && (
-        <UploadFile handleClose={handleCloseUploadModalBack} type="uploadDesign" />
+        <UploadFile
+          handleClose={handleCloseUploadModalBack}
+          type="uploadDesign"
+        />
       )}
     </div>
   );

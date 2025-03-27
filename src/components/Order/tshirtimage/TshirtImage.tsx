@@ -9,8 +9,6 @@ import { changeOrderStep } from "@redux/slices/order";
 import { AppDispatch } from "@redux/store";
 import b from "../Size/Sizes/sizes.module.scss";
 import DefaultImg from "../DefaultImg/DefaultImg";
-import ImageSizeModal from "./ImageSizeModal";
-import ImageSizeDisplay from "./ImageSizeDisplay";
 import "./TshirtImage.scss";
 import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -18,16 +16,16 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import FrontViewModal from "./FrontViewModal";
 import BackViewModal from "./BackViewModal";
 import ExtraComments from "./ExtraComments";
-import backImage from "./backimage.png";
+import ImageSizeDisplay from "./ImageSizeDisplay";
 
 const TshirtImage = () => {
   const [activeModal, setActiveModal] = useState<string | null>(null);
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const [isSizeSelected, setIsSizeSelected] = useState<boolean>(false);
+  // const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  // const [isSizeSelected, setIsSizeSelected] = useState<boolean>(false);
   const [userComment, setUserComment] = useState<string>("");
 
-  const [isBackModalOpen, setIsBackModalOpen] = useState<boolean>(false); // Track if Back modal is open
-  const [isFrontModalOpen, setIsFrontModalOpen] = useState<boolean>(false); // Track if Front modal is open
+  const [isBackModalOpen, setIsBackModalOpen] = useState<boolean>(false);
+  const [isFrontModalOpen, setIsFrontModalOpen] = useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -47,43 +45,39 @@ const TshirtImage = () => {
     setUserComment(comment);
   };
 
-  const toggleSizeModal = () => {
-    setActiveModal(activeModal === "size" ? null : "size");
-  };
+  // const toggleSizeModal = () => {
+  //   setActiveModal(activeModal === "size" ? null : "size");
+  // };
 
   const toggleFrontModal = () => {
-    if (isSizeSelected) {
-      setIsBackModalOpen(false);
-      setIsFrontModalOpen(true);
-      setActiveModal("front");
-    }
+    setIsBackModalOpen(false);
+    setIsFrontModalOpen(true);
+    setActiveModal("front");
   };
 
   const toggleBackModal = () => {
-    if (isSizeSelected) {
-      setIsFrontModalOpen(false);
-      setIsBackModalOpen(true);
-      setActiveModal("back");
-    }
+    setIsFrontModalOpen(false);
+    setIsBackModalOpen(true);
+    setActiveModal("back");
   };
 
-  const handleSizeSelection = (size: string) => {
-    if (selectedSize !== size) {
-      setSelectedSize(size);
-      setIsSizeSelected(true);
-      setActiveModal("front");
-    }
-  };
+  // const handleSizeSelection = (size: string) => {
+  //   if (selectedSize !== size) {
+  //     setSelectedSize(size);
+  //     setIsSizeSelected(true);
+  //     setActiveModal("front");
+  //   }
+  // };
 
-  const getImageForDisplay = () => {
-    if (isBackModalOpen) {
-      return <img src={backImage} alt="Back View" style={{ height: "30vw" }} />;
-    } else if (isFrontModalOpen) {
-      return <DefaultImg />;
-    } else {
-      return <DefaultImg />;
-    }
-  };
+  // const getImageForDisplay = () => {
+  //   if (isBackModalOpen) {
+  //     return <img src={backImage} alt="Back View" style={{ height: "30vw" }} />;
+  //   } else if (isFrontModalOpen) {
+  //     return <DefaultImg />;
+  //   } else {
+  //     return <DefaultImg />;
+  //   }
+  // };
 
   return (
     <>
@@ -97,11 +91,11 @@ const TshirtImage = () => {
 
       <div className={sOrder.center}>
         <div className="movelogoaway">
-          <ImageSizeDisplay selectedSize={selectedSize || "300x300"} />
+          {/* <ImageSizeDisplay selectedSize={selectedSize || "300x300"} /> */}
         </div>
-
-        {/* Conditionally render the image based on the modal state */}
-        <div>{getImageForDisplay()}</div>
+        <div>
+          <DefaultImg />
+        </div>
       </div>
 
       <div className={sOrder.right}>
@@ -114,18 +108,18 @@ const TshirtImage = () => {
               alignItems: "end",
             }}
           >
-            <div className="tshirt-modal">
+            <div className="tshirt-modal" style={{ marginTop: "3rem" }}>
               <div
                 className={`modal-header ${
-                  activeModal === "size" ? "no-border" : "with-border"
+                  activeModal === "front" ? "no-border" : "with-border"
                 }`}
               >
                 <h3>
-                  {activeModal === "size" ? "Select Image Size" : "Image Size"}
+                  {activeModal === "front" ? "Logos" : "Choose Front Logos"}
                 </h3>
-                <div onClick={toggleSizeModal}>
+                <div onClick={toggleFrontModal}>
                   <IconButton>
-                    {activeModal === "size" ? (
+                    {activeModal === "front" ? (
                       <HighlightOffIcon className="highlighticon" />
                     ) : (
                       <AddIcon className="highlighticon" />
@@ -134,77 +128,45 @@ const TshirtImage = () => {
                 </div>
               </div>
 
-              <ImageSizeModal
-                isOpen={activeModal === "size"}
-                onClose={() => setActiveModal(null)}
-                setSelectedSize={handleSizeSelection}
-                selectedSize={selectedSize}
-              />
+              {activeModal === "front" && (
+                <FrontViewModal
+                  checkcolor="#b80e0e"
+                  onClose={() => setActiveModal(null)}
+                />
+              )}
             </div>
-
-            {isSizeSelected && (
-              <div className="tshirt-modal" style={{ marginTop: "3rem" }}>
-                <div
-                   className={`modal-header ${
-                    activeModal === "front" ? "no-border" : "with-border"
-                  }`}
-                >
-                  <h3>
-                    {activeModal === "front" ? "Logos" : "Choose Front Logos"}
-                  </h3>
-                  <div onClick={toggleFrontModal}>
-                    <IconButton>
-                      {activeModal === "front" ? (
-                        <HighlightOffIcon className="highlighticon" />
-                      ) : (
-                        <AddIcon className="highlighticon" />
-                      )}
-                    </IconButton>
-                  </div>
-                </div>
-
-                {activeModal === "front" && (
-                  <FrontViewModal
-                    checkcolor="#b80e0e"
-                    onClose={() => setActiveModal(null)}
-                  />
-                )}
-              </div>
-            )}
-
-            {isSizeSelected && (
-              <div className="tshirt-modal" style={{ marginTop: "3rem" }}>
-                <div
-                  className={`modal-header ${
-                    activeModal === "back" ? "no-border" : "with-border"
-                  }`}
-                >
-                  <h3>
-                    {activeModal === "back" ? "Logos" : "Choose Back Logos"}
-                  </h3>
-                  <div onClick={toggleBackModal}>
-                    <IconButton>
-                      {activeModal === "back" ? (
-                        <HighlightOffIcon className="highlighticon" />
-                      ) : (
-                        <AddIcon className="highlighticon" />
-                      )}
-                    </IconButton>
-                  </div>
-                </div>
-
-                {activeModal === "back" && (
-                  <BackViewModal
-                    checkcolor="#b80e0e"
-                    onClose={() => setActiveModal(null)}
-                  />
-                )}
-              </div>
-            )}
 
             <div className="tshirt-modal" style={{ marginTop: "3rem" }}>
               <div
-                 className={`modal-header ${
+                className={`modal-header ${
+                  activeModal === "back" ? "no-border" : "with-border"
+                }`}
+              >
+                <h3>
+                  {activeModal === "back" ? "Logos" : "Choose Back Logos"}
+                </h3>
+                <div onClick={toggleBackModal}>
+                  <IconButton>
+                    {activeModal === "back" ? (
+                      <HighlightOffIcon className="highlighticon" />
+                    ) : (
+                      <AddIcon className="highlighticon" />
+                    )}
+                  </IconButton>
+                </div>
+              </div>
+
+              {activeModal === "back" && (
+                <BackViewModal
+                  checkcolor="#b80e0e"
+                  onClose={() => setActiveModal(null)}
+                />
+              )}
+            </div>
+
+            <div className="tshirt-modal" style={{ marginTop: "3rem" }}>
+              <div
+                className={`modal-header ${
                   activeModal === "extraComments" ? "no-border" : "with-border"
                 }`}
               >
