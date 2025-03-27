@@ -33,7 +33,7 @@ const OrderSize: FC = () => {
   const order = useSelector((state: RootState) => state.order);
 
   const handleNextStep = () => {
-    dispatch(changeOrderStep("tshirt"));
+    dispatch(changeOrderStep("color"));
   };
   const handleToggleSize = () => {
     setSizeOpen((prev) => !prev);

@@ -19,6 +19,8 @@ import ParamMainPreview from "./ParamMain/ParamMain";
 // import ParamPreviewSmall from "./ParamSmall/ParamSmall";
 import TitlePreview from "./Title/Title";
 import s from "./preview.module.scss";
+import sOrder from "../order.module.scss";
+import Progress from "@common/Progress/Progress";
 
 interface IOrderPreview {
   isOrder?: boolean;
@@ -101,27 +103,33 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
   }
 
   return (
-    <div className={s.container}>
-      <div className={s.top}>
-        <TitleWithDescription title="Order Preview" text="" />
-        <ButtonSelect
-          onEvent={handleRedirectProducts}
-          text="Configure another product"
-        />
+    <>
+      <div className={sOrder.left}>
+        <div style={{position: "fixed", left: '2%', bottom: '7%'}}>
+          <Progress value={90} />
+        </div>
       </div>
-      <section className={s.preview}>
-        <div
-          className={s.preview_left}
-          style={{
-            paddingTop: "100px", // Add padding
-          }}
-        >
-          <ProductWithColor
-            color={color}
-            product={photo}
-            path={order.color.path}
+      <div className={s.container}>
+        <div className={s.top}>
+          <TitleWithDescription title="Order Preview" text="" />
+          <ButtonSelect
+            onEvent={handleRedirectProducts}
+            text="Configure another product"
           />
-          {/* <ul className={s.preview_left_list}>
+        </div>
+        <section className={s.preview}>
+          <div
+            className={s.preview_left}
+            style={{
+              paddingTop: "100px", // Add padding
+            }}
+          >
+            <ProductWithColor
+              color={color}
+              product={photo}
+              path={order.color.path}
+            />
+            {/* <ul className={s.preview_left_list}>
             <ParamPreviewSmall
               name="Subtotal"
               value={`${formatCost(order.subtotal)} $`}
@@ -133,30 +141,31 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
             />
             <ParamPreviewSmall name="Production time" value="6 business days" />
           </ul>*/}
+          </div>
+          <div className={s.preview_right}>
+            <TitlePreview product={order.productType || ""} />
+            <ul className={s.preview_right_list}>
+              {previewData.map(
+                (item) => (
+                  console.log("item===>", item),
+                  (<ParamMainPreview key={item.title} {...item} />)
+                )
+              )}
+            </ul>
+          </div>
+        </section>
+        <div>
+          {!isOrder && (
+            <ButtonsOrder
+              onlyNext={false}
+              handlePrevStep={handlePrevStep}
+              handleNextStep={handleNextStep}
+              isHaveNext={true}
+            />
+          )}
         </div>
-        <div className={s.preview_right}>
-          <TitlePreview product={order.productType || ""} />
-          <ul className={s.preview_right_list}>
-            {previewData.map(
-              (item) => (
-                console.log("item===>", item),
-                (<ParamMainPreview key={item.title} {...item} />)
-              )
-            )}
-          </ul>
-        </div>
-      </section>
-      <div>
-        {!isOrder && (
-          <ButtonsOrder
-            onlyNext={false}
-            handlePrevStep={handlePrevStep}
-            handleNextStep={handleNextStep}
-            isHaveNext={true}
-          />
-        )}
       </div>
-    </div>
+    </>
   );
 };
 

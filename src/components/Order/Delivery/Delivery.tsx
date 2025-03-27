@@ -111,7 +111,6 @@ const OrderDelivery: FC = () => {
           title={orderDescription.delivery.title}
           text={orderDescription.delivery.text}
         />
-        <Progress value={90} />
       </div>
       <div className={s.form}>
         <DeliveryForm delivery={delivery} validationErrors={validationErrors} />

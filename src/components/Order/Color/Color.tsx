@@ -47,7 +47,7 @@ const OrderColor: FC = () => {
   };
 
   const handleNextStep = () => {
-    dispatch(changeOrderStep("design"));
+    dispatch(changeOrderStep("tshirt"));
   };
 
   const isMinimumRequired = productinfo?.printing?.find(
@@ -60,7 +60,7 @@ const OrderColor: FC = () => {
           title={orderDescription.colorAndFabric.title}
           text={orderDescription.colorAndFabric.text}
         />
-        <Progress value={20} />
+        <Progress value={25} />
       </div>
       <div>
         {isMinimumRequired ? (
@@ -146,7 +146,7 @@ const OrderColor: FC = () => {
                 onEvent={() => handleToggleMenu("colorIsOpen")}
                 text="Choose a color"
               />
-            ) : (
+            ) : ( 
               <FinalColor
                 title="Selected color"
                 color={color.hex || ""}

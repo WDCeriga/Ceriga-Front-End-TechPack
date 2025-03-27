@@ -76,10 +76,10 @@ const UploadDesign: FC<IUploadDesign> = ({ handleClose }) => {
           value={descriptionValue}
           onChange={handleUpdateDescription}
         />
-        <ButtonUploadDesign onEvent={() => {
+        {/* <ButtonUploadDesign onEvent={() => {
           const filePath = `${routes.server.base}${productinfo?.stitchingPdfUrl}`; // Ensure `routes.server.base` is correct
           handleDownload(filePath);
-        }} text="Download PDF" />
+        }} text="Download PDF" /> */}
         {/* <ButtonUploadDesign onEvent={handleToggleModal} /> */}
       </section>
       {modalOpen && (

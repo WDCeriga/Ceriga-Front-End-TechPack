@@ -5,7 +5,7 @@ interface ImageSizeDisplayProps {
 }
 
 const ImageSizeDisplay: React.FC<ImageSizeDisplayProps> = ({ selectedSize }) => {
-  const defaultImage = "https://gratisography.com/wp-content/uploads/2025/01/gratisography-dog-vacation-1170x780.jpg";
+  const defaultImage = "https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-2939.jpg?t=st=1742987257~exp=1742990857~hmac=ca7c44769af3e538edcb58942179018ede841b9b93a3f3626b255f14b4247570&w=996";
 
   const [width, height] = selectedSize
     ? selectedSize.split("x").map(Number)

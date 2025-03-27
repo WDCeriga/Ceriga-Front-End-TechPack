@@ -33,11 +33,11 @@ const FinalNeck: FC<IFinalNeck> = ({ title, onEvent, neck }) => {
           value={neck.additional.color}
         />
       )}
-      {
+      {/* {
         neckDescription && neckDescription.length > 0 && (
           <ItemFinalDesign title="Neck Label Description" value={neckDescription} />
         )
-      }
+      } */}
 
     </FinalPreviewLayout>
   );

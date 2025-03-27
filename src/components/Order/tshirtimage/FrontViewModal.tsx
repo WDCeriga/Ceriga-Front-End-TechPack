@@ -18,11 +18,11 @@ const FrontViewModal: React.FC<FrontViewModalProps> = ({
   };
 
   const handleOpenUploadModalFront = () => {
-    setIsUploadModalOpenFront(true); // Open the UploadFile modal
+    setIsUploadModalOpenFront(true);
   };
 
   const handleCloseUploadModalFront = () => {
-    setIsUploadModalOpenFront(false); // Close the UploadFile modal
+    setIsUploadModalOpenFront(false);
   };
 
   return (

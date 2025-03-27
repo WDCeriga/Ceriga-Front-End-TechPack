@@ -1,6 +1,5 @@
 import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { orderDescription } from "@constants/order/text";
 import { AppDispatch, RootState } from "@redux/store";
 import { changeOrderStep } from "@redux/slices/order";
@@ -8,7 +7,6 @@ import ButtonSelect from "@common/ButtonSelect/ButtonSelect";
 import notification from "@services/notification";
 import Progress from "@common/Progress/Progress";
 import TitleWithDescription from "@common/Title/Description/Description";
-
 import ButtonsOrder from "../Buttons/Buttons";
 import FinalPackage from "./FinalPackage/FinalPackage";
 import FinalQuantity from "./FinalQuantity/FinalQuantity";
@@ -88,7 +86,7 @@ const OrderPackage: FC = () => {
           title={orderDescription.package.title}
           text={orderDescription.package.text}
         />
-        <Progress value={75} />
+        <Progress value={70} />
       </div>
       <div className={`${sOrder.center} ${s.packageWrap}`}>
         {totalcost ? (

@@ -33,7 +33,7 @@ const OrderDesign: FC = () => {
     useSelector((state: RootState) => state.order);
 
   const handlePrevStep = () => {
-    dispatch(changeOrderStep("color"));
+    dispatch(changeOrderStep("tshirt"));
   };
 
   const handleNextStep = () => {
@@ -95,7 +95,7 @@ const OrderDesign: FC = () => {
           title={orderDescription.design.title}
           text={orderDescription.design.text}
         />
-        <Progress value={50} />
+        <Progress value={55} />
       </div>
       {/* <div className={sOrder.center} style={{ top: "50%" }}> */}
       <div className={sOrder.center}>
