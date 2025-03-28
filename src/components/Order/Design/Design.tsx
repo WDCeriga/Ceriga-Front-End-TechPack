@@ -58,19 +58,19 @@ const OrderDesign: FC = () => {
     (state: RootState) => state.products.productOpen
   );
 
-  const stitchingminimumQuantity = productinfo?.stitchingOptions?.find(
-    (x) => x.type == type
-  )?.minimumQuantity;
-  const stitchingisMinimumRequired = productinfo?.stitchingOptions?.find(
-    (x) => x.type == type
-  )?.isMinimumRequired;
+  // const stitchingminimumQuantity = productinfo?.stitchingOptions?.find(
+  //   (x) => x.type == type
+  // )?.minimumQuantity;
+  // const stitchingisMinimumRequired = productinfo?.stitchingOptions?.find(
+  //   (x) => x.type == type
+  // )?.isMinimumRequired;
 
-  const fadingminimumQuantity = productinfo?.fadingOptions?.find(
-    (x) => x.type == fadingitem?.type
-  )?.minimumQuantity;
-  const fadingisMinimumRequired = productinfo?.fadingOptions?.find(
-    (x) => x.type == fadingitem?.type
-  )?.isMinimumRequired;
+  // const fadingminimumQuantity = productinfo?.fadingOptions?.find(
+  //   (x) => x.type == fadingitem?.type
+  // )?.minimumQuantity;
+  // const fadingisMinimumRequired = productinfo?.fadingOptions?.find(
+  //   (x) => x.type == fadingitem?.type
+  // )?.isMinimumRequired;
 
   let labelOptionsneminimumQuantity = 0;
   let labelOptionsneminimumRequired = false;

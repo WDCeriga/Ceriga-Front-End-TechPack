@@ -58,6 +58,18 @@ export interface IProduct {
   startingPrice: string[];
 }
 
+
+interface IFrontlogo {
+  type: string;
+  cost: number;
+  frontlogoImgUrl: string;
+}
+interface IBacklogo {
+  type: string;
+  cost: number;
+  backlogoImgUrl: string;
+}
+
 export interface IProductFull {
   name: string;
   description?: string;
@@ -78,7 +90,9 @@ export interface IProductFull {
   images?: string[];
   createdAt?: Date;
   stitchingPdfUrl: string;
-  printing: Printing[]
+  printing: Printing[],
+  frontlogo:IFrontlogo[],
+  backlogo:IBacklogo[]
 }
 
 export interface IProductsState {

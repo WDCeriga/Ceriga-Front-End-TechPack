@@ -1,17 +1,26 @@
 import React, { useState } from "react";
+import { AppDispatch, RootState } from "@redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import UploadFile from "../Design/UploadFile/UploadFile";
 import ImageSizeModal from "./ImageSizeModal";
+
+import { changefrontlogoSizes } from "@redux/slices/order";
+
 
 interface FrontViewModalProps {
   checkcolor?: string;
   onClose: () => void;
-
 }
 
 const FrontViewModal: React.FC<FrontViewModalProps> = ({ onClose }) => {
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
+  // const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [isUploadModalOpenFront, setIsUploadModalOpenFront] =
     useState<boolean>(false);
+
+  const { order } = useSelector((state: RootState) => state);
+  const frontsize = order?.logodetails?.frontlogo ?? "";
+
 
   const handleOpenUploadModalFront = () => {
     setIsUploadModalOpenFront(true);
@@ -21,21 +30,23 @@ const FrontViewModal: React.FC<FrontViewModalProps> = ({ onClose }) => {
     setIsUploadModalOpenFront(false);
   };
 
-  const handleSizeSelection = (size: string) => {
-    if (selectedSize !== size) {
-      setSelectedSize(size);
+  const handleSizeSelection = async (size: string) => {
+    if (frontsize !== size) {
+      dispatch(changefrontlogoSizes(size));
     }
   };
 
   return (
-    <div className="modal" onClick={onClose}>
+    <div className="modal">
       <div className="modal-content">
         <div>
           <ImageSizeModal
             setSelectedSize={handleSizeSelection}
-            selectedSize={selectedSize}
+            selectedSize={frontsize}
           />
+          
         </div>
+       
       </div>
       <div className="uplodefilebtn">
         <div className="buttonforuplode" onClick={handleOpenUploadModalFront}>
@@ -79,10 +90,11 @@ const FrontViewModal: React.FC<FrontViewModalProps> = ({ onClose }) => {
           </svg>
         </div>
       </div>
+      
       {isUploadModalOpenFront && (
         <UploadFile
           handleClose={handleCloseUploadModalFront}
-          type="uploadDesign"
+          type="frontlogoUploads"
         />
       )}
     </div>

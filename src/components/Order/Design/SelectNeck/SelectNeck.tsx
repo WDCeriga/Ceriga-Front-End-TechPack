@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { CloseIcon } from "@common/Icons/CommonIcon";
 import { SettingsIcon } from "@common/Icons/SelectNeck";
 import { AppDispatch, RootState } from "@redux/store";
-import { setNoLabel, updateNeckDescription } from "@redux/slices/order";
+import { setNoLabel} from "@redux/slices/order";
 
-import CommentSelectNeck from "./Comment/Comment";
+// import CommentSelectNeck from "./Comment/Comment";
 import ConfigurationLabel from "./Configuration/Configuration";
 import ListSelectNeck from "./List/List";
 import s from "./selectNeck.module.scss";
@@ -19,8 +19,8 @@ interface ISelectNeck {
 const SelectNeck: FC<ISelectNeck> = ({ handleClose }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { noLabels } = useSelector((state: RootState) => state.order.neck);
-  const { neckDescription } = useSelector((state: RootState) => state.order);
-  const [description, setDescription] = useState<string>(neckDescription);
+  // const { neckDescription } = useSelector((state: RootState) => state.order);
+  // const [description, setDescription] = useState<string>(neckDescription);
   const [configurationOpen, setConfigurationOpen] = useState<boolean>(false);
   const [isUploadModalOpenNeck, setIsUploadModalOpenNeck] =
     useState<boolean>(false);
@@ -41,12 +41,12 @@ const SelectNeck: FC<ISelectNeck> = ({ handleClose }) => {
     setIsUploadModalOpenNeck(false); // Close the UploadFile modal
   };
 
-  const handleUpdateDescription = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setDescription(event.currentTarget.value);
-    dispatch(updateNeckDescription(event.currentTarget.value));
-  };
+  // const handleUpdateDescription = (
+  //   event: React.ChangeEvent<HTMLTextAreaElement>
+  // ) => {
+  //   setDescription(event.currentTarget.value);
+  //   dispatch(updateNeckDescription(event.currentTarget.value));
+  // };
 
   // Fetching the product info to check minimum quantity requirement for labels
   const productinfo = useSelector(
@@ -114,12 +114,12 @@ const SelectNeck: FC<ISelectNeck> = ({ handleClose }) => {
       </label>
       <div className={s.content_top}>
         <h3 className={s.content_top_title}>Select Neck Label Design</h3>
-        <button
+        {/* <button
           onClick={handleToggleConfiguration}
           className={s.content_top_settings}
         >
           <SettingsIcon width="24" height="24" color="#c80f0f" />
-        </button>
+        </button> */}
       </div>
       <ListSelectNeck />
       {/* <CommentSelectNeck

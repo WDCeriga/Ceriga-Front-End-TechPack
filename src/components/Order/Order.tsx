@@ -35,6 +35,7 @@ const Order: FC = () => {
   const { orderStep, draftId } = order;
   // const packageInfo = useSelector((state: RootState) => state.order.package);
 
+  
   useEffect(() => {
     if (order.productType) {
       dispatch(getProductInfobyName(order.productType || ""));

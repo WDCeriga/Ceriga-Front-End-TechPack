@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import UploadFile from "../Design/UploadFile/UploadFile";
-import ImageSizeModal from "./ImageSizeModal";
+import ImageSizeModal from "./ImagebackSizeModal";
+import { AppDispatch, RootState } from "@redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { changebacklogoSizes } from "@redux/slices/order";
 
 interface FrontViewModalProps {
   checkcolor?: string;
@@ -8,37 +11,42 @@ interface FrontViewModalProps {
 }
 
 const BackViewModal: React.FC<FrontViewModalProps> = ({ onClose }) => {
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
+ 
   const [isUploadModalOpenBack, setIsUploadModalOpenBack] =
     useState<boolean>(false);
+
+    
+  const { order } = useSelector((state: RootState) => state);
+  const backsize = order?.logodetails?.backlogo ?? "";
 
   const handleCloseUploadModalBack = () => {
     setIsUploadModalOpenBack(false);
   };
 
   const handleSizeSelection = (size: string) => {
-    if (selectedSize !== size) {
-      setSelectedSize(size);
-   }
+    if (backsize !== size) {
+      dispatch(changebacklogoSizes(size));
+    }
   };
 
   const handleOpenUploadModalBack = () => {
     setIsUploadModalOpenBack(true);
   };
-
+console.log("isUploadModalOpenBack==>",isUploadModalOpenBack )
   return (
-    <div className="modal" onClick={onClose}>
+    <div className="modal">
       <div className="modal-content">
         <div>
           <ImageSizeModal
             setSelectedSize={handleSizeSelection}
-            selectedSize={selectedSize}
+            selectedSize={backsize}
           />
         </div>
       </div>
       <div className="uplodefilebtn">
         <div className="buttonforuplode" onClick={handleOpenUploadModalBack}>
-          <p className="uplodebtntext">Upload Front View Design</p>
+          <p className="uplodebtntext">Upload Back View Design</p>
           <svg
             width="24"
             height="24"
@@ -78,10 +86,11 @@ const BackViewModal: React.FC<FrontViewModalProps> = ({ onClose }) => {
           </svg>
         </div>
       </div>
+      
       {isUploadModalOpenBack && (
         <UploadFile
           handleClose={handleCloseUploadModalBack}
-          type="uploadDesign"
+          type="backlogoUploads"
         />
       )}
     </div>

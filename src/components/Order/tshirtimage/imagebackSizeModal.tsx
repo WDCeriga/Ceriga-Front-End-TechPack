@@ -10,7 +10,7 @@ interface ImageSizeModalProps {
   selectedSize: string | null;
 }
 
-const ImageSizeModal: React.FC<ImageSizeModalProps> = ({
+const imagebackSizeModal: React.FC<ImageSizeModalProps> = ({
   // isOpen,
   // onClose,
   setSelectedSize,
@@ -18,25 +18,18 @@ const ImageSizeModal: React.FC<ImageSizeModalProps> = ({
 }) => {
   
   const productinfo = useSelector((state: RootState) => state.products.productOpen );
-
-  // useEffect(() => {
-  //   if (!selectedSize) {
-  //     setSelectedSize("65x15");
-  //   }
-  // }, [selectedSize, setSelectedSize]);
-
   const handleSizeClick = (size: string): void => {
     setSelectedSize(size);
   };
 
-  // if (!isOpen) return null;
+ 
 
   return (
     <div className="modal-overlay">
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="size-grid">
 
-        {productinfo?.frontlogo.map((size) => {
+        {productinfo?.backlogo.map((size) => {
             const [width, height] = size.type.split("x").map(Number);
             return (
               <div
@@ -55,29 +48,10 @@ const ImageSizeModal: React.FC<ImageSizeModalProps> = ({
               </div>
             );
           })}
-          {/* {sizes.map((size) => {
-            const [width, height] = size.value.split("x").map(Number);
-            return (
-              <div
-                key={size.value}
-                className={`size-option ${selectedSize === size.value ? "selected" : ""}`}
-                onClick={() => handleSizeClick(size.value)}
-              >
-                <div
-                  className="size-preview"
-                  style={{
-                    width: `${width / 2.5}px`,
-                    height: `${height / 2.5}px`,
-                  }}
-                ></div>
-                <span className="size-label">{size.label}</span>
-              </div>
-            );
-          })} */}
         </div>
       </div>
     </div>
   );
 };
 
-export default ImageSizeModal;
+export default imagebackSizeModal;

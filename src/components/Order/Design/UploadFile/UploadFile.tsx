@@ -3,6 +3,8 @@ import {
   uploadLabel,
   uploadNeck,
   uploadPackage,
+  uploadbacklogo,
+  uploadfrontlogo
 } from "@redux/slices/order";
 import { FC, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +29,7 @@ const UploadFile: FC<IUploadFile> = ({ handleClose, type }) => {
   const { draftId } = useSelector((state: RootState) => state.order);
 
   const files = useSelector((state: RootState) => {
+    debugger;
     if (type === "uploadDesign") {
       return state.order.designUploads;
     }
@@ -38,6 +41,12 @@ const UploadFile: FC<IUploadFile> = ({ handleClose, type }) => {
     }
     if (type === "uploadPackageDesign") {
       return state.order.packageUploads;
+    }
+    if (type === "frontlogoUploads") {
+      return state.order.frontlogoUploads;
+    }
+    if (type === "backlogoUploads") {
+      return state.order.backlogoUploads;
     }
   });
 
@@ -61,6 +70,13 @@ const UploadFile: FC<IUploadFile> = ({ handleClose, type }) => {
 
       if (type === "uploadPackageDesign" && draftId) {
         await dispatch(uploadPackage({ formData, draftId }));
+      }
+
+      if (type === "frontlogoUploads" && draftId) {
+        await dispatch(uploadfrontlogo({ formData, draftId }));
+      }
+      if (type === "backlogoUploads" && draftId) {
+        await dispatch(uploadbacklogo({ formData, draftId }));
       }
 
     },

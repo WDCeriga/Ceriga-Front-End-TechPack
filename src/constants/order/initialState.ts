@@ -8,12 +8,12 @@ export const initialState: IOrderState = {
   dyeStyle: null,
   printing: null,
   color: {
-    hex:  null,
-    path:  null,
+    hex: null,
+    path: null,
     name: "",
     cost: 0,
     colortype: "",
-    description: ""
+    description: "",
   },
   material: {
     name: null,
@@ -98,5 +98,13 @@ export const initialState: IOrderState = {
   createAt: new Date().toISOString(),
   tableSize: [],
   tableType: null,
-  minimumQuantity:1
+  totalcost:0,
+  minimumQuantity: 1,
+  logodetails: {
+    frontlogo: "",
+    backlogo: "",
+    description: "",
+  },
+  frontlogoUploads: [],
+  backlogoUploads: [],
 };

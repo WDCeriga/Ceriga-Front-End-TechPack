@@ -2,9 +2,7 @@ import {
   ICreateNewOrder,
   IMaterial,
   IOrderState,
-  Logodetails,
   orderStep,
-  Type,
 } from "../../interfaces/bll/order.interface";
 import {
   IQuantityItem,
@@ -18,7 +16,9 @@ import {
   continueOrderApi,
   createNewDraftApi,
   loadDeliveryApi,
+  uploadbacklogoApi,
   uploadDesignApi,
+  uploadfrontlogoApi,
   uploadLabelApi,
   uploadNeckApi,
   uploadPackageApi,
@@ -89,6 +89,23 @@ export const uploadPackage = createAsyncThunk<
   { state: RootState }
 >("upload-package", async ({ formData, draftId }) => {
   const data = await uploadPackageApi(formData, draftId);
+  return data;
+});
+
+export const uploadfrontlogo = createAsyncThunk<
+  string,
+  { formData: FormData; draftId: string },
+  { state: RootState }
+>("upload-frontlogo", async ({ formData, draftId }) => {
+  const data = await uploadfrontlogoApi(formData, draftId);
+  return data;
+});
+export const uploadbacklogo = createAsyncThunk<
+  string,
+  { formData: FormData; draftId: string },
+  { state: RootState }
+>("upload-backlogo", async ({ formData, draftId }) => {
+  const data = await uploadbacklogoApi(formData, draftId);
   return data;
 });
 
@@ -333,11 +350,16 @@ const orderSlice = createSlice({
     setTotalcost: (state: IOrderState, { payload }: PayloadAction<number>) => {
       state.totalcost = payload;
     },
-
-    changeSizes: (state: IOrderState, { payload }: PayloadAction<Logodetails>) => {
-
+    changefrontlogoSizes: (state: IOrderState, { payload }: PayloadAction<string>) => {
+      debugger;
+      state.logodetails.frontlogo = payload;
+    },
+    changebacklogoSizes: (state: IOrderState, { payload }: PayloadAction<string>) => {
+      state.logodetails.backlogo= payload;
+    },
+    changelogodescription: (state: IOrderState, { payload }: PayloadAction<string>) => {
+      state.logodetails.description= payload;
     }
-
   },
   extraReducers: (builder) => {
     builder.addCase(createNewDraft.fulfilled, (state, { payload }) => {
@@ -370,6 +392,21 @@ const orderSlice = createSlice({
         state.labelUploads.push(payload);
       }
     );
+
+    builder.addCase(
+      uploadbacklogo.fulfilled,
+      (state: IOrderState, { payload }: PayloadAction<string>) => {
+        state.backlogoUploads.push(payload);
+      }
+    );
+    
+    builder.addCase(
+      uploadfrontlogo.fulfilled,
+      (state: IOrderState, { payload }: PayloadAction<string>) => {
+        state.frontlogoUploads.push(payload);
+      }
+    );
+
     builder.addCase(
       uploadNeck.fulfilled,
       (state: IOrderState, { payload }: PayloadAction<string>) => {
@@ -439,6 +476,10 @@ export const {
   setSubtotal,
   setMinimumQuantity,
   setTotalcost,
+  changefrontlogoSizes,
+  changebacklogoSizes,
+  changelogodescription
+
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

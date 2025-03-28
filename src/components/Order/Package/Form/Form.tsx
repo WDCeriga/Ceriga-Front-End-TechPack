@@ -78,9 +78,9 @@ const PackageDetailsForm: FC<IPackageDetailsForm> = ({ handleClose }) => {
           value={description}
         ></textarea>
       </div>
-      {/* <ButtonUploadDesign onEvent={handleToggleModal} /> */}
+      <ButtonUploadDesign onEvent={handleToggleModal} />
     </section>
-    {/* {modalOpen && <UploadFile type="uploadPackageDesign" handleClose={handleToggleModal}/>} */}
+    {modalOpen && <UploadFile type="uploadPackageDesign" handleClose={handleToggleModal}/>}
     </>
   );
 };

@@ -119,12 +119,12 @@ const continueOrderApi = async (draftId: string) => {
 
 const uploadDesignApi = async (formData: FormData, draftId: string) => {
   // Ensure the file field is named 'file'
-  const fileField = formData.get('file');
+  const fileField = formData.get("file");
   if (!fileField) {
-    const file = formData.get('image'); // or whatever field name you're using
+    const file = formData.get("image"); // or whatever field name you're using
     if (file) {
-      formData.delete('image'); // or the original field name
-      formData.append('file', file);
+      formData.delete("image"); // or the original field name
+      formData.append("file", file);
     }
   }
 
@@ -141,12 +141,12 @@ const uploadDesignApi = async (formData: FormData, draftId: string) => {
 };
 
 const uploadLabelApi = async (formData: FormData, draftId: string) => {
-  const fileField = formData.get('file');
+  const fileField = formData.get("file");
   if (!fileField) {
-    const file = formData.get('image');
+    const file = formData.get("image");
     if (file) {
-      formData.delete('image');
-      formData.append('file', file);
+      formData.delete("image");
+      formData.append("file", file);
     }
   }
 
@@ -163,12 +163,12 @@ const uploadLabelApi = async (formData: FormData, draftId: string) => {
 };
 
 const uploadNeckApi = async (formData: FormData, draftId: string) => {
-  const fileField = formData.get('file');
+  const fileField = formData.get("file");
   if (!fileField) {
-    const file = formData.get('image');
+    const file = formData.get("image");
     if (file) {
-      formData.delete('image');
-      formData.append('file', file);
+      formData.delete("image");
+      formData.append("file", file);
     }
   }
 
@@ -185,17 +185,17 @@ const uploadNeckApi = async (formData: FormData, draftId: string) => {
 };
 
 const uploadPackageApi = async (formData: FormData, draftId: string) => {
-  const fileField = formData.get('file');
+  const fileField = formData.get("file");
   if (!fileField) {
-    const file = formData.get('image');
+    const file = formData.get("image");
     if (file) {
-      formData.delete('image');
-      formData.append('file', file);
+      formData.delete("image");
+      formData.append("file", file);
     }
   }
 
   const { data } = await protectedApi.post(
-    `${routes.server.drafts.uploadPackage}?draftId=${draftId}`,
+    `${routes.server.drafts.uploadbacklogo}?draftId=${draftId}`,
     formData,
     {
       headers: {
@@ -206,7 +206,47 @@ const uploadPackageApi = async (formData: FormData, draftId: string) => {
   return data.fileUrl;
 };
 
+const uploadfrontlogoApi = async (formData: FormData, draftId: string) => {
+  const fileField = formData.get("file");
+  if (!fileField) {
+    const file = formData.get("image");
+    if (file) {
+      formData.delete("image");
+      formData.append("file", file);
+    }
+  }
+  const { data } = await protectedApi.post(
+    `${routes.server.drafts.uploadfrontlogo}?draftId=${draftId}`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  return data.fileUrl;
+};
 
+const uploadbacklogoApi = async (formData: FormData, draftId: string) => {
+  const fileField = formData.get("file");
+  if (!fileField) {
+    const file = formData.get("image");
+    if (file) {
+      formData.delete("image");
+      formData.append("file", file);
+    }
+  }
+  const { data } = await protectedApi.post(
+    `${routes.server.drafts.uploadbacklogo}?draftId=${draftId}`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  return data.fileUrl;
+};
 
 const getImagesUploadApi = async (draftId: string, type: string) => {
   const { data } = await protectedApi.get(
@@ -468,9 +508,11 @@ const saveNewPriceInProductApi = async (product: IProductChangePrice) => {
 };
 
 const getDeliveryInfoApi = async (id: string) => {
-  const { data } = await protectedApi.get(`${routes.server.deliveryInfo}?orderId=${id}`);
-  return data
-}
+  const { data } = await protectedApi.get(
+    `${routes.server.deliveryInfo}?orderId=${id}`
+  );
+  return data;
+};
 
 export {
   getInfoApi,
@@ -524,4 +566,6 @@ export {
   getProductsForPriceApi,
   saveNewPriceInProductApi,
   getDeliveryInfoApi,
+  uploadfrontlogoApi,
+  uploadbacklogoApi
 };

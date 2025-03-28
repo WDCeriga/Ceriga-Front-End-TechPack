@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CloseIcon } from "@common/Icons/CommonIcon";
 import { AppDispatch, RootState } from "@redux/store";
@@ -22,8 +22,6 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
   const productinfo = useSelector(
     (state: RootState) => state.products.productOpen
   );
-
-  const [message, setMessage] = useState<string>("");
 
   const handleItemClick = (itemName: string) => {
     handleChoosePrinting(itemName);

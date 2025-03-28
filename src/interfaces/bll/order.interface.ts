@@ -78,20 +78,20 @@ export interface IOrderState {
   tableType: string | null;
   minimumQuantity: number;
   totalcost: number;
-  logodetails: Logodetails;
+  logodetails: ILogodetails;
   frontlogoUploads: string[];
   backlogoUploads: string[];
 }
 
-export interface Logodetails {
-  frontlogo: Type;
-  backlogo: Type;
-  description: String;
+export interface ILogodetails {
+  frontlogo: string | null;
+  backlogo: string | null;
+  description: String | "";
 }
 
-export interface Type {
-  type: String;
-}
+// export interface Type {
+//   type: String;
+// }
 
 export interface ICreateNewOrder {
   productType: string;

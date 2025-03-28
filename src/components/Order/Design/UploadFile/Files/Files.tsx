@@ -16,7 +16,8 @@ const FilesList: FC<IFilesList> = ({ files }) => {
           //   {file}
           // </li>
           <li>
-            <img src={file} alt="onlywatch" style={{ width: "100%" }} />
+            {/* <img src={file} alt="onlywatch" style={{ width: "100%" }} /> */}
+            <img key={file}  src={file} alt="onlywatch" style={{ width: "25%" }} />
           </li>
         ))}
       </ul>
