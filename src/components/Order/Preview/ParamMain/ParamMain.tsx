@@ -14,13 +14,21 @@ const ParamMainPreview: FC<IParamPreviewOrder> = ({
   subparameters,
 }) => {
   console.log("title===>", title);
+  if (paramsType === "listsize" && Array.isArray(subparameters)) {
+    console.log("listsize==>", subparameters);
+  }
+
   return (
     <li className={s.item}>
       <h3 className={s.item_title}>{title}</h3>
       {paramsType === "list" && Array.isArray(subparameters) && (
         <ul className={s.item_subparamets}>
           {subparameters.map((item) => (
-            <SubParamItemOrderPreview key={item.title} {...item} />
+            <SubParamItemOrderPreview
+              key={item.title}
+              {...item}
+              issize={false}
+            />
           ))}
         </ul>
       )}
@@ -30,6 +38,17 @@ const ParamMainPreview: FC<IParamPreviewOrder> = ({
 
       {paramsType === "cost" && typeof subparameters === "string" && (
         <p className={s.item_text}>€ {subparameters}</p>
+      )}
+
+      {paramsType === "listsize" && Array.isArray(subparameters) && (
+        <ul className={s.item_subparamets}>
+          {subparameters.map((item) => (
+            <SubParamItemOrderPreview
+              key={item.title}
+              {...item}
+            />
+          ))}
+        </ul>
       )}
       {paramsType === "table" && Array.isArray(subparameters) && (
         <TablePreviewOrder

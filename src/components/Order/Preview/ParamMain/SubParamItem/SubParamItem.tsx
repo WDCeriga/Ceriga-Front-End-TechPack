@@ -12,6 +12,7 @@ const SubParamItemOrderPreview: FC<ISubparametersPreviewOrder> = ({
   titleStyle,
   isLink,
   link,
+  issize,
 }) => {
   const titleClassnames = classNames(
     s.item_title,
@@ -19,11 +20,13 @@ const SubParamItemOrderPreview: FC<ISubparametersPreviewOrder> = ({
   );
   return (
     <li className={s.item}>
-      {title && <h4 className={titleClassnames}>{title}</h4>}
+      {title && <h4 className={titleClassnames}>{title} </h4>}
       {isLink ? (
         <LinkPreview link={link} />
       ) : (
-        <p className={s.item_text}>{value}</p>
+        <p className={s.item_text}>
+          {value} {issize ? "mm" : ""}
+        </p>
       )}
     </li>
   );

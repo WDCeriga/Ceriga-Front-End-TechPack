@@ -3,19 +3,23 @@ import { Link } from "react-router-dom";
 
 import { LinkIcon } from "@common/Icons/CommonIcon";
 
-import s from "./link.module.scss"
+import s from "./link.module.scss";
 
-interface ILink { 
-  link?: string
+interface ILink {
+  link?: string;
 }
 
-const LinkPreview:FC<ILink> = ({link}) => { 
-  return ( 
-    <Link className={s.link} to={link || "#"}>
-      <p className={s.link_text}>Open link</p>
+const LinkPreview: FC<ILink> = ({ link }) => {
+  return (
+    // <Link className={s.link} to={link || "#"}>
+    //   <p className={s.link_text}>Open link</p>
+    //   <LinkIcon/>
+    // </Link>
+    <a href={link} className={s.link} target="_blank" rel="noopener noreferrer">
+     <p className={s.link_text}>Open link</p>
       <LinkIcon/>
-    </Link>
-  )
-}
+    </a>
+  );
+};
 
-export default LinkPreview
+export default LinkPreview;
