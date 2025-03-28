@@ -78,25 +78,20 @@ const TshirtImage = () => {
         />
         <Progress value={55} />
       </div>
-      {/* {subtotal ? (
-        <p
-          style={{
-            position: "absolute",
-            top: "-14.8vw",
-            right: "47.5%",
-            fontSize: "20px",
-            border: "1px solid black",
-            padding: "15px",
-            borderEndStartRadius: "10px",
-            borderEndEndRadius: "10px",
-          }}
-        >
-          € {subtotal}
-        </p>
-      ) : (
-        <></>
-      )} */}
-      <p> € {subtotal}</p>
+      <p
+        style={{
+          position: "absolute",
+          top: "50px",
+          right: "47.5%",
+          fontSize: "20px",
+          border: "1px solid black",
+          padding: "15px",
+          borderEndStartRadius: "10px",
+          borderEndEndRadius: "10px",
+        }}
+      >
+        € {subtotal}
+      </p>
       {activeModal === "front" ? (
         <div className={sOrder.center}>
           {frontimageurl ? (
@@ -130,7 +125,6 @@ const TshirtImage = () => {
           ) : (
             <DefaultImg />
           )}
-         
         </div>
       ) : (
         <div className={sOrder.center}>

@@ -83,7 +83,7 @@ const OrderColor: FC = () => {
         <p
           style={{
             position: "absolute",
-            top: "5.5%",
+            top: "50px",
             right: "47.5%",
             fontSize: "20px",
             border: "1px solid black",

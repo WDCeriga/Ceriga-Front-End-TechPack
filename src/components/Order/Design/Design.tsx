@@ -49,45 +49,28 @@ const OrderDesign: FC = () => {
     }));
   };
 
-  const { type } = useSelector((state: RootState) => state?.order?.stitching);
-
-  const fadingitem = useSelector((state: RootState) => state?.order?.fading);
-  const neckitem = useSelector((state: RootState) => state?.order?.neck);
-
-  const productinfo = useSelector(
-    (state: RootState) => state.products.productOpen
-  );
-
-  // const stitchingminimumQuantity = productinfo?.stitchingOptions?.find(
-  //   (x) => x.type == type
-  // )?.minimumQuantity;
-  // const stitchingisMinimumRequired = productinfo?.stitchingOptions?.find(
-  //   (x) => x.type == type
-  // )?.isMinimumRequired;
-
-  // const fadingminimumQuantity = productinfo?.fadingOptions?.find(
-  //   (x) => x.type == fadingitem?.type
-  // )?.minimumQuantity;
-  // const fadingisMinimumRequired = productinfo?.fadingOptions?.find(
-  //   (x) => x.type == fadingitem?.type
-  // )?.isMinimumRequired;
-
-  let labelOptionsneminimumQuantity = 0;
-  let labelOptionsneminimumRequired = false;
-  if (neckitem?.noLabels === false) {
-    let qty = productinfo?.labelOptions?.find(
-      (x) => x.type == "Custom Label"
-    )?.minimumQuantity;
-    if (qty) {
-      labelOptionsneminimumQuantity = parseInt(qty.toString());
+  const renderSubtotal = () => {
+    if (subtotal) {
+      return (
+        <p
+          style={{
+            position: "absolute",
+            top: "50px",
+            right: "48%",
+            fontSize: "20px",
+            border: "1px solid black",
+            padding: "15px",
+            borderEndStartRadius: "10px",
+            borderEndEndRadius: "10px",
+          }}
+        >
+          € {subtotal}
+        </p>
+      );
     }
-    let isRequired = productinfo?.labelOptions?.find(
-      (x) => x.type == "Custom Label"
-    )?.isMinimumRequired;
-    if (isRequired) {
-      labelOptionsneminimumRequired = isRequired;
-    }
-  }
+    return null;
+  };
+
   return (
     <>
       <div className={sOrder.left}>
@@ -97,143 +80,20 @@ const OrderDesign: FC = () => {
         />
         <Progress value={40} />
       </div>
-      {/* <div className={sOrder.center} style={{ top: "50%" }}> */}
+
+      {renderSubtotal()}
       <div className={sOrder.center}>
         {menuOpen.uploadDesign && stitching.type !== "" ? (
-          <>
-            {/* {stitchingisMinimumRequired ? (
-              <p
-                style={{
-                  color: "red",
-                  position: "absolute",
-                  right: 0,
-                  top: "-5vw",
-                  height: "auto",
-                }}
-              >
-                The minimum order quantity is {stitchingminimumQuantity}
-              </p>
-            ) : (
-              <></>
-            )} */}
-            {subtotal ? (
-              <p
-                style={{
-                  position: "absolute",
-                  top: "-14.8vw",
-                  right: "47.5%",
-                  fontSize: "20px",
-                  border: "1px solid black",
-                  padding: "15px",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                }}
-              >
-                € {subtotal}
-              </p>
-            ) : (
-              <></>
-            )}
-            <StitchingImg />
-          </>
+          <StitchingImg />
         ) : menuOpen.customizeLabels && fading.type !== "" ? (
-          <>
-            {/* {fadingisMinimumRequired ? (
-              <p
-                style={{
-                  color: "red",
-                  position: "absolute",
-                  right: 0,
-                  top: "-5vw",
-                  height: "auto",
-                }}
-              >
-                The minimum order quantity is {fadingminimumQuantity}
-              </p>
-            ) : (
-              <></>
-            )} */}
-            <FadingImg />
-            {subtotal ? (
-              <p
-                style={{
-                  position: "absolute",
-                  top: "-14.8vw",
-                  right: "47.5%",
-                  fontSize: "20px",
-                  border: "1px solid black",
-                  padding: "15px",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                }}
-              >
-                € {subtotal}
-              </p>
-            ) : (
-              <></>
-            )}
-          </>
+          <FadingImg />
         ) : menuOpen.selectNeck && neck && neck.type?.length !== 0 ? (
-          <>
-            {/* {labelOptionsneminimumRequired ? (
-              <p
-                style={{
-                  color: "red",
-                  position: "absolute",
-                  right: 0,
-                  top: "-5vw",
-                  height: "auto",
-                }}
-              >
-                The minimum order quantity is {labelOptionsneminimumQuantity}
-              </p>
-            ) : (
-              <></>
-            )} */}
-            {subtotal ? (
-              <p
-                style={{
-                  position: "absolute",
-                  top: "-14.8vw",
-                  right: "47.5%",
-                  fontSize: "20px",
-                  border: "1px solid black",
-                  padding: "15px",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                }}
-              >
-                € {subtotal}
-              </p>
-            ) : (
-              <></>
-            )}
-            <NeckImg />
-          </>
+          <NeckImg />
         ) : (
-          <>
-            {subtotal ? (
-              <p
-                style={{
-                  position: "absolute",
-                  top: "-14.8vw",
-                  right: "42%",
-                  fontSize: "20px",
-                  border: "1px solid black",
-                  padding: "15px",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                }}
-              >
-                € {subtotal}
-              </p>
-            ) : (
-              <></>
-            )}
-            <DefaultImg />
-          </>
+          <DefaultImg />
         )}
       </div>
+
       <div className={sOrder.right}>
         <div className={s.params}>
           {stitching.type.length !== 0 && !menuOpen.uploadDesign ? (
@@ -293,6 +153,7 @@ const OrderDesign: FC = () => {
             <SelectNeck handleClose={() => handleToggleMenu("selectNeck")} />
           )}
         </div>
+
         <ButtonsOrder
           handlePrevStep={handlePrevStep}
           handleNextStep={handleNextStep}

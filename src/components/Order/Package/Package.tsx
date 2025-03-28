@@ -88,25 +88,25 @@ const OrderPackage: FC = () => {
         />
         <Progress value={70} />
       </div>
+      {totalcost ? (
+        <p
+          style={{
+            position: "absolute",
+            top: "50px",
+            right: "49%",
+            fontSize: "20px",
+            border: "1px solid black",
+            padding: "15px",
+            borderEndStartRadius: "10px",
+            borderEndEndRadius: "10px",
+          }}
+        >
+          € {totalcost}
+        </p>
+      ) : (
+        <></>
+      )}
       <div className={`${sOrder.center} ${s.packageWrap}`}>
-        {totalcost ? (
-          <p
-            style={{
-              position: "absolute",
-              top: "-74%",
-              right: "42%",
-              fontSize: "20px",
-              border: "1px solid black",
-              padding: "15px",
-              borderEndStartRadius: "10px",
-              borderEndEndRadius: "10px"
-            }}
-          >
-            € {totalcost}
-          </p>
-        ) : (
-          <></>
-        )}
         <img src="/img/package.png" alt="package" className={s.packageImg} />
         {/* {subtotal ? (
           <p
