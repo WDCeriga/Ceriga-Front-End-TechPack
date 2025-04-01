@@ -87,7 +87,7 @@ export interface IOrderState {
 export interface ILogodetails {
   frontlogo: string | null;
   backlogo: string | null;
-  description: String | "";
+  description: string | "";
 }
 
 // export interface Type {

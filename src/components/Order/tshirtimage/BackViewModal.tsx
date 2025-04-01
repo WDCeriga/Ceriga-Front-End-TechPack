@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import UploadFile from "../Design/UploadFile/UploadFile";
-import ImageSizeModal from "./ImagebackSizeModal";
+import ImageSizeModal from "./imagebackSizeModal";
 import { AppDispatch, RootState } from "@redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { changebacklogoSizes } from "@redux/slices/order";
@@ -12,11 +12,11 @@ interface FrontViewModalProps {
 
 const BackViewModal: React.FC<FrontViewModalProps> = ({ onClose }) => {
   const dispatch = useDispatch<AppDispatch>();
- 
+
   const [isUploadModalOpenBack, setIsUploadModalOpenBack] =
     useState<boolean>(false);
 
-    
+
   const { order } = useSelector((state: RootState) => state);
   const backsize = order?.logodetails?.backlogo ?? "";
 
@@ -33,7 +33,7 @@ const BackViewModal: React.FC<FrontViewModalProps> = ({ onClose }) => {
   const handleOpenUploadModalBack = () => {
     setIsUploadModalOpenBack(true);
   };
-console.log("isUploadModalOpenBack==>",isUploadModalOpenBack )
+  console.log("isUploadModalOpenBack==>", isUploadModalOpenBack)
   return (
     <div className="modal">
       <div className="modal-content">
@@ -86,7 +86,7 @@ console.log("isUploadModalOpenBack==>",isUploadModalOpenBack )
           </svg>
         </div>
       </div>
-      
+
       {isUploadModalOpenBack && (
         <UploadFile
           handleClose={handleCloseUploadModalBack}

@@ -23,6 +23,16 @@ const ExtraComments: React.FC<ExtraCommentsModalProps> = ({
     description ? description.toString() : ""
   );
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(e.target.value);
+  };
+
+  const handleCloseWithSaveDescription = () => {
+    dispatch(changelogodescription(comment));
+    onClose();
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -30,6 +40,7 @@ const ExtraComments: React.FC<ExtraCommentsModalProps> = ({
         !containerRef.current.contains(event.target as Node)
       ) {
         dispatch(changelogodescription(comment));
+        onClose();
       }
     };
 
@@ -38,16 +49,10 @@ const ExtraComments: React.FC<ExtraCommentsModalProps> = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dispatch ,onClose]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setComment(e.target.value);
-  };
-
-  // if (!isOpen) return null;
+  }, [onClose, comment, dispatch]);
 
   return (
-    <div ref={containerRef} className="modal-overlay" onClick={onClose}>
+    <div ref={containerRef} className="modal-overlay" onClick={handleCloseWithSaveDescription}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-body">
           <textarea

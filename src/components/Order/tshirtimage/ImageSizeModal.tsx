@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./imagesizemodal.scss";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "@redux/store";
 
 interface ImageSizeModalProps {
@@ -16,8 +16,8 @@ const ImageSizeModal: React.FC<ImageSizeModalProps> = ({
   setSelectedSize,
   selectedSize,
 }) => {
-  
-  const productinfo = useSelector((state: RootState) => state.products.productOpen );
+
+  const productinfo = useSelector((state: RootState) => state.products.productOpen);
 
   // useEffect(() => {
   //   if (!selectedSize) {
@@ -36,7 +36,7 @@ const ImageSizeModal: React.FC<ImageSizeModalProps> = ({
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="size-grid">
 
-        {productinfo?.frontlogo.map((size) => {
+          {productinfo?.frontlogo.map((size) => {
             const [width, height] = size.type.split("x").map(Number);
             return (
               <div
@@ -51,7 +51,7 @@ const ImageSizeModal: React.FC<ImageSizeModalProps> = ({
                     height: `${height / 2.5}px`,
                   }}
                 ></div>
-                <span className="size-label">{size.type +" mm"}</span>
+                <span className="size-label">{size.type + " mm"}</span>
               </div>
             );
           })}

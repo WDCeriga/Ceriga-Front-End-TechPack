@@ -52,20 +52,22 @@ const OrderDesign: FC = () => {
   const renderSubtotal = () => {
     if (subtotal) {
       return (
-        <p
-          style={{
-            position: "absolute",
-            top: "50px",
-            right: "48%",
-            fontSize: "20px",
-            border: "1px solid black",
-            padding: "15px",
-            borderEndStartRadius: "10px",
-            borderEndEndRadius: "10px",
-          }}
-        >
-          € {subtotal}
-        </p>
+        <div style={{
+          height: 0,
+          border: "1px solid black",
+          padding: "20px",
+          borderEndStartRadius: "10px",
+          borderEndEndRadius: "10px",
+          marginTop: -16,
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+          <p
+            style={{ fontSize: "20px", marginTop: -12, }}
+          >
+            € {subtotal}
+          </p>
+        </div>
       );
     }
     return null;

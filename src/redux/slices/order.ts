@@ -355,10 +355,10 @@ const orderSlice = createSlice({
       state.logodetails.frontlogo = payload;
     },
     changebacklogoSizes: (state: IOrderState, { payload }: PayloadAction<string>) => {
-      state.logodetails.backlogo= payload;
+      state.logodetails.backlogo = payload;
     },
     changelogodescription: (state: IOrderState, { payload }: PayloadAction<string>) => {
-      state.logodetails.description= payload;
+      state.logodetails.description = payload;
     }
   },
   extraReducers: (builder) => {
@@ -399,7 +399,7 @@ const orderSlice = createSlice({
         state.backlogoUploads.push(payload);
       }
     );
-    
+
     builder.addCase(
       uploadfrontlogo.fulfilled,
       (state: IOrderState, { payload }: PayloadAction<string>) => {

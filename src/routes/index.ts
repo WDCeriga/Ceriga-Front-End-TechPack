@@ -4,10 +4,10 @@ const routes = {
   fronturl:"http://www.ceriga.eagletechsolutions.uk.servepreview.net/",
   //API ROUTES
   server: {
-    //base: "https://ceriga-backend-test.vercel.app",
+    // base: "https://ceriga-backend-test.vercel.app",
     //base: "https://sudio-ceriga-backend.onrender.com",
-    //base: "http://localhost:4000",
-    base: "http://192.168.1.7:4000",
+    base: "http://localhost:4000",
+    // base: "http://192.168.1.7:4000",
     
     //base: "https://ceriga-back-end-main.vercel.app",
     auth: "/auth",

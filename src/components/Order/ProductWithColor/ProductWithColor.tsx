@@ -23,7 +23,8 @@ const ProductWithColor: FC<IProductWithColor> = ({ color, product, path }) => {
       <section className={s.container}>
         <img
           crossOrigin="anonymous"
-          width="600"
+          width={500}
+          height={500}
           className={s.container_img}
           src={routes.server.base + path}
           alt={product}

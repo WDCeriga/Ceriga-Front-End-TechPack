@@ -44,9 +44,9 @@ const FrontViewModal: React.FC<FrontViewModalProps> = ({ onClose }) => {
             setSelectedSize={handleSizeSelection}
             selectedSize={frontsize}
           />
-          
+
         </div>
-       
+
       </div>
       <div className="uplodefilebtn">
         <div className="buttonforuplode" onClick={handleOpenUploadModalFront}>
@@ -90,7 +90,7 @@ const FrontViewModal: React.FC<FrontViewModalProps> = ({ onClose }) => {
           </svg>
         </div>
       </div>
-      
+
       {isUploadModalOpenFront && (
         <UploadFile
           handleClose={handleCloseUploadModalFront}

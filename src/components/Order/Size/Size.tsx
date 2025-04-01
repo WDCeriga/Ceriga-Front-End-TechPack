@@ -49,26 +49,28 @@ const OrderSize: FC = () => {
         />
         <Progress value={10} />
       </div>
-      {!sizeOpen ? (
-        <>
-          {subtotal ? (
-            <p
-              style={{
-                position: "absolute",
-                top: "50px",
-                right: "47.5%",
-                fontSize: "20px",
-                border: "1px solid black",
-                padding: "15px",
-                borderEndStartRadius: "10px",
-                borderEndEndRadius: "10px"
-              }}
-            >
-              € {subtotal}
-            </p>
+      {subtotal ? (
+            <div style={{
+              height: 0,
+              border: "1px solid black",
+              padding: "20px",
+              borderEndStartRadius: "10px",
+              borderEndEndRadius: "10px",
+              marginTop: -16,
+              justifyContent: "center",
+              alignItems: "center"
+            }}>
+              <p
+                style={{ fontSize: "20px", marginTop: -12, }}
+              >
+                € {subtotal}
+              </p>
+            </div>
           ) : (
             <></>
           )}
+      {!sizeOpen ? (
+        <>
           <div className={sOrder.center}>
             <DefaultImg />
           </div>
