@@ -45,10 +45,14 @@ const TshirtImage = () => {
     ? productinfo?.frontlogo.find((x) => x.type == frontsize)
     : "";
 
+  console.log("frontstickers:", frontstickers);
+
 
   const backstickers = backsize
     ? productinfo?.backlogo.find((x) => x.type == backsize)
     : "";
+
+  console.log("backstickers:", backstickers);
 
   const backimageurl = backsize
     ? productinfo?.backlogo.find((x) => x.type == backsize)?.backlogoImgUrl
@@ -85,11 +89,6 @@ const TshirtImage = () => {
   const [frontImage] = useImage(`${routes.server.base}${frontimageurl}`, "anonymous");
   const [backImage] = useImage(`${routes.server.base}${backimageurl}`, "anonymous");
 
-
-  const [stickers, setStickers] = useState({ x: 144, y: 74, width: 110, height: 50 });
-
-  const MM_TO_PX = 3.78;
-
   useEffect(() => {
     if (backImage) {
       // Calculate aspect ratio
@@ -124,6 +123,8 @@ const TshirtImage = () => {
       setImagefrontSize({ width, height });
     }
   }, [frontImage]);
+
+  // const [stickers, setStickers] = useState({ frontX: 135, frontY: 112, frontWidth: 75, frontHeight: 240, frontRotation: -5 });
 
   return (
     <>
@@ -207,8 +208,8 @@ const TshirtImage = () => {
                     width={frontstickers ? frontstickers?.frontWidth : 0}
                     height={frontstickers ? frontstickers?.frontHeight : 0}
                     fill="red"
-                    rotation={0}
-                    draggable={true}
+                    rotation={frontstickers ? frontstickers?.frontRotation ? frontstickers?.frontRotation : 0 : 0}
+                    draggable={false}
                     onDragEnd={(e) => {
                       const newX = e.target.x();
                       const newY = e.target.y();
@@ -236,8 +237,8 @@ const TshirtImage = () => {
                     width={backstickers ? backstickers?.backWidth : 0}
                     height={backstickers ? backstickers?.backHeight : 0}
                     fill="red"
-                    rotation={0}
-                    draggable={true}
+                    rotation={backstickers ? backstickers?.backRotation ? backstickers?.backRotation : 0 : 0}
+                    draggable={false}
                     onDragEnd={(e) => {
                       const newX = e.target.x();
                       const newY = e.target.y();

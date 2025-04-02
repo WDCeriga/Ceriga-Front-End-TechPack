@@ -67,6 +67,7 @@ interface IFrontlogo {
   frontY: number
   frontWidth: number
   frontHeight: number
+  frontRotation: number
 }
 interface IBacklogo {
   type: string;
@@ -76,6 +77,7 @@ interface IBacklogo {
   backY: number
   backWidth: number
   backHeight: number
+  backRotation: number
 }
 
 export interface IProductFull {
