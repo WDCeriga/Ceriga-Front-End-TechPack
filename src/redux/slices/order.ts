@@ -383,7 +383,7 @@ const orderSlice = createSlice({
     builder.addCase(
       uploadDesign.fulfilled,
       (state: IOrderState, { payload }: PayloadAction<string>) => {
-        state.designUploads.push(payload);
+        state?.designUploads?.push(payload);
       }
     );
     builder.addCase(

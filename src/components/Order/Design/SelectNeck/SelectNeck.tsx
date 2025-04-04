@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CloseIcon } from "@common/Icons/CommonIcon";
 import { SettingsIcon } from "@common/Icons/SelectNeck";
 import { AppDispatch, RootState } from "@redux/store";
-import { setNoLabel} from "@redux/slices/order";
+import { setNoLabel } from "@redux/slices/order";
 
 // import CommentSelectNeck from "./Comment/Comment";
 import ConfigurationLabel from "./Configuration/Configuration";
@@ -17,8 +17,9 @@ interface ISelectNeck {
 }
 
 const SelectNeck: FC<ISelectNeck> = ({ handleClose }) => {
+  debugger;
   const dispatch = useDispatch<AppDispatch>();
-  const { noLabels } = useSelector((state: RootState) => state.order.neck);
+  const { noLabels , type } = useSelector((state: RootState) => state.order.neck);
   // const { neckDescription } = useSelector((state: RootState) => state.order);
   // const [description, setDescription] = useState<string>(neckDescription);
   const [configurationOpen, setConfigurationOpen] = useState<boolean>(false);
@@ -55,7 +56,7 @@ const SelectNeck: FC<ISelectNeck> = ({ handleClose }) => {
 
   let labelOptionsMinimumQuantity = 0;
   let labelOptionsIsMinimumRequired = false;
-  if (noLabels === false) {
+  if (noLabels === false && type) {
     let qty = productinfo?.labelOptions?.find(
       (x) => x.type == "Custom Label"
     )?.minimumQuantity;
@@ -68,7 +69,11 @@ const SelectNeck: FC<ISelectNeck> = ({ handleClose }) => {
     if (isRequired) {
       labelOptionsIsMinimumRequired = isRequired;
     }
+  } else {
+    labelOptionsMinimumQuantity = 0;
+    labelOptionsIsMinimumRequired = false;
   }
+debugger;
 
   if (configurationOpen) {
     return (
@@ -88,7 +93,7 @@ const SelectNeck: FC<ISelectNeck> = ({ handleClose }) => {
           width: "100%",
         }}
       >
-        {labelOptionsIsMinimumRequired && labelOptionsMinimumQuantity && (
+        {labelOptionsIsMinimumRequired && labelOptionsMinimumQuantity > 0 && (
           <div
             style={{
               marginBottom: "1rem",
