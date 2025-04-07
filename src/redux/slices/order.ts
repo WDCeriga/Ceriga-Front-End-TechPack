@@ -258,12 +258,12 @@ const orderSlice = createSlice({
       state: IOrderState,
       { payload }: PayloadAction<quantityType>
     ) => {
-      if (payload === "Sample Selection") {
-        state.quantity.list = state.quantity.list.map((quantityItem) => ({
-          ...quantityItem,
-          value: 5,
-        }));
-      }
+      // if (payload === "Sample Selection") {
+      //   state.quantity.list = state.quantity.list.map((quantityItem) => ({
+      //     ...quantityItem,
+      //     value: 5,
+      //   }));
+      // }
 
       state.quantity.type = payload;
     },

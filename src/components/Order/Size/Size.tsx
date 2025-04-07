@@ -30,8 +30,6 @@ const OrderSize: FC = () => {
     (state: RootState) => state.order
   );
 
-  const order = useSelector((state: RootState) => state.order);
-
   const handleNextStep = () => {
     dispatch(changeOrderStep("color"));
   };

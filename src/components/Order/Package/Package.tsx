@@ -25,6 +25,9 @@ const OrderPackage: FC = () => {
     totalcost,
   } = useSelector((state: RootState) => state.order);
   const packageInfo = useSelector((state: RootState) => state.order.package);
+
+  const totalqty = quantity.list.reduce((sum, item) => sum + item.value, 0);
+  console.log("totalqty==>", totalqty)
   const [menuOpen, setMenuOpen] = useState({
     packageConfiguration: false,
     quantity: false,
@@ -88,7 +91,7 @@ const OrderPackage: FC = () => {
         />
         <Progress value={70} />
       </div>
-      {totalcost ? (
+      {/* {totalcost ? (
         <p
           style={{
             position: "absolute",
@@ -102,6 +105,25 @@ const OrderPackage: FC = () => {
           }}
         >
           € {totalcost}
+        </p>
+      ) : (
+        <></>
+      )} */}
+
+      {subtotal ? (
+        <p
+          style={{
+            position: "absolute",
+            top: "50px",
+            right: "49%",
+            fontSize: "20px",
+            border: "1px solid black",
+            padding: "15px",
+            borderEndStartRadius: "10px",
+            borderEndEndRadius: "10px",
+          }}
+        >
+         €{(parseFloat(subtotal.toString()) * (totalqty > 0 ? totalqty : 1)).toFixed(2)}
         </p>
       ) : (
         <></>
