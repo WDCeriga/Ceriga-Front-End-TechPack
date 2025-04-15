@@ -27,7 +27,7 @@ const Buttons: FC<IButtons> = ({ size, idProduct, category }) => {
   const handleCreateNewOrder = () => {
     dispatch(resetOrderState());
     dispatch(resetColors())
-    dispatch(createNewOrder({ productType: category }));
+    dispatch(createNewOrder({ productType: category, productId: idProduct }));
     navigate(routes.order);
   };
   const groupClasses = classNames(

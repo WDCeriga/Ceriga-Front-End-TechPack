@@ -1,10 +1,7 @@
-import { FC } from "react";
+import { FC} from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { CloseIcon } from "@common/Icons/CommonIcon";
-import { printingStore } from "@constants/order/printing";
 import { AppDispatch, RootState } from "@redux/store";
-import { printingType } from "@interfaces/order/printing.interface";
 import { updatePrinting } from "@redux/slices/order";
 
 import PrintingItem from "./Item/Item";
@@ -18,9 +15,27 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { printing } = useSelector((state: RootState) => state.order);
-  const handleChoosePrinting = (value: printingType) => {
+  const handleChoosePrinting = (value: string) => {
     dispatch(updatePrinting(value));
   };
+
+  const productinfo = useSelector(
+    (state: RootState) => state.products.productOpen
+  );
+
+  const handleItemClick = (itemName: string) => {
+    handleChoosePrinting(itemName);
+  };
+
+  const isMinimumRequired = productinfo?.printing?.find(
+    (x) => x.type == printing
+  )?.isMinimumRequired;
+
+  const minimumquantity = productinfo?.printing?.find(
+    (x) => x.type == printing
+  )?.minimumQuantity;
+
+
   return (
     <section className={s.container}>
       <div className={s.container_group}>
@@ -29,13 +44,22 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
           <CloseIcon width="22" height="22" color="#000" />
         </button>
       </div>
-      <ul className={s.container_list}>
-        {printingStore.map((item) => (
+
+      {isMinimumRequired && (
+        <p style={{ marginTop: "1.5rem", color: "red", fontSize: "14px" }}>{`Minimum order quantity for ${printing} is ${minimumquantity}`}</p>)
+      }
+
+      <ul className={s.container_list} style={{ marginTop: '0.5rem' }}>
+        {productinfo?.printing?.map((item) => (
           <PrintingItem
-            key={item.name}
-            {...item}
-            isActive={printing === item.name}
-            handleClick={handleChoosePrinting}
+            key={item.type}
+            name={item.type}
+            imgPath={item.printingImgUrl}
+            cost={item.cost}
+            isActive={printing === item.type}
+            handleClick={handleItemClick}
+            isMinimumRequired={item.isMinimumRequired}
+            minimumQuantity={item.minimumQuantity}
           />
         ))}
       </ul>

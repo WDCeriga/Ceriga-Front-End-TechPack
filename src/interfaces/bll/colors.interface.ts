@@ -2,6 +2,7 @@ export interface IColorType {
   name: string;
   path: string;
   hexValue: string;
+  cost: number;
 }
 
 export interface IColorList {

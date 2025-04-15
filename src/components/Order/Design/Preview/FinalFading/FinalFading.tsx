@@ -19,9 +19,9 @@ const FinalFading: FC<IFinalFading> = ({
   return (
     <FinalDesignPreviewLayout onEvent={onEvent} title={title}>
       <ItemFinalDesign title="Fading" value={fading} />
-      {imagesList && imagesList.length !== 0 && (
+      {/* {imagesList && imagesList.length !== 0 && (
         <ItemFinalDesign title="Care label" type="array" array={imagesList} />
-      )}
+      )} */}
     </FinalDesignPreviewLayout>
   );
 };

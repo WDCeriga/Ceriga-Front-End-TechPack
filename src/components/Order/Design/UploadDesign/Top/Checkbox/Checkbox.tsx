@@ -7,7 +7,7 @@ import s from "./checkbox.module.scss";
 
 interface ICheckBox extends IUploadType {
   isActive: boolean;
-  handleChange: (arg0: StitchingType) => void;
+  handleChange: (arg0: string) => void;
 }
 
 const CheckboxUploadDesign: FC<ICheckBox> = ({ name, isActive, handleChange }) => {

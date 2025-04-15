@@ -21,7 +21,6 @@ const ImagesOrderPreview: FC = () => {
     const fetchImages = async () => {
       if (id && type) {
         const fetchedImages = await getImagesUploadApi(id, type);
-        console.log(fetchedImages);
         setImages(fetchedImages);
       }
     };

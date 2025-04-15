@@ -18,10 +18,10 @@ const Product: FC<IProductCard> = ({
   size,
   categories,
   fits,
+  startingPrice,
 }) => {
-  const imgSrc = `${routes.server.base}${
-    images && images[0] ? images[0] : routes.server.products.defaultImg
-  }`;
+  const imgSrc = `${routes.server.base}${images && images[0] ? images[0] : routes.server.products.defaultImg
+    }`;
   const [isMouseOver, setMouseOver] = useState<boolean>(false);
   const contentClasses = classNames(
     s.content,
@@ -51,8 +51,11 @@ const Product: FC<IProductCard> = ({
         </div>
         <h3 className={s.content_top_name}>{name}</h3>
       </div>
-      <div className={s.content_size}>
+      {/* <div className={s.content_size}>
         {fits && fits.length !== 0 ? fits.length : 1} styles
+      </div> */}
+      <div className={s.content_size}>
+      €{startingPrice ? startingPrice : 0}
       </div>
       <img
         crossOrigin="anonymous"

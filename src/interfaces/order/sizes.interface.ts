@@ -1,4 +1,5 @@
-export type sizeType = "customize" | "slim" | "boxy" | "oversize";
+// export type sizeType = "customize" | "slim" | "boxy" | "oversize";
+export type sizeType = "slim" | "boxy" | "oversize";
 export interface ISeleectSize {}
 
 interface ITableSizeItem {

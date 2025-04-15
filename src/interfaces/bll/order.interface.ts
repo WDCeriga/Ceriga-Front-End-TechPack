@@ -17,12 +17,20 @@ export type orderStep =
   | "color"
   | "design"
   | "package"
+  | "preview"
   | "delivery"
-  | "preview";
+  | "tshirt";
+
+// export interface IMaterial {
+//   name: materialTitle | null;
+//   value: materialValue | null;
+//   cost: number;
+// }
 
 export interface IMaterial {
-  name: materialTitle | null;
+  name: string | null;
   value: materialValue | null;
+  cost: number;
 }
 
 export interface IPackage {
@@ -31,16 +39,20 @@ export interface IPackage {
 }
 
 export interface IOrderState {
+  _id:string | null;
   draftId: string | null;
   orderId?: string;
   name: string | null;
   orderStep: orderStep | null;
-  printing: printingType | "" | null;
+  printing: string | "" | null;
   productType: string | null;
-  dyeStyle: selectStyleType | null;
+  dyeStyle: string | null;
   color: {
     hex: string | null;
     path: string | null;
+    name: string,
+    cost: number,
+    colortype: string
     description: string;
   };
   material: IMaterial;
@@ -65,7 +77,22 @@ export interface IOrderState {
   moq: number;
   tableSize: ITableSizeRow[];
   tableType: string | null;
+  minimumQuantity: number;
+  totalcost: number;
+  logodetails: ILogodetails;
+  frontlogoUploads: string[];
+  backlogoUploads: string[];
 }
+
+export interface ILogodetails {
+  frontlogo: string | null;
+  backlogo: string | null;
+  description: string | "";
+}
+
+// export interface Type {
+//   type: String;
+// }
 
 export interface ICreateNewOrder {
   productType: string;

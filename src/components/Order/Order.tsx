@@ -2,7 +2,13 @@ import { FC, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AppDispatch, RootState } from "@redux/store";
-import { createNewDraft, setSubtotal, updateColor } from "@redux/slices/order";
+import {
+  createNewDraft,
+  setSubtotal,
+  updateColor,
+  setMinimumQuantity,
+  setTotalcost,
+} from "@redux/slices/order";
 import { updateDraftApi } from "@api/requests/protected";
 import { getColorsForProduct } from "@redux/slices/colors";
 
@@ -14,13 +20,27 @@ import OrderPackage from "./Package/Package";
 import OrderPreview from "./Preview/Preview";
 import OrderSize from "./Size/Size";
 import s from "./order.module.scss";
-
+import { getProductInfobyName } from "@redux/slices/products";
+// import { continueOrder } from "@redux/slices/order";
+// import { initialState as firstState } from "@constants/order/initialState";
+import { IOrderState } from "../../interfaces/bll/order.interface";
+import { continueOrderApi } from "@api/requests/protected";
+import TshirtImage from "./tshirtimage/TshirtImage";
+// const initialState: IOrderState = firstState;
 const Order: FC = () => {
   const hasCreatedDraft = useRef(false);
   const dispatch = useDispatch<AppDispatch>();
   const { order } = useSelector((state: RootState) => state);
   const { product, list } = useSelector((state: RootState) => state.colors);
   const { orderStep, draftId } = order;
+  // const packageInfo = useSelector((state: RootState) => state.order.package);
+
+  
+  useEffect(() => {
+    if (order.productType) {
+      dispatch(getProductInfobyName(order.productType || ""));
+    }
+  }, [order.productType, dispatch]);
 
   useEffect(() => {
     if (orderStep === null) {
@@ -29,9 +49,11 @@ const Order: FC = () => {
   }, [orderStep]);
 
   useEffect(() => {
+    console.log("product==>", product);
     const handleUpdateOrder = async () => {
       const subtotal = await updateDraftApi(order);
       if (subtotal) {
+        getorderqty(draftId?.toString());
         dispatch(setSubtotal(subtotal));
       }
     };
@@ -43,6 +65,17 @@ const Order: FC = () => {
       handleUpdateOrder();
     }
   }, [dispatch, order, draftId]);
+
+  const getorderqty = async (id: any) => {
+    console.log(id);
+    if (id != null && id !== "" && id !== null) {
+      const data: IOrderState = await continueOrderApi(id);
+      dispatch(
+        setMinimumQuantity(data?.minimumQuantity ? data?.minimumQuantity : 1)
+      );
+      dispatch(setTotalcost(data?.totalcost ? data?.totalcost : 0));
+    }
+  };
 
   useEffect(() => {
     if (product === null && order.productType) {
@@ -62,6 +95,9 @@ const Order: FC = () => {
           updateColor({
             colorHex: correctVariant.hexValue,
             path: correctVariant.path,
+            name: correctVariant.name,
+            cost: correctVariant.cost,
+            colortype: correctColor ? correctColor?.color : "",
           })
         );
       }
@@ -69,19 +105,25 @@ const Order: FC = () => {
   }, [dispatch, list, order.color.hex]);
 
   const renderOrderStep = () => {
+    console.log(
+      "Current orderStep =======================================> ",
+      orderStep
+    );
     switch (orderStep) {
       case "size":
         return <OrderSize />;
       case "color":
         return <OrderColor />;
+      case "tshirt":
+        return <TshirtImage />;
       case "design":
         return <OrderDesign />;
       case "package":
         return <OrderPackage />;
-      case "delivery":
-        return <OrderDelivery />;
       case "preview":
         return <OrderPreview />;
+      case "delivery":
+        return <OrderDelivery />;
       default:
         return null;
     }

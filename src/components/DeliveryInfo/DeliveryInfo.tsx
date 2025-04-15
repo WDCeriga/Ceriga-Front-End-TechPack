@@ -36,7 +36,6 @@ const DeliveryInfo: FC<IDeliveryInfoComponent> = ({ id }) => {
   useEffect(() => {
     const getDeliveryData = async () => {
       const data = await getDeliveryInfoApi(id);
-      console.log(data);
       if (data) {
         setDeliveryData(data);
       }

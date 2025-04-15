@@ -12,6 +12,11 @@ export const orderDescription = {
     ,
     
   },
+  timage: {
+    title: "Logo Customization",
+    text: "Customize your T-shirt by selecting the perfect logo for both the front and back sides. Choose from our available designs or upload your own logo. Adjust the size and position to ensure the perfect fit. Use the comment section to provide any special instructions or preferences. Your T-shirt will be printed exactly as shown in the preview, so make sure everything looks just right before proceeding!",
+  },
+
   design: {
     title: "Design and Label",
     text: `Add your unique touch by uploading your design and specifying placement. 

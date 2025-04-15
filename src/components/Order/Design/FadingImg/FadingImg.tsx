@@ -2,12 +2,18 @@ import { FC } from "react";
 import { useSelector } from "react-redux";
 
 import { RootState } from "@redux/store";
+import routes from "@routes/index";
 
 const FadingImg: FC = () => {
   const { productType, fading } = useSelector(
     (state: RootState) => state.order
   );
+  const productinfo = useSelector(
+    (state: RootState) => state.products.productOpen,
+  );
   const { type } = fading;
+  const imageurl = productinfo?.fadingOptions.find(x => x.type == type)?.fadingImgUrl
+
   if (productType === "Sweat Pants") {
     return (
       <>
@@ -19,7 +25,8 @@ const FadingImg: FC = () => {
             height: "auto",
             marginLeft: "25%"
           }}
-          src={`/img/fading/${productType}/${type}.png`}
+          crossOrigin="anonymous"
+          src={`${routes.server.base}${imageurl}`}
           alt={`${productType} - ${type}`}
         />
       </>
@@ -35,7 +42,8 @@ const FadingImg: FC = () => {
             height: "auto",
             marginLeft: "25%"
           }}
-          src={`/img/fading/${productType}/${type}.png`}
+          crossOrigin="anonymous"
+          src={`${routes.server.base}${imageurl}`}
           alt={`${productType} - ${type}`}
         />
       </>
@@ -50,7 +58,8 @@ const FadingImg: FC = () => {
           maxWidth: "100%",
           height: "90%",
         }}
-        src={`/img/fading/${productType}/${type}.png`}
+        crossOrigin="anonymous"
+        src={`${routes.server.base}${imageurl}`}
         alt={`${productType} - ${type}`}
       />
     </>

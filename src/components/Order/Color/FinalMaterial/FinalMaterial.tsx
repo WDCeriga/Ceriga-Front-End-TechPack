@@ -1,5 +1,4 @@
 import {
-  materialTitle,
   materialValue,
 } from "@interfaces/order/material.interface";
 import { FC } from "react";
@@ -9,7 +8,7 @@ import ItemFinalDesign from "@components/Order/Common/Item/Item";
 
 interface IFinalMaterial {
   title: string;
-  materialName: materialTitle;
+  materialName: string;
   materialValue: materialValue;
   onEvent: () => void;
 }

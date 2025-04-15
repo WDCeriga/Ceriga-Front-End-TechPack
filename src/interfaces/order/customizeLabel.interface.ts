@@ -9,6 +9,6 @@ export type customizeType =
   | "noFading";
 
 export interface ICustomizeItem {
-  id: customizeType;
-  name: FadingType;
+  id: string;
+  name: string;
 }

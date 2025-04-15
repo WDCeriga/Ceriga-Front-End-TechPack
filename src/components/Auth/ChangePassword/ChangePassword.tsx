@@ -76,14 +76,12 @@ const ChangePassword: FC = () => {
         setTimeout(() => { 
           navigate(routes.auth)
           window.location.reload()
-          console.log("Time to change page")
         }, 4000)
       })
       .catch((e) => {
         console.error(e);
         notification.error("Error");
       });
-    console.log(data);
   };
 
   if (!userInfo.isFulfilled) {

@@ -1,11 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-
 import { CloseIcon } from "@common/Icons/CommonIcon";
-import { materialStore } from "@constants/order/material";
 import { RootState } from "@redux/store";
-import { clothingGSM } from "@constants/order/material";
-
 import ChooseMaterialCard from "./Card/Card";
 import CustomChooseMaterial from "./CustomChooseMaterial/CustomChooseMaterial";
 import s from "./chooseMaterial.module.scss";
@@ -17,8 +13,11 @@ interface IChooseMaterial {
 const ChooseMaterial: FC<IChooseMaterial> = ({ closeEvent }) => {
   const [activeTab, setActiveTab] = useState<string>("default"); // Renamed 'switch' to 'activeTab'
   const containerRef = useRef<HTMLDivElement>(null);
-  const { material, productType } = useSelector(
+  const { material, } = useSelector(
     (state: RootState) => state.order
+  );
+  const productinfo = useSelector(
+    (state: RootState) => state.products.productOpen,
   );
 
   useEffect(() => {
@@ -72,12 +71,24 @@ const ChooseMaterial: FC<IChooseMaterial> = ({ closeEvent }) => {
       </div>
       {activeTab === "default" ? (
         <ul className={s.content_list}>
-          {materialStore.map((materialInfo) => (
+          {/* {materialStore.map((materialInfo) => (
             <ChooseMaterialCard
               key={materialInfo.title}
               {...materialInfo}
               values={productType ? clothingGSM[productType] : []}
               activeMaterial={material}
+            />
+          ))} */}
+          {productinfo?.fabric?.map((materialInfo) => (
+            <ChooseMaterialCard
+              key={materialInfo?.type}
+              title={materialInfo?.type}
+              path={materialInfo?.imgurl}
+              cost={materialInfo?.cost}
+              values={materialInfo?.fabricValue}
+              activeMaterial={material}
+            // values={productType ? clothingGSM[productType] : []}
+            // activeMaterial={material}
             />
           ))}
         </ul>

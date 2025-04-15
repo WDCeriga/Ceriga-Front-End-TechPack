@@ -26,13 +26,10 @@ const OrderSize: FC = () => {
   const [sizeOpen, setSizeOpen] = useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();
-  const { productType, tableSize } = useSelector(
+  const { productType, tableSize, subtotal } = useSelector(
     (state: RootState) => state.order
   );
-  const order = useSelector(
-    (state: RootState) => state.order
-  );
-  console.log('PraveenOrder==>', order)
+
   const handleNextStep = () => {
     dispatch(changeOrderStep("color"));
   };
@@ -50,15 +47,38 @@ const OrderSize: FC = () => {
         />
         <Progress value={10} />
       </div>
+      {subtotal ? (
+            <div style={{
+              height: 0,
+              border: "1px solid black",
+              padding: "20px",
+              borderEndStartRadius: "10px",
+              borderEndEndRadius: "10px",
+              marginTop: -16,
+              justifyContent: "center",
+              alignItems: "center"
+            }}>
+              <p
+                style={{ fontSize: "20px", marginTop: -12, }}
+              >
+                € {subtotal}
+              </p>
+            </div>
+          ) : (
+            <></>
+          )}
       {!sizeOpen ? (
-        <div className={sOrder.center}>
-          <DefaultImg />
-        </div>
+        <>
+          <div className={sOrder.center}>
+            <DefaultImg />
+          </div>
+        </>
       ) : (
         <div className={centerClassname}>
           <ImageSize product={productType || ""} />
         </div>
       )}
+      
 
       <div className={sOrder.right}>
         <div className={s.params}>
@@ -70,6 +90,7 @@ const OrderSize: FC = () => {
           )}
           {sizeOpen && <SizesSettings handleClose={handleToggleSize} />}
         </div>
+
         <ButtonsOrder
           onlyNext={true}
           handleNextStep={handleNextStep}

@@ -7,6 +7,7 @@ export type printingType =
   | "No Printing";
 
 export interface IPrintingItem {
-  name: printingType;
+  name: string;
   imgPath: string;
+  cost:number
 }

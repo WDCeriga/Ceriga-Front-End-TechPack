@@ -1,6 +1,5 @@
 import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { orderDescription } from "@constants/order/text";
 import { AppDispatch, RootState } from "@redux/store";
 import { changeOrderStep } from "@redux/slices/order";
@@ -8,7 +7,6 @@ import ButtonSelect from "@common/ButtonSelect/ButtonSelect";
 import notification from "@services/notification";
 import Progress from "@common/Progress/Progress";
 import TitleWithDescription from "@common/Title/Description/Description";
-
 import ButtonsOrder from "../Buttons/Buttons";
 import FinalPackage from "./FinalPackage/FinalPackage";
 import FinalQuantity from "./FinalQuantity/FinalQuantity";
@@ -18,29 +16,62 @@ import sOrder from "../order.module.scss";
 import s from "./package.module.scss";
 
 const OrderPackage: FC = () => {
-  const { moq, quantity, packageUploads } = useSelector(
-    (state: RootState) => state.order
-  );
+  const {
+    moq,
+    quantity,
+    packageUploads,
+    subtotal,
+    minimumQuantity,
+    totalcost,
+  } = useSelector((state: RootState) => state.order);
   const packageInfo = useSelector((state: RootState) => state.order.package);
+
+  const totalqty = quantity.list.reduce((sum, item) => sum + item.value, 0);
+  console.log("totalqty==>", totalqty)
   const [menuOpen, setMenuOpen] = useState({
     packageConfiguration: false,
     quantity: false,
   });
+  console.log(
+    "state.order==>",
+    useSelector((state: RootState) => state.order)
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   const handlePrevStep = () => {
-    dispatch(changeOrderStep("design"));
+    dispatch(changeOrderStep("tshirt"));
   };
+
   const handleNextStep = () => {
+    // if (
+    //   quantity.type === "Bulk" &&
+    //   quantity.list.reduce((sum, item) => sum + item.value, 0) < moq
+    // ) {
+    //   notification.error(
+    //     "Please select a quantity that meets the minimum order quantity"
+    //   );
+    // } else {
+    //   dispatch(changeOrderStep("delivery"));
+    // }
+
     if (
       quantity.type === "Bulk" &&
-      quantity.list.reduce((sum, item) => sum + item.value, 0) < moq
+      quantity.list.reduce((sum, item) => sum + item.value, 0) < minimumQuantity
     ) {
       notification.error(
         "Please select a quantity that meets the minimum order quantity"
       );
     } else {
-      dispatch(changeOrderStep("delivery"));
+      if (
+        quantity.list.reduce((sum, item) => sum + item.value, 0) <
+        minimumQuantity
+      ) {
+        notification.error(
+          "Please select a quantity that meets the minimum order quantity"
+        );
+      } else {
+        dispatch(changeOrderStep("preview"));
+      }
     }
   };
   const handleToggleMenu = (name: keyof typeof menuOpen) => {
@@ -58,10 +89,61 @@ const OrderPackage: FC = () => {
           title={orderDescription.package.title}
           text={orderDescription.package.text}
         />
-        <Progress value={75} />
+        <Progress value={70} />
       </div>
+      {/* {totalcost ? (
+        <p
+          style={{
+            position: "absolute",
+            top: "50px",
+            right: "49%",
+            fontSize: "20px",
+            border: "1px solid black",
+            padding: "15px",
+            borderEndStartRadius: "10px",
+            borderEndEndRadius: "10px",
+          }}
+        >
+          € {totalcost}
+        </p>
+      ) : (
+        <></>
+      )} */}
+
+      {subtotal ? (
+        <p
+          style={{
+            position: "absolute",
+            top: "50px",
+            right: "49%",
+            fontSize: "20px",
+            border: "1px solid black",
+            padding: "15px",
+            borderEndStartRadius: "10px",
+            borderEndEndRadius: "10px",
+          }}
+        >
+         €{(parseFloat(subtotal.toString()) * (totalqty > 0 ? totalqty : 1)).toFixed(2)}
+        </p>
+      ) : (
+        <></>
+      )}
       <div className={`${sOrder.center} ${s.packageWrap}`}>
         <img src="/img/package.png" alt="package" className={s.packageImg} />
+        {/* {subtotal ? (
+          <p
+            style={{
+              position: "absolute",
+              left: "45%",
+              bottom: 0,
+              height: "auto",
+            }}
+          >
+            € {subtotal}
+          </p>
+        ) : (
+          <></>
+        )} */}
       </div>
       <div className={sOrder.right}>
         <div className={s.params}>
@@ -108,10 +190,7 @@ const OrderPackage: FC = () => {
         </div>
 
         <ButtonsOrder
-          isHaveNext ={ 
-            quantity.type !== null &&
-            packageInfo.isPackage !== null 
-          }
+          isHaveNext={quantity.type !== null && packageInfo.isPackage !== null}
           onlyNext={false}
           handlePrevStep={handlePrevStep}
           handleNextStep={handleNextStep}

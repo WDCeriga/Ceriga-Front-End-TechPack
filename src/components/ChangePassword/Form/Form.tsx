@@ -32,9 +32,7 @@ const FormChangePassword: FC = () => {
   };
 
   const onSubmit = async (values: IChangePassportData) => {
-    console.log("Submitting values:", values);
     const data: IChangePassportResponse = await changePasswordApi(values);
-    console.log("API response:", data);
     if (data.status === "rejected") {
       notification.error(data.message);
     } else {

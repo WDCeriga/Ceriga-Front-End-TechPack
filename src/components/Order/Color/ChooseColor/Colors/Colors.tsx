@@ -10,14 +10,11 @@ const Colors: FC = () => {
   const { list } = useSelector((state: RootState) => state.colors);
   const { material, color } = useSelector((state: RootState) => state.order);
 
-  console.log(list)
 
   const getFilteredColors = () => {
     const gsm = material.value || 0;
 
     const allColors = list;
-    const colors7 = ["black", "white", "grey", "blue", "green", "brown", "red"];
-    const colors5 = ["black", "white", "grey", "blue", "green"];
 
     if (gsm >= 250) {
       return allColors;

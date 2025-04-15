@@ -31,7 +31,9 @@ const SelectSize: FC<SelectSizeProps> = ({
       ? tableSizes[productType as keyof typeof tableSizes].list
       : [];
 
-  const sizeOptionsWithCustom = [...sizeOptions, "Custom"];
+   const sizeOptionsWithCustom = [...sizeOptions, "Custom"];
+  //const sizeOptionsWithCustom = [...sizeOptions];
+
 
   const handleUpdateItem = (item: string) => {
     if (item === "Custom") {

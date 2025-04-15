@@ -10,6 +10,7 @@ import ButtonUploadDesign from "./Button/Button";
 import TextareaUploadDesign from "./Textarea/Textarea";
 import UploadDesignTop from "./Top/Top";
 import s from "./uploadDesign.module.scss";
+import routes from "@routes/index";
 
 interface IUploadDesign {
   handleClose: () => void;
@@ -17,14 +18,16 @@ interface IUploadDesign {
 const UploadDesign: FC<IUploadDesign> = ({ handleClose }) => {
   const orderState = useSelector((state: RootState) => state.order);
   const dispatch = useDispatch<AppDispatch>();
-  const { description } = useSelector(
+  const { description ,type } = useSelector(
     (state: RootState) => state.order.stitching
   );
-
 
   const [descriptionValue, setDescriptionValue] = useState<string>(description);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
+
+
+ 
   const handleToggleModal = () => {
     setModalOpen((prev) => !prev);
   };
@@ -35,55 +38,36 @@ const UploadDesign: FC<IUploadDesign> = ({ handleClose }) => {
     setDescriptionValue(event.currentTarget.value);
     dispatch(updateCommentStitching(descriptionValue));
   };
+  const productinfo = useSelector(
+    (state: RootState) => state.products.productOpen,
+  );
 
   // const handleDownload = () => {
   //  const doc = new jsPDF();
   //  doc.text("Example file", 10, 10);
   //  doc.save("example.pdf");
   //};
-  const handleDownload = () => {
 
-    let filePath = "";
-    switch (orderState.name) {
-      case "Crewneck":
-        filePath = "pdf/Ceriga Tech Pack Design Submission Guide (Crewneck).pdf";
-        break;
-      case "Sweat Pants":
-        filePath = "/pdf/Ceriga Tech Pack Design Submission Guide (SweatPants).pdf";
-        break;
-      case "Tank Top":
-        filePath = "/pdf/Ceriga Tech Pack Design Submission Guide (Tank Top).pdf";
-        break;
-      case "T-shirt":
-        filePath = "/pdf/Ceriga Tech Pack Design Submission Guide (Tshirt).pdf";
-        break;
-      case "Hoodie":
-        filePath = "/pdf/Ceriga Tech Pack Design Submission Guide (Hoodie).pdf";
-        break;
-      case "Zip Up Hoodie":
-        filePath = "/pdf/Ceriga Tech Pack Design Submission Guide (ZipUp Hoodie).pdf";
-        break;
-      case "Uncuffed":
-        filePath = "/pdf/Ceriga Tech Pack Design Submission Guide(Uncuffed Sweatpants).pdf";
-        break;
 
+
+  const handleDownload = async (filePath: string) => {
+    try {
+      const response = await fetch(filePath);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "document.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Download failed:", error);
     }
-    const link = document.createElement("a");// Create a temporary link element
-    link.download = filePath.split("/").pop(); // Extract the file name for download
-  console.log(filePath);
-
-    link.href = filePath;
-    document.body.appendChild(link);
-    console.log(filePath);
-
-    // Programmatically click the link to trigger the download
-    link.click();
-
-    // Clean up the temporary link
-    document.body.removeChild(link);
-    console.log(orderState.name);
   };
-
   return (
     <>
       <section className={s.container}>
@@ -92,8 +76,11 @@ const UploadDesign: FC<IUploadDesign> = ({ handleClose }) => {
           value={descriptionValue}
           onChange={handleUpdateDescription}
         />
-        <ButtonUploadDesign onEvent={handleDownload} text="Download PDF" />
-        <ButtonUploadDesign onEvent={handleToggleModal} />
+        {/* <ButtonUploadDesign onEvent={() => {
+          const filePath = `${routes.server.base}${productinfo?.stitchingPdfUrl}`; // Ensure `routes.server.base` is correct
+          handleDownload(filePath);
+        }} text="Download PDF" /> */}
+        {/* <ButtonUploadDesign onEvent={handleToggleModal} /> */}
       </section>
       {modalOpen && (
         <UploadFile type="uploadDesign" handleClose={handleToggleModal} />

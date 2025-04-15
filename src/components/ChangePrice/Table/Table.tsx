@@ -23,7 +23,6 @@ const TableChangePrice: FC = () => {
   useEffect(() => {
     getProductsForPriceApi().then((res) => setData(res));
   }, []);
-  console.log(data);
   return (
     <>
       <table className={s.table}>

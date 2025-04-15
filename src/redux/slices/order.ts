@@ -16,7 +16,9 @@ import {
   continueOrderApi,
   createNewDraftApi,
   loadDeliveryApi,
+  uploadbacklogoApi,
   uploadDesignApi,
+  uploadfrontlogoApi,
   uploadLabelApi,
   uploadNeckApi,
   uploadPackageApi,
@@ -50,6 +52,7 @@ export const continueOrder = createAsyncThunk<
   { state: RootState }
 >("continue-order", async (draftId) => {
   const data: IOrderState = await continueOrderApi(draftId);
+  console.log("data==>", data)
   return data;
 });
 
@@ -86,6 +89,23 @@ export const uploadPackage = createAsyncThunk<
   { state: RootState }
 >("upload-package", async ({ formData, draftId }) => {
   const data = await uploadPackageApi(formData, draftId);
+  return data;
+});
+
+export const uploadfrontlogo = createAsyncThunk<
+  string,
+  { formData: FormData; draftId: string },
+  { state: RootState }
+>("upload-frontlogo", async ({ formData, draftId }) => {
+  const data = await uploadfrontlogoApi(formData, draftId);
+  return data;
+});
+export const uploadbacklogo = createAsyncThunk<
+  string,
+  { formData: FormData; draftId: string },
+  { state: RootState }
+>("upload-backlogo", async ({ formData, draftId }) => {
+  const data = await uploadbacklogoApi(formData, draftId);
   return data;
 });
 
@@ -147,14 +167,25 @@ const orderSlice = createSlice({
     },
     updateColor: (
       state: IOrderState,
-      { payload }: PayloadAction<{ colorHex: string; path: string }>
+      {
+        payload,
+      }: PayloadAction<{
+        colorHex: string;
+        path: string;
+        name: string;
+        cost: number;
+        colortype: string;
+      }>
     ) => {
       state.color.hex = payload.colorHex;
       state.color.path = payload.path;
+      state.color.name = payload.name;
+      state.color.cost = payload.cost;
+      state.color.colortype = payload.colortype;
     },
     updateDeyStyle: (
       state: IOrderState,
-      { payload }: PayloadAction<selectStyleType>
+      { payload }: PayloadAction<string>
     ) => {
       state.dyeStyle = payload;
     },
@@ -170,12 +201,12 @@ const orderSlice = createSlice({
     ) => {
       state.material = payload;
     },
-    updatePrinting: (state, { payload }: PayloadAction<printingType>) => {
+    updatePrinting: (state, { payload }: PayloadAction<string>) => {
       state.printing = payload;
     },
     changeStitchingType: (
       state: IOrderState,
-      { payload }: PayloadAction<StitchingType>
+      { payload }: PayloadAction<string>
     ) => {
       state.stitching.type = payload;
     },
@@ -187,7 +218,7 @@ const orderSlice = createSlice({
     },
     changeFadingType: (
       state: IOrderState,
-      { payload }: PayloadAction<FadingType>
+      { payload }: PayloadAction<string>
     ) => {
       state.fading.type = payload;
     },
@@ -227,12 +258,12 @@ const orderSlice = createSlice({
       state: IOrderState,
       { payload }: PayloadAction<quantityType>
     ) => {
-      if (payload === "Sample Selection") {
-        state.quantity.list = state.quantity.list.map((quantityItem) => ({
-          ...quantityItem,
-          value: 5,
-        }));
-      }
+      // if (payload === "Sample Selection") {
+      //   state.quantity.list = state.quantity.list.map((quantityItem) => ({
+      //     ...quantityItem,
+      //     value: 5,
+      //   }));
+      // }
 
       state.quantity.type = payload;
     },
@@ -246,17 +277,36 @@ const orderSlice = createSlice({
         }
         return item;
       });
-      if (payload.value > 5) {
-        state.quantity.type = "Bulk";
-      } else {
-        const allValuesAreLessOrEqual5 = state.quantity.list.every(
-          (item) => item.value <= 5
-        );
+      state.quantity.type = "Sample Selection";
 
-        if (allValuesAreLessOrEqual5) {
-          state.quantity.type = "Sample Selection";
-        }
+      let minimumQuantity = state?.minimumQuantity;
+      console.log("minimumQuantity==>", minimumQuantity);
+      const totalQuantity = state.quantity.list.reduce((sum, item) => {
+        return sum + (item.value || 0);
+      }, 0);
+
+      console.log("totalQuantity==>", totalQuantity);
+
+      if (
+        minimumQuantity &&
+        totalQuantity &&
+        parseInt(totalQuantity?.toString()) >
+        parseInt(minimumQuantity?.toString())
+      ) {
+        state.quantity.type = "Bulk";
       }
+
+      // if (payload.value > 5) {
+      //   state.quantity.type = "Bulk";
+      // } else {
+      //   const allValuesAreLessOrEqual5 = state.quantity.list.every(
+      //     (item) => item.value <= 5
+      //   );
+
+      //   if (allValuesAreLessOrEqual5) {
+      //     state.quantity.type = "Sample Selection";
+      //   }
+      // }
     },
     changeColorInNeck: (
       state: IOrderState,
@@ -294,6 +344,22 @@ const orderSlice = createSlice({
     setSubtotal: (state: IOrderState, { payload }: PayloadAction<number>) => {
       state.subtotal = payload;
     },
+    setMinimumQuantity: (state: IOrderState, { payload }: PayloadAction<number>) => {
+      state.minimumQuantity = payload;
+    },
+    setTotalcost: (state: IOrderState, { payload }: PayloadAction<number>) => {
+      state.totalcost = payload;
+    },
+    changefrontlogoSizes: (state: IOrderState, { payload }: PayloadAction<string>) => {
+      debugger;
+      state.logodetails.frontlogo = payload;
+    },
+    changebacklogoSizes: (state: IOrderState, { payload }: PayloadAction<string>) => {
+      state.logodetails.backlogo = payload;
+    },
+    changelogodescription: (state: IOrderState, { payload }: PayloadAction<string>) => {
+      state.logodetails.description = payload;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(createNewDraft.fulfilled, (state, { payload }) => {
@@ -301,6 +367,9 @@ const orderSlice = createSlice({
       state.color = {
         hex: null,
         path: null,
+        name: "",
+        cost: 0,
+        colortype: "",
         description: "",
       };
       state.moq = Number(payload.moq);
@@ -314,7 +383,7 @@ const orderSlice = createSlice({
     builder.addCase(
       uploadDesign.fulfilled,
       (state: IOrderState, { payload }: PayloadAction<string>) => {
-        state.designUploads.push(payload);
+        state?.designUploads?.push(payload);
       }
     );
     builder.addCase(
@@ -323,6 +392,21 @@ const orderSlice = createSlice({
         state.labelUploads.push(payload);
       }
     );
+
+    builder.addCase(
+      uploadbacklogo.fulfilled,
+      (state: IOrderState, { payload }: PayloadAction<string>) => {
+        state.backlogoUploads.push(payload);
+      }
+    );
+
+    builder.addCase(
+      uploadfrontlogo.fulfilled,
+      (state: IOrderState, { payload }: PayloadAction<string>) => {
+        state.frontlogoUploads.push(payload);
+      }
+    );
+
     builder.addCase(
       uploadNeck.fulfilled,
       (state: IOrderState, { payload }: PayloadAction<string>) => {
@@ -390,6 +474,12 @@ export const {
   resetOrderState,
   loadOrder,
   setSubtotal,
+  setMinimumQuantity,
+  setTotalcost,
+  changefrontlogoSizes,
+  changebacklogoSizes,
+  changelogodescription
+
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

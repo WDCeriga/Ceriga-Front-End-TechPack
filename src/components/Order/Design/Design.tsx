@@ -23,23 +23,21 @@ import sOrder from "../order.module.scss";
 import s from "./design.module.scss";
 
 const OrderDesign: FC = () => {
- 
   const [menuOpen, setMenuOpen] = useState({
     uploadDesign: false,
     customizeLabels: false,
     selectNeck: false,
   });
   const dispatch = useDispatch<AppDispatch>();
-  const { stitching, designUploads, labelUploads, fading, neck } = useSelector(
-    (state: RootState) => state.order
-  );
+  const { stitching, designUploads, labelUploads, fading, neck, subtotal } =
+    useSelector((state: RootState) => state.order);
 
   const handlePrevStep = () => {
     dispatch(changeOrderStep("color"));
   };
 
   const handleNextStep = () => {
-    dispatch(changeOrderStep("package"));
+    dispatch(changeOrderStep("tshirt"));
   };
 
   const handleToggleMenu = (name: keyof typeof menuOpen) => {
@@ -51,6 +49,30 @@ const OrderDesign: FC = () => {
     }));
   };
 
+  const renderSubtotal = () => {
+    if (subtotal) {
+      return (
+        <div style={{
+          height: 0,
+          border: "1px solid black",
+          padding: "20px",
+          borderEndStartRadius: "10px",
+          borderEndEndRadius: "10px",
+          marginTop: -16,
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+          <p
+            style={{ fontSize: "20px", marginTop: -12, }}
+          >
+            € {subtotal}
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <>
       <div className={sOrder.left}>
@@ -58,12 +80,14 @@ const OrderDesign: FC = () => {
           title={orderDescription.design.title}
           text={orderDescription.design.text}
         />
-        <Progress value={50} />
+        <Progress value={40} />
       </div>
+
+      {renderSubtotal()}
       <div className={sOrder.center}>
         {menuOpen.uploadDesign && stitching.type !== "" ? (
           <StitchingImg />
-        ) : menuOpen.customizeLabels && fading.type !== "" &&  fading.type !== "No printing"  ? (
+        ) : menuOpen.customizeLabels && fading.type !== "" ? (
           <FadingImg />
         ) : menuOpen.selectNeck && neck && neck.type?.length !== 0 ? (
           <NeckImg />
@@ -71,6 +95,7 @@ const OrderDesign: FC = () => {
           <DefaultImg />
         )}
       </div>
+
       <div className={sOrder.right}>
         <div className={s.params}>
           {stitching.type.length !== 0 && !menuOpen.uploadDesign ? (
@@ -130,14 +155,12 @@ const OrderDesign: FC = () => {
             <SelectNeck handleClose={() => handleToggleMenu("selectNeck")} />
           )}
         </div>
+
         <ButtonsOrder
           handlePrevStep={handlePrevStep}
           handleNextStep={handleNextStep}
           onlyNext={false}
-          isHaveNext = { 
-            stitching.type.length !== 0 &&
-            neck.type !== ""
-          }
+          isHaveNext={stitching.type.length !== 0 && neck.type !== ""}
         />
       </div>
     </>

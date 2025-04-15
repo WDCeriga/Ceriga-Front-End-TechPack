@@ -3,50 +3,68 @@ import { IParamPreviewOrder } from "@interfaces/order/paramsPreview.interface";
 
 export const mapOrderStateToParams = async (state: IOrderState) => {
   const currentId = state.draftId ?? state._id;
-  console.log(currentId);
   let links = {
-    design: '',
-    neck: '',
-    label: '',
-    package: ''
+    design: "",
+    neck: "",
+    label: "",
+    package: "",
+    frontsize: "",
+    backsize: "",
   };
-
+  console.log("currentId==>", currentId);
   try {
-    const response = await fetch('https://storage.googleapis.com/storage/v1/b/ceriga-storage-bucket/o/');
+    const response = await fetch(
+      "https://storage.googleapis.com/storage/v1/b/ceriga-storage-bucket/o?prefix="+ currentId
+    );
+
+    console.log("response15==>", response);
     const data = await response.json();
-
+    console.log("data==>", data);
     if (Array.isArray(data.items)) {
-      const names = data.items.map((item) => item.name);
-
-      console.log("Names:", names);
+      // const names = data?.items?.map((item) => item.name);
+      const names: Array<string> = data?.items?.map((item: { name: string }) => item.name) || [];
 
       // Helper function to find a valid file link
       const findValidLink = (folder: string) => {
-        const folderContent = names.filter(name => name.startsWith(`${currentId}/${folder}/`) && name !== `${currentId}/${folder}/`);
-        return folderContent.length > 0 ? folderContent[0] : '';
+        const folderContent = names.filter(
+          (name) =>
+            name.startsWith(`${currentId}/${folder}/`) &&
+            name !== `${currentId}/${folder}/`
+        );
+        debugger;
+        return folderContent.length > 0 ? folderContent[0] : "";
       };
 
-      links.design = findValidLink('designUploads');
-      links.neck = findValidLink('neckUploads');
-      links.label = findValidLink('labelUploads');
-      links.package = findValidLink('packageUploads');
-
-      console.log("Links:", links);
-
+      links.design = findValidLink("designUploads");
+      links.neck = findValidLink("neckUploads");
+      links.label = findValidLink("labelUploads");
+      links.package = findValidLink("packageUploads");
+      links.frontsize = findValidLink("frontlogoUploads");
+      links.backsize = findValidLink("backlogoUploads");
+      debugger;
       // Update the links with the full URL
-      Object.keys(links).forEach(key => {
-        if (links[key]) {
-          links[key] = `https://storage.googleapis.com/ceriga-storage-bucket/${links[key]}`;
-        }
-      });
+      // Object.keys(links).forEach((key) => {
+      //   if (links[key]) {
+      //     links[
+      //       key
+      //     ] = `https://storage.googleapis.com/ceriga-storage-bucket/${links[key]}`;
+      //   }
+      // });
+
+      Object.keys(links).forEach((key) => {
+        const k = key as keyof typeof links;
+       if (links[k]) {
+         links[k] = `https://storage.googleapis.com/ceriga-storage-bucket/${links[k]}`;
+       }
+     });
+
     } else {
-      console.error('No items found or invalid items structure in the response.');
+      console.error(
+        "No items found or invalid items structure in the response."
+      );
     }
-
-    console.log("Updated Links:", links);
-
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error("Error fetching data:", error);
   }
 
   const data: IParamPreviewOrder[] = [
@@ -140,7 +158,64 @@ export const mapOrderStateToParams = async (state: IOrderState) => {
         value: item.value.toString(),
       })),
     },
+    {
+      title: "Total Price",
+      paramsType: "cost",
+      subparameters: state.totalcost.toString(),
+    },
+    {
+      title: "Size",
+      paramsType: "listsize",
+      //subparameters:  state.logodetails?.frontlogo ? state.logodetails?.frontlogo.toString() :"",
+      subparameters: [
+        {
+          title: "Front Size",
+          value: state.logodetails?.frontlogo
+            ? state.logodetails?.frontlogo.toString()
+            : "",
+            issize:true
+        },
+        {
+          title: "Back Size",
+          value: state.logodetails?.backlogo
+            ? state.logodetails?.backlogo.toString()
+            : "",
+            issize:true
+        },
+        {title: "Extra Details", value: state?.logodetails?.description.toString() || "" },
+        {
+          title: "Front Image",
+          isLink: true,
+          titleStyle: "bold",
+          link: links.frontsize,
+        },
+        {
+          title: "Back Image",
+          isLink: true,
+          titleStyle: "bold",
+          link: links.backsize,
+        },
+      ],
+    },
+    // {
+    //   title: "Back Size",
+    //   paramsType: "listsize",
+    //   //subparameters:  state.logodetails?.backlogo ? state.logodetails?.backlogo.toString() :"",
+    //   subparameters: [
+    //     {
+    //       title: "Back Size Type",
+    //       value: state.logodetails?.backlogo
+    //         ? state.logodetails?.backlogo.toString()
+    //         : "",
+    //     },
+    //     {
+    //       title: "Images",
+    //       isLink: true,
+    //       titleStyle: "bold",
+    //       link: links.backsize,
+    //     },
+    //   ],
+    // },
   ];
   return data;
 };
-

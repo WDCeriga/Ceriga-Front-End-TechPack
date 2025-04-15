@@ -34,8 +34,6 @@ const SizesSettings: FC<ISizesSettings> = ({ handleClose }) => {
     productType && productType in tableSizes
       ? tableSizes[productType as keyof typeof tableSizes]
       : [];
-  console.log(productType);
-  console.log(typeActive)
   if (typeActive !== "Custom") {
     dispatch(changeTableSize(tableValuesAll[typeActive].table));
   }

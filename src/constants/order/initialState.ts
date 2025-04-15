@@ -10,11 +10,15 @@ export const initialState: IOrderState = {
   color: {
     hex: null,
     path: null,
+    name: "",
+    cost: 0,
+    colortype: "",
     description: "",
   },
   material: {
     name: null,
     value: null,
+    cost: 0,
   },
   stitching: {
     type: "",
@@ -94,4 +98,13 @@ export const initialState: IOrderState = {
   createAt: new Date().toISOString(),
   tableSize: [],
   tableType: null,
+  totalcost:0,
+  minimumQuantity: 1,
+  logodetails: {
+    frontlogo: "",
+    backlogo: "",
+    description: "",
+  },
+  frontlogoUploads: [],
+  backlogoUploads: [],
 };

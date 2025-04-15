@@ -11,10 +11,57 @@ import { updateMaterial } from "@redux/slices/order";
 
 import CheckBoxMaterial from "./CheckBox/CheckBox";
 import s from "./card.module.scss";
+import routes from "@routes/index";
+
+// const ChooseMaterialCard: FC<IMaterialCardComponent> = ({
+//   title,
+//   list,
+//   values,
+//   activeMaterial,
+// }) => {
+//   const dispatch = useDispatch<AppDispatch>();
+//   const handleClickButton = (color: materialValue) => {
+//     dispatch(
+//       updateMaterial({
+//         name: title,
+//         value: color,
+//       })
+//     );
+//   };
+//   const cardClassnames = classNames(
+//     s.card, 
+//     activeMaterial.name === title && s.card__active  
+//   )
+//   return (
+//     <li className={cardClassnames}>
+//       <h3 className={s.card_title}>{title}</h3>
+//       <div className={s.card_content}>
+//         <ul className={s.card_content_list}>
+//           {values.map((item) => (
+//             <CheckBoxMaterial
+//               isChecked={
+//                 activeMaterial.name === title && activeMaterial.value === item
+//               }
+//               key={item}
+//               value={item}
+//               onEvent={handleClickButton}
+//             />
+//           ))}
+//         </ul>
+//         <img
+//           className={s.card_content_img}
+//           src={`/img/materials/${list.img}`}
+//           alt={title}
+//         />
+//       </div>
+//     </li>
+//   );
+// };
 
 const ChooseMaterialCard: FC<IMaterialCardComponent> = ({
   title,
-  list,
+  path,
+  cost,
   values,
   activeMaterial,
 }) => {
@@ -24,22 +71,23 @@ const ChooseMaterialCard: FC<IMaterialCardComponent> = ({
       updateMaterial({
         name: title,
         value: color,
+        cost: 0.5
       })
     );
   };
   const cardClassnames = classNames(
-    s.card, 
-    activeMaterial.name === title && s.card__active  
+    s.card,
+    activeMaterial.name === title && s.card__active
   )
   return (
     <li className={cardClassnames}>
-      <h3 className={s.card_title}>{title}</h3>
+      <h3 className={s.card_title}>{title}{` ( € ${cost} )`}</h3>
       <div className={s.card_content}>
         <ul className={s.card_content_list}>
           {values.map((item) => (
             <CheckBoxMaterial
               isChecked={
-                activeMaterial.name === title && activeMaterial.value === item
+                activeMaterial.name === title && activeMaterial.value?.toString() === item?.toString()
               }
               key={item}
               value={item}
@@ -49,7 +97,8 @@ const ChooseMaterialCard: FC<IMaterialCardComponent> = ({
         </ul>
         <img
           className={s.card_content_img}
-          src={`/img/materials/${list.img}`}
+          crossOrigin="anonymous"
+          src={routes.server.base + path}
           alt={title}
         />
       </div>

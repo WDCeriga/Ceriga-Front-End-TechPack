@@ -7,7 +7,7 @@ import s from "./checkbox.module.scss";
 
 interface ICheckBox extends ICustomizeItem {
   isActive: boolean;
-  handleChange: (arg0: FadingType) => void;
+  handleChange: (arg0: string) => void;
 }
 
 const CheckBoxCustomizeLabel: FC<ICheckBox> = ({

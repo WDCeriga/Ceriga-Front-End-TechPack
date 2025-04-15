@@ -1,12 +1,10 @@
 import { FC } from "react";
-
-import { printingType } from "@interfaces/order/printing.interface";
 import FinalPreviewLayout from "@components/Order/Common/Layout/Layout";
 import ItemFinal from "@components/Order/Common/Item/Item";
 
 interface IFinalPrinting {
   title: string;
-  printingValue: printingType | "";
+  printingValue: string | "";
   onEvent: () => void;
 }
 

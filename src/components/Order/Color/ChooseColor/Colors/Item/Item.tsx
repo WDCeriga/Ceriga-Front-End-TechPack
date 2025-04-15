@@ -9,7 +9,7 @@ interface IColorItem extends IColorList {
   activeColor: string | null;
 }
 
-const ColorItem: FC<IColorItem> = ({ color, types, activeColor }) => {
+const ColorItem: FC<IColorItem> = ({ color, types, activeColor, }) => {
   return (
     <li className={s.container}>
       <h3 className={s.container_title}>{color}</h3>
@@ -19,6 +19,7 @@ const ColorItem: FC<IColorItem> = ({ color, types, activeColor }) => {
             isActiveColor={activeColor === type.hexValue}
             key={index}
             {...type}
+            colortype={color}
           />
         ))}
       </ul>

@@ -14,18 +14,28 @@ export type materialImage =
   | "100PercentCotton.jpeg"
   | "fleece.jpeg"
   | "frenchTerry.jpeg"
-  | "wool.jpeg";
+  | "wool.jpeg"
+  | "";
 
 export type materialValue = number;
 
+// export interface IMaterialItem {
+//   img: materialImage;
+//   materialsValue?: materialValue[];
+// }
 export interface IMaterialItem {
-  img: materialImage;
+  img: string;
   materialsValue?: materialValue[];
 }
 
+// export interface IMaterialCard {
+//   title: materialTitle;
+//   list: IMaterialItem;
+// }
 export interface IMaterialCard {
-  title: materialTitle;
-  list: IMaterialItem;
+  title: string;
+  path: string;
+  cost: number;
 }
 
 export interface IMaterialCardComponent extends IMaterialCard {

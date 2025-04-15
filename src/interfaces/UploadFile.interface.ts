@@ -1,1 +1,1 @@
-export type uploadFileType = "uploadDesign" | "uploadLabel" | "uploadNeck" | "uploadPackageDesign"
+export type uploadFileType = "uploadDesign" | "uploadLabel" | "uploadNeck" | "uploadPackageDesign" | "frontlogoUploads" |"backlogoUploads"

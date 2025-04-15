@@ -2,6 +2,8 @@ interface FabricOption {
   type: string;
   cost: number;
   availableColors?: string[];
+  imgurl: string;
+  fabricValue: number[];
 }
 
 interface DyeStyle {
@@ -12,6 +14,8 @@ interface DyeStyle {
 interface LabelOption {
   type: string;
   cost?: number;
+  minimumQuantity: number,
+  isMinimumRequired: boolean;
 }
 
 interface LabelMaterial {
@@ -22,19 +26,58 @@ interface LabelMaterial {
 interface StitchingOption {
   type: string;
   cost: number;
+  stitchingImgUrl: string;
+  minimumQuantity: number,
+  isMinimumRequired: boolean;
+
 }
 
 interface FadingOption {
   type: string;
   cost: number;
+  fadingImgUrl: string;
+  minimumQuantity: number,
+  isMinimumRequired: boolean;
 }
+
+interface Printing {
+  type: string;
+  cost: number;
+  isMinimumRequired: boolean;
+  minimumQuantity: number;
+  printingImgUrl: string;
+}
+
 
 export interface IProduct {
   _id: string;
   name: string;
   images: string[];
   categories: string[];
-  fits: string[]
+  fits: string[];
+  startingPrice: string[];
+}
+
+
+interface IFrontlogo {
+  type: string;
+  cost: number;
+  frontlogoImgUrl: string;
+  frontX: number
+  frontY: number
+  frontWidth: number
+  frontHeight: number
+  frontRotation: number
+}
+interface IBacklogo {
+  type: string;
+  cost: number;
+  backlogoImgUrl: string;
+  backX: number
+  backY: number
+  backWidth: number
+  backHeight: number
+  backRotation: number
 }
 
 export interface IProductFull {
@@ -56,6 +99,10 @@ export interface IProductFull {
   fadingOptions: FadingOption[];
   images?: string[];
   createdAt?: Date;
+  stitchingPdfUrl: string;
+  printing: Printing[],
+  frontlogo: IFrontlogo[],
+  backlogo: IBacklogo[]
 }
 
 export interface IProductsState {
