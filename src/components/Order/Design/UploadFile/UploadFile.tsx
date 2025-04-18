@@ -29,7 +29,6 @@ const UploadFile: FC<IUploadFile> = ({ handleClose, type }) => {
   const { draftId } = useSelector((state: RootState) => state.order);
 
   const files = useSelector((state: RootState) => {
-    debugger;
     if (type === "uploadDesign") {
       return state.order.designUploads;
     }

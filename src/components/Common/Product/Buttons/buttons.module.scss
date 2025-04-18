@@ -12,3 +12,18 @@
     width: calc(100% - 44px);
   }
 }
+.mobileWarning {
+  margin-top: 10px;
+  background-color: #ffe0e0;
+  color: #a00;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  animation: fadeOut 0.3s ease-in-out forwards 2.7s;
+}
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}

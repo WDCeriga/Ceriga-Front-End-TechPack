@@ -130,6 +130,8 @@ const orderSlice = createSlice({
       state.orderStep = "size";
       state.name = payload.productType;
       state.productType = payload.productType;
+      state.orderType = payload.orderType
+
     },
     loadOrder: (_, { payload }: PayloadAction<IOrderState>) => {
       return payload;
@@ -351,7 +353,6 @@ const orderSlice = createSlice({
       state.totalcost = payload;
     },
     changefrontlogoSizes: (state: IOrderState, { payload }: PayloadAction<string>) => {
-      debugger;
       state.logodetails.frontlogo = payload;
     },
     changebacklogoSizes: (state: IOrderState, { payload }: PayloadAction<string>) => {
@@ -383,40 +384,46 @@ const orderSlice = createSlice({
     builder.addCase(
       uploadDesign.fulfilled,
       (state: IOrderState, { payload }: PayloadAction<string>) => {
-        state?.designUploads?.push(payload);
+        //state?.designUploads?.push(payload);
+        state.designUploads = [payload];
       }
     );
     builder.addCase(
       uploadLabel.fulfilled,
       (state: IOrderState, { payload }: PayloadAction<string>) => {
-        state.labelUploads.push(payload);
+        //state.labelUploads.push(payload);
+        state.labelUploads = [payload];
       }
     );
 
     builder.addCase(
       uploadbacklogo.fulfilled,
       (state: IOrderState, { payload }: PayloadAction<string>) => {
-        state.backlogoUploads.push(payload);
+        //state.backlogoUploads.push(payload);
+        state.backlogoUploads = [payload];
       }
     );
 
     builder.addCase(
       uploadfrontlogo.fulfilled,
       (state: IOrderState, { payload }: PayloadAction<string>) => {
-        state.frontlogoUploads.push(payload);
+        // state.frontlogoUploads.push(payload);
+        state.frontlogoUploads = [payload];
       }
     );
 
     builder.addCase(
       uploadNeck.fulfilled,
       (state: IOrderState, { payload }: PayloadAction<string>) => {
-        state.neckUploads.push(payload);
+        //state.neckUploads.push(payload);
+        state.neckUploads = [payload];
       }
     );
     builder.addCase(
       uploadPackage.fulfilled,
       (state: IOrderState, { payload }: PayloadAction<string>) => {
-        state.packageUploads.push(payload);
+        //state.packageUploads.push(payload);
+        state.packageUploads = [payload];
       }
     );
     builder.addCase(

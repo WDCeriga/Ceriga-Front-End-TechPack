@@ -63,22 +63,7 @@ const OrderColor: FC = () => {
         />
         <Progress value={25} />
       </div>
-      {/* <div>
-        {isMinimumRequired ? (
-          <p
-            style={{
-              position: "absolute",
-              top: "10%",
-              right: "25%",
-              color: "red",
-            }}
-          >
-            The minimum order quantity is {minimumQuantity}
-          </p>
-        ) : (
-          <></>
-        )}
-      </div> */}
+      
       {subtotal ? (
         <div style={{
           height: 0,
@@ -100,28 +85,11 @@ const OrderColor: FC = () => {
         <></>
       )}
       <div className={sOrder.center}>
-        {/* {isMinimumRequired ? (
-          <p
-            style={{
-              color: "red",
-              position: "absolute",
-              right: 0,
-              top: "-5vw",
-              height: "auto",
-            }}
-          >
-            The minimum order quantity is {minimumQuantity}
-          </p>
-        ) : (
-          <></>
-        )} */}
+       
         <DefaultImg />
       </div>
       <div className={sOrder.right}>
         <div className={s.params}>
-          {/* <RenderMaterial />
-          <RenderColor />
-          <RenderPrinting /> */}
           {!menuState.materialIsOpen &&
             (material.name === null || material.value === null ? (
               <ButtonSelect

@@ -107,4 +107,5 @@ export const initialState: IOrderState = {
   },
   frontlogoUploads: [],
   backlogoUploads: [],
+  orderType: "",
 };

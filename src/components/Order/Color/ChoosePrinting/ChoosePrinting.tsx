@@ -14,7 +14,9 @@ interface IChoosePrinting {
 const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { printing } = useSelector((state: RootState) => state.order);
+  const { printing ,orderType } = useSelector((state: RootState) => state.order);
+
+  console.log("orderRP====>",useSelector((state: RootState) => state.order))
   const handleChoosePrinting = (value: string) => {
     dispatch(updatePrinting(value));
   };
@@ -45,7 +47,7 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
         </button>
       </div>
 
-      {isMinimumRequired && (
+      {(orderType === "Custom clothing" && isMinimumRequired) && (
         <p style={{ marginTop: "1.5rem", color: "red", fontSize: "14px" }}>{`Minimum order quantity for ${printing} is ${minimumquantity}`}</p>)
       }
 

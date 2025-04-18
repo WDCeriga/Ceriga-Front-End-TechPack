@@ -36,7 +36,7 @@ const ModalProduct: FC = () => {
 
   const handleCreateNewOrder = () => {
     dispatch(resetColors());
-    product && productId && dispatch(createNewOrder({ productType: product.categories[0] }));
+    product && productId && dispatch(createNewOrder({ productType: product.categories[0], orderType:"Custom clothing" }));
     navigate(routes.order);
   };
 

@@ -6,6 +6,7 @@ import routes from "@routes/index";
 
 import Buttons from "./Buttons/Buttons";
 import s from "./product.module.scss";
+import { isMobile } from 'react-device-detect';
 
 interface IProductCard extends IProduct {
   size?: "small" | "default";
@@ -37,6 +38,8 @@ const Product: FC<IProductCard> = ({
   const handleMouseOut = () => {
     setMouseOver(false);
   };
+
+
   return (
     <div
       className={contentClasses}
@@ -63,7 +66,8 @@ const Product: FC<IProductCard> = ({
         src={imgSrc}
         alt={name}
       />
-      {isMouseOver && <Buttons category={categories[0]} idProduct={_id} size={size || "default"} />}
+      
+      {isMouseOver && <Buttons category={categories[0]} idProduct={_id} size={size || "default"} isMobile= {isMobile} />}
     </div>
   );
 };

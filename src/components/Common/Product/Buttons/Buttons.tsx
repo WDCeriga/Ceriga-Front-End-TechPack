@@ -1,10 +1,10 @@
 import classNames from "classnames";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { AppDispatch } from "@redux/store";
-import { openModal } from "@redux/slices/ui";
+import { openModal , openOrderTypeModal } from "@redux/slices/ui";
 import { createNewOrder, resetOrderState } from "@redux/slices/order";
 import { resetColors } from "@redux/slices/colors";
 import routes from "@routes/index";
@@ -16,24 +16,36 @@ interface IButtons {
   size: "small" | "default";
   idProduct: string;
   category: string;
+  isMobile: boolean;
 }
 
-const Buttons: FC<IButtons> = ({ size, idProduct, category }) => {
+const Buttons: FC<IButtons> = ({ size, idProduct, category, isMobile }) => {
   const navigate = useNavigate();
+  const [mobileMsgVisible, setMobileMsgVisible] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const handleOpenInformation = () => {
     dispatch(openModal({ productId: idProduct }));
   };
   const handleCreateNewOrder = () => {
-    dispatch(resetOrderState());
-    dispatch(resetColors())
-    dispatch(createNewOrder({ productType: category, productId: idProduct }));
-    navigate(routes.order);
+    // dispatch(resetOrderState());
+    // dispatch(resetColors());
+    // dispatch(createNewOrder({ productType: category, productId: idProduct , orderType:"Custom clothing"}));
+    // navigate(routes.order);
+    debugger;
+    dispatch(openOrderTypeModal({ productId: idProduct , category:category }));
+    
   };
   const groupClasses = classNames(
     s.group,
     size === "default" && s.group__default
   );
+  let timeoutId: NodeJS.Timeout;
+  // let timeoutId: any;
+  const handleMobileMessage = () => {
+    clearTimeout(timeoutId);
+    setMobileMsgVisible(true);
+    timeoutId = setTimeout(() => setMobileMsgVisible(false), 4000);
+  };
   return (
     <div className={groupClasses}>
       <Button
@@ -41,7 +53,26 @@ const Buttons: FC<IButtons> = ({ size, idProduct, category }) => {
         size={size}
         text="Information"
       />
-      <Button handleClick={handleCreateNewOrder} size={size} text="Customize" />
+      {isMobile ? (
+        <Button
+          handleClick={() => {
+            handleMobileMessage();
+          }}
+          size={size}
+          text="Customize"
+        />
+      ) : (
+        <Button
+          handleClick={handleCreateNewOrder}
+          size={size}
+          text="Customize"
+        />
+      )}
+      {mobileMsgVisible && (
+        <div className={s.mobileWarning}>
+          Sorry! This feature only works on a laptop or desktop.
+        </div>
+      )}
     </div>
   );
 };

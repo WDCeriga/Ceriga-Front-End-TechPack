@@ -82,6 +82,7 @@ export interface IOrderState {
   logodetails: ILogodetails;
   frontlogoUploads: string[];
   backlogoUploads: string[];
+  orderType: string | null;
 }
 
 export interface ILogodetails {
@@ -96,4 +97,5 @@ export interface ILogodetails {
 
 export interface ICreateNewOrder {
   productType: string;
+  orderType : string;
 }
