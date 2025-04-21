@@ -52,7 +52,7 @@ export const continueOrder = createAsyncThunk<
   { state: RootState }
 >("continue-order", async (draftId) => {
   const data: IOrderState = await continueOrderApi(draftId);
-  console.log("data==>", data)
+  console.log("data==>", data);
   return data;
 });
 
@@ -130,8 +130,7 @@ const orderSlice = createSlice({
       state.orderStep = "size";
       state.name = payload.productType;
       state.productType = payload.productType;
-      state.orderType = payload.orderType
-
+      state.orderType = payload.orderType;
     },
     loadOrder: (_, { payload }: PayloadAction<IOrderState>) => {
       return payload;
@@ -293,7 +292,7 @@ const orderSlice = createSlice({
         minimumQuantity &&
         totalQuantity &&
         parseInt(totalQuantity?.toString()) >
-        parseInt(minimumQuantity?.toString())
+          parseInt(minimumQuantity?.toString())
       ) {
         state.quantity.type = "Bulk";
       }
@@ -346,21 +345,33 @@ const orderSlice = createSlice({
     setSubtotal: (state: IOrderState, { payload }: PayloadAction<number>) => {
       state.subtotal = payload;
     },
-    setMinimumQuantity: (state: IOrderState, { payload }: PayloadAction<number>) => {
+    setMinimumQuantity: (
+      state: IOrderState,
+      { payload }: PayloadAction<number>
+    ) => {
       state.minimumQuantity = payload;
     },
     setTotalcost: (state: IOrderState, { payload }: PayloadAction<number>) => {
       state.totalcost = payload;
     },
-    changefrontlogoSizes: (state: IOrderState, { payload }: PayloadAction<string>) => {
+    changefrontlogoSizes: (
+      state: IOrderState,
+      { payload }: PayloadAction<string>
+    ) => {
       state.logodetails.frontlogo = payload;
     },
-    changebacklogoSizes: (state: IOrderState, { payload }: PayloadAction<string>) => {
+    changebacklogoSizes: (
+      state: IOrderState,
+      { payload }: PayloadAction<string>
+    ) => {
       state.logodetails.backlogo = payload;
     },
-    changelogodescription: (state: IOrderState, { payload }: PayloadAction<string>) => {
+    changelogodescription: (
+      state: IOrderState,
+      { payload }: PayloadAction<string>
+    ) => {
       state.logodetails.description = payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(createNewDraft.fulfilled, (state, { payload }) => {
@@ -395,7 +406,6 @@ const orderSlice = createSlice({
         state.labelUploads = [payload];
       }
     );
-
     builder.addCase(
       uploadbacklogo.fulfilled,
       (state: IOrderState, { payload }: PayloadAction<string>) => {
@@ -403,7 +413,6 @@ const orderSlice = createSlice({
         state.backlogoUploads = [payload];
       }
     );
-
     builder.addCase(
       uploadfrontlogo.fulfilled,
       (state: IOrderState, { payload }: PayloadAction<string>) => {
@@ -411,7 +420,6 @@ const orderSlice = createSlice({
         state.frontlogoUploads = [payload];
       }
     );
-
     builder.addCase(
       uploadNeck.fulfilled,
       (state: IOrderState, { payload }: PayloadAction<string>) => {
@@ -485,8 +493,7 @@ export const {
   setTotalcost,
   changefrontlogoSizes,
   changebacklogoSizes,
-  changelogodescription
-
+  changelogodescription,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

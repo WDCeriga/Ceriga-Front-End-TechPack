@@ -57,7 +57,7 @@ const PreviewForAdmin: FC<IPreviewForAdmin> = ({ id }) => {
       <div
         className={s.preview_left}
         style={{
-          paddingTop: "100px",   // Add padding
+          paddingTop: "100px", // Add padding
         }}
       >
         <ProductWithColor

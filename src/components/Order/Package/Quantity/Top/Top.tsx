@@ -12,19 +12,21 @@ interface ITopQuantity {
 }
 
 const TopQuantity: FC<ITopQuantity> = ({ handleClose }) => {
-  const { quantity, material, minimumQuantity } = useSelector(
+  const { quantity, material, minimumQuantity, orderType } = useSelector(
     (state: RootState) => state.order
   );
   const moq: number = (material.value as number) >= 50 ? 50 : 50;
   return (
     <div className={s.top}>
       <div>
-      {quantity.list.reduce((sum, item) => sum + item.value, 0) <
+        {quantity.list.reduce((sum, item) => sum + item.value, 0) <
+          minimumQuantity &&
+          orderType === "Custom clothing" &&
           minimumQuantity && (
-          <ErrorMessage
-            text={`The minimum order quantity is ${minimumQuantity}.`}
-          />
-        )}
+            <ErrorMessage
+              text={`The minimum order quantity is ${minimumQuantity}.`}
+            />
+          )}
         <h3 className={s.top_title}>Details about packaging</h3>
         {/* {quantity.type === "Bulk" &&
           quantity.list.reduce((sum, item) => sum + item.value, 0) < minimumQuantity && (

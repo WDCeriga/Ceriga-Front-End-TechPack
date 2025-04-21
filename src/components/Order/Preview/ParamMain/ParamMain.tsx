@@ -43,10 +43,7 @@ const ParamMainPreview: FC<IParamPreviewOrder> = ({
       {paramsType === "listsize" && Array.isArray(subparameters) && (
         <ul className={s.item_subparamets}>
           {subparameters.map((item) => (
-            <SubParamItemOrderPreview
-              key={item.title}
-              {...item}
-            />
+            <SubParamItemOrderPreview key={item.title} {...item} />
           ))}
         </ul>
       )}

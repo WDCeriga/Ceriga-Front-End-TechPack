@@ -22,13 +22,15 @@ const UploadDesignTop: FC<IUploadDesignTop> = ({ handleClose }) => {
   const productinfo = useSelector(
     (state: RootState) => state.products.productOpen
   );
+  const { orderType } = useSelector((state: RootState) => state.order);
 
   // Fetch the minimum quantity requirement for the stitching options
   const stitchingOption = productinfo?.stitchingOptions?.find(
     (item) => item.type === type
   );
   const stitchingMinimumQuantity = stitchingOption?.minimumQuantity;
-  const stitchingIsMinimumRequired = stitchingOption?.isMinimumRequired;
+  const stitchingIsMinimumRequired =
+    orderType == "Custom clothing" ? stitchingOption?.isMinimumRequired : false;
 
   return (
     <div className={s.top}>

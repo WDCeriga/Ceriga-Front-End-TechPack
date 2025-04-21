@@ -6,7 +6,6 @@ import ImageSizeModal from "./ImageSizeModal";
 
 import { changefrontlogoSizes } from "@redux/slices/order";
 
-
 interface FrontViewModalProps {
   checkcolor?: string;
   onClose: () => void;
@@ -20,7 +19,6 @@ const FrontViewModal: React.FC<FrontViewModalProps> = ({ onClose }) => {
 
   const { order } = useSelector((state: RootState) => state);
   const frontsize = order?.logodetails?.frontlogo ?? "";
-
 
   const handleOpenUploadModalFront = () => {
     setIsUploadModalOpenFront(true);
@@ -44,10 +42,9 @@ const FrontViewModal: React.FC<FrontViewModalProps> = ({ onClose }) => {
             setSelectedSize={handleSizeSelection}
             selectedSize={frontsize}
           />
-
         </div>
-
       </div>
+
       <div className="uplodefilebtn">
         <div className="buttonforuplode" onClick={handleOpenUploadModalFront}>
           <p className="uplodebtntext">Upload Front View Design</p>

@@ -24,7 +24,9 @@ const BodyUsersTable: FC<IBodyUserTable> = ({
   const dispatch = useDispatch<AppDispatch>();
 
   // Get users & loading state from Redux
-  const { users, isLoading } = useSelector((state: RootState) => state.dashboard);
+  const { users, isLoading } = useSelector(
+    (state: RootState) => state.dashboard
+  );
 
   // Fetch paginated users from API
   useEffect(() => {
@@ -56,16 +58,11 @@ const BodyUsersTable: FC<IBodyUserTable> = ({
   }
 
   return (
-    <List
-      height={400} // Adjust based on layout
-      itemCount={users.length}
-      itemSize={50} // Adjust row height
-      width="100%"
-    >
-      {({ index, style }) => {
-        const user = users[index];
-        return (
-          <tr style={style} key={user._id} className={s.body_row}>
+    <tbody className={s.body}>
+      {users
+        .slice(0, itemsPerPage) // API already returns paginated data
+        .map((user) => (
+          <tr key={user._id} className={s.body_row}>
             <td className={s.body_row_user}>
               <div className={s.body_row_user_group}>
                 <p className={s.body_row_user_group_name}>
@@ -95,12 +92,13 @@ const BodyUsersTable: FC<IBodyUserTable> = ({
               {user.lastActive ? formatDateToDDMMYY(user.lastActive) : "No set"}
             </td>
             <td className={s.body_row_text} style={{ textAlign: "center" }}>
-              <span className={s.body_row_text_gray}>{user.amountOfOrders}$</span>
+              <span className={s.body_row_text_gray}>
+                {user.amountOfOrders}$
+              </span>
             </td>
           </tr>
-        );
-      }}
-    </List>
+        ))}
+    </tbody>
   );
 };
 

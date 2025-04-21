@@ -19,10 +19,20 @@ const HeadUserTable: FC = () => {
           <p className={s.header_row_item_text}>Email</p>
         </th>
         <th className={`${s.header_row_item} ${s.dates}`}>Last Dates</th>
-        <th className={s.header_row_item} >
-          <p className={s.header_row_item_text} style={{textAlign:"center"}}>Amount of orders</p>
+        <th className={s.header_row_item}>
+          <p className={s.header_row_item_text} style={{ textAlign: "center" }}>
+            Amount of orders
+          </p>
         </th>
       </tr>
+      {/* <tr className={s.header_row}>
+        <th className={s.header_row_item}>Name</th>
+        <th className={s.header_row_item}>Role</th>
+        <th className={s.header_row_item}>Manufactures</th>
+        <th className={s.header_row_item}>Email</th>
+        <th className={s.header_row_item}>Last Dates</th>
+        <th className={s.header_row_item}>Amount of orders</th>
+      </tr> */}
     </thead>
   );
 };

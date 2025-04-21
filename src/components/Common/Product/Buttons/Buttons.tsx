@@ -4,10 +4,11 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { AppDispatch } from "@redux/store";
-import { openModal , openOrderTypeModal } from "@redux/slices/ui";
+import { openModal, openOrderTypeModal } from "@redux/slices/ui";
 import { createNewOrder, resetOrderState } from "@redux/slices/order";
 import { resetColors } from "@redux/slices/colors";
 import routes from "@routes/index";
+import notification from "../../../../services/notification";
 
 import Button from "./Button/Button";
 import s from "./buttons.module.scss";
@@ -31,9 +32,8 @@ const Buttons: FC<IButtons> = ({ size, idProduct, category, isMobile }) => {
     // dispatch(resetColors());
     // dispatch(createNewOrder({ productType: category, productId: idProduct , orderType:"Custom clothing"}));
     // navigate(routes.order);
-    debugger;
-    dispatch(openOrderTypeModal({ productId: idProduct , category:category }));
-    
+
+    dispatch(openOrderTypeModal({ productId: idProduct, category: category }));
   };
   const groupClasses = classNames(
     s.group,
@@ -42,9 +42,10 @@ const Buttons: FC<IButtons> = ({ size, idProduct, category, isMobile }) => {
   let timeoutId: NodeJS.Timeout;
   // let timeoutId: any;
   const handleMobileMessage = () => {
-    clearTimeout(timeoutId);
-    setMobileMsgVisible(true);
-    timeoutId = setTimeout(() => setMobileMsgVisible(false), 4000);
+    // clearTimeout(timeoutId);
+    // setMobileMsgVisible(true);
+    // timeoutId = setTimeout(() => setMobileMsgVisible(false), 4000);
+    notification.error("Only available on laptop.");
   };
   return (
     <div className={groupClasses}>
@@ -68,11 +69,11 @@ const Buttons: FC<IButtons> = ({ size, idProduct, category, isMobile }) => {
           text="Customize"
         />
       )}
-      {mobileMsgVisible && (
+      {/* {mobileMsgVisible && (
         <div className={s.mobileWarning}>
-          Sorry! This feature only works on a laptop or desktop.
+          Only available on laptop.
         </div>
-      )}
+      )} */}
     </div>
   );
 };

@@ -48,7 +48,7 @@ const CustomiseModalProduct: FC = () => {
           orderType: "Custom clothing",
         })
       );
-   
+
     navigate(routes.order);
   };
   const handleCreateTechpackNewOrder = () => {
@@ -58,10 +58,10 @@ const CustomiseModalProduct: FC = () => {
       dispatch(
         createNewOrder({
           productType: category ? category : product.categories[0],
-          orderType: "Tech pack",
+          orderType: "",
         })
       );
-   
+
     navigate(routes.order);
   };
 
@@ -70,12 +70,17 @@ const CustomiseModalProduct: FC = () => {
       <div className={s.modal_left}></div>
       <div className={s.modal_right}>
         <div className={s.modal_right_top}>
-          <h2 className={s.modal_right_top_title} style={{marginRight:"10px"}}>Choice order type</h2>
+          <h2
+            className={s.modal_right_top_title}
+            style={{ marginRight: "10px" }}
+          >
+            Choice order type
+          </h2>
           <button onClick={handleCloseModal} className={s.modal_right_top_btn}>
             <CloseIcon width="22" height="22" color="#111" />
           </button>
         </div>
-        <div className={s.item} style={{marginTop:"10px"}} >
+        <div className={s.item} style={{ marginTop: "10px" }}>
           <button
             onClick={handleCreateclothingNewOrder}
             className={s.modal_right_btn}
@@ -85,7 +90,7 @@ const CustomiseModalProduct: FC = () => {
               marginRight: "2px",
             }}
           >
-            Custom clothing
+            Get custom clothing
           </button>
           <button
             onClick={handleCreateTechpackNewOrder}
@@ -96,7 +101,7 @@ const CustomiseModalProduct: FC = () => {
               marginLeft: "2px",
             }}
           >
-            Tech pack
+            Get tech pack
           </button>
         </div>
       </div>

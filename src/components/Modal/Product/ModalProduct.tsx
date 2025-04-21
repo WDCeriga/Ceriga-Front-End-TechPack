@@ -9,6 +9,8 @@ import { clearOpenProduct, getProductInfo } from "@redux/slices/products";
 import { createNewOrder } from "@redux/slices/order";
 import { resetColors } from "@redux/slices/colors";
 import routes from "@routes/index";
+import { isMobile as isMobileDevice } from "react-device-detect";
+import notification from "../../../services/notification";
 
 import s from "./modalProduct.module.scss";
 
@@ -17,7 +19,7 @@ const ModalProduct: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { productId } = useSelector((state: RootState) => state.ui.modal);
   const { productOpen: product } = useSelector(
-    (state: RootState) => state.products,
+    (state: RootState) => state.products
   );
   useEffect(() => {
     // dispatch(getProductInfo(productId || ""));
@@ -34,19 +36,47 @@ const ModalProduct: FC = () => {
     dispatch(closeModal());
   };
 
-  const handleCreateNewOrder = () => {
-    dispatch(resetColors());
-    product && productId && dispatch(createNewOrder({ productType: product.categories[0], orderType:"Custom clothing" }));
-    navigate(routes.order);
-  };
+  const isSmallScreen = window.innerWidth <= 980;
 
+  const isMobile = isMobileDevice || isSmallScreen;
+
+  // const handleCreateNewOrder = () => {
+  //   dispatch(resetColors());
+  //   product &&
+  //     productId &&
+  //     dispatch(
+  //       createNewOrder({
+  //         productType: product.categories[0],
+  //         orderType: "Custom clothing",
+  //       })
+  //     );
+  //   navigate(routes.order);
+  // };
+  console.log("isMobileDevice==>", isMobileDevice);
+  const handleCreateNewOrder = () => {
+    if (!isMobile) {
+      dispatch(resetColors());
+      product &&
+        productId &&
+        dispatch(
+          createNewOrder({
+            productType: product.categories[0],
+            orderType: "Custom clothing",
+          })
+        );
+      navigate(routes.order);
+    } else {
+      notification.error("Only available on laptop.");
+    }
+  };
   if (!product) {
     return null;
   }
-  const imgSrc = `${routes.server.base}${product.images && product.images[0]
-    ? product.images[0]
-    : routes.server.products.defaultImg
-    }`;
+  const imgSrc = `${routes.server.base}${
+    product.images && product.images[0]
+      ? product.images[0]
+      : routes.server.products.defaultImg
+  }`;
 
   return (
     <div onClick={handleModalClick} className={s.modal}>
@@ -79,6 +109,7 @@ const ModalProduct: FC = () => {
             >
               Start Designing
             </button>
+            <div style={{ fontSize: 25 }}>{window.innerWidth}</div>
             <ul className={s.modal_right_list}>
               <li className={s.item}>
                 <p className={s.item_left}>MOQ</p>
@@ -115,7 +146,9 @@ const ModalProduct: FC = () => {
                 <p className={s.item_left}>Label option</p>
                 <p className={s.item_right}>
                   {/* {"We provide custom labelling"} */}
-                  {product?.labelOptions?.map((lable) => `${lable.type} `).join(", ")}
+                  {product?.labelOptions
+                    ?.map((lable) => `${lable.type} `)
+                    .join(", ")}
                 </p>
               </li>
               <li className={s.item}>
@@ -128,7 +161,9 @@ const ModalProduct: FC = () => {
               <li className={s.item}>
                 <p className={s.item_left}>Fading</p>
                 <p className={s.item_right}>
-                  {product?.fadingOptions?.map((fading) => `${fading.type} `).join(", ")}
+                  {product?.fadingOptions
+                    ?.map((fading) => `${fading.type} `)
+                    .join(", ")}
                   {/* {
                     "We produce Shoulder Sun fading, Shoulder & Bottom Sun fading, Circular Sun fading and All-over Sun fading"
                   } */}

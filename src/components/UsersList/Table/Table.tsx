@@ -11,10 +11,14 @@ import s from "./table.module.scss";
 interface TableUsersProps {
   currentPage: number;
   itemsPerPage: number;
-  users: IUserDashboard[]
+  users: IUserDashboard[];
 }
 
-const TableUsers: FC<TableUsersProps> = ({ currentPage, itemsPerPage, users }) => {
+const TableUsers: FC<TableUsersProps> = ({
+  currentPage,
+  itemsPerPage,
+  users,
+}) => {
   const [modalOpen, setModalOpen] = useState<string>("");
 
   const handleToggleModal = (id: string) => {
@@ -26,7 +30,7 @@ const TableUsers: FC<TableUsersProps> = ({ currentPage, itemsPerPage, users }) =
       <table className={s.table}>
         <HeadUserTable />
         <BodyUsersTable
-         users={users}
+          users={users}
           handleToggleModal={handleToggleModal}
           currentPage={currentPage}
           itemsPerPage={itemsPerPage}

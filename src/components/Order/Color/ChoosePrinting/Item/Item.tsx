@@ -43,53 +43,56 @@ const PrintingItem: FC<IPrintingItem> = ({
         />
         <p className={s.item_button_text}>{name}</p>
       </button>
-
-      <OverlayTrigger
-        placement="bottom"
-        overlay={
-          <Tooltip
-            id={`tooltip-${name}`}
+      {isMinimumRequired ? (
+        <OverlayTrigger
+          placement="bottom"
+          overlay={
+            <Tooltip
+              id={`tooltip-${name}`}
+              style={{
+                fontSize: "10px",
+                color: "#fff",
+                backgroundColor: "#e33c12",
+                padding: "8px 12px",
+                borderRadius: "8px",
+                boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
+                maxWidth: "200px",
+                textAlign: "center",
+                position: "relative",
+              }}
+            >
+              {tooltipContent}
+              <div
+                style={{
+                  content: "''",
+                  position: "absolute",
+                  top: "-8px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: 0,
+                  height: 0,
+                  borderLeft: "8px solid transparent",
+                  borderRight: "8px solid transparent",
+                  borderBottom: "8px solid #e33c12",
+                }}
+              />
+            </Tooltip>
+          }
+        >
+          <div
             style={{
-              fontSize: "10px",
-              color: "#fff",
-              backgroundColor: "#e33c12",
-              padding: "8px 12px",
-              borderRadius: "8px",
-              boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
-              maxWidth: "200px",
-              textAlign: "center",
-              position: "relative",
+              position: "absolute",
+              bottom: 12,
+              right: 12,
+              cursor: "pointer",
             }}
           >
-            {tooltipContent}
-            <div
-              style={{
-                content: "''",
-                position: "absolute",
-                top: "-8px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: 0,
-                height: 0,
-                borderLeft: "8px solid transparent",
-                borderRight: "8px solid transparent",
-                borderBottom: "8px solid #e33c12",
-              }}
-            />
-          </Tooltip>
-        }
-      >
-        <div
-          style={{
-            position: "absolute",
-            bottom: 12,
-            right: 12,
-            cursor: "pointer",
-          }}
-        >
-          <InfoIcon style={{ fontSize: "14px", color: "#444" }} />
-        </div>
-      </OverlayTrigger>
+            <InfoIcon style={{ fontSize: "14px", color: "#444" }} />
+          </div>
+        </OverlayTrigger>
+      ) : (
+        <></>
+      )}
     </li>
   );
 };

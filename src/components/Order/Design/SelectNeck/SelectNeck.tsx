@@ -17,9 +17,11 @@ interface ISelectNeck {
 }
 
 const SelectNeck: FC<ISelectNeck> = ({ handleClose }) => {
-  debugger;
   const dispatch = useDispatch<AppDispatch>();
-  const { noLabels , type } = useSelector((state: RootState) => state.order.neck);
+  const { noLabels, type } = useSelector(
+    (state: RootState) => state.order.neck
+  );
+  const { orderType } = useSelector((state: RootState) => state.order);
   // const { neckDescription } = useSelector((state: RootState) => state.order);
   // const [description, setDescription] = useState<string>(neckDescription);
   const [configurationOpen, setConfigurationOpen] = useState<boolean>(false);
@@ -56,7 +58,7 @@ const SelectNeck: FC<ISelectNeck> = ({ handleClose }) => {
 
   let labelOptionsMinimumQuantity = 0;
   let labelOptionsIsMinimumRequired = false;
-  if (noLabels === false && type) {
+  if (noLabels === false && type && orderType == "Custom clothing") {
     let qty = productinfo?.labelOptions?.find(
       (x) => x.type == "Custom Label"
     )?.minimumQuantity;
@@ -73,7 +75,6 @@ const SelectNeck: FC<ISelectNeck> = ({ handleClose }) => {
     labelOptionsMinimumQuantity = 0;
     labelOptionsIsMinimumRequired = false;
   }
-debugger;
 
   if (configurationOpen) {
     return (

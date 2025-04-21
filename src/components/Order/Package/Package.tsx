@@ -23,11 +23,12 @@ const OrderPackage: FC = () => {
     subtotal,
     minimumQuantity,
     totalcost,
+    orderType,
   } = useSelector((state: RootState) => state.order);
   const packageInfo = useSelector((state: RootState) => state.order.package);
 
   const totalqty = quantity.list.reduce((sum, item) => sum + item.value, 0);
-  console.log("totalqty==>", totalqty)
+  console.log("totalqty==>", totalqty);
   const [menuOpen, setMenuOpen] = useState({
     packageConfiguration: false,
     quantity: false,
@@ -42,38 +43,63 @@ const OrderPackage: FC = () => {
     dispatch(changeOrderStep("tshirt"));
   };
 
+  // const handleNextStep = () => {
+  //   // if (
+  //   //   quantity.type === "Bulk" &&
+  //   //   quantity.list.reduce((sum, item) => sum + item.value, 0) < moq
+  //   // ) {
+  //   //   notification.error(
+  //   //     "Please select a quantity that meets the minimum order quantity"
+  //   //   );
+  //   // } else {
+  //   //   dispatch(changeOrderStep("delivery"));
+  //   // }
+
+  //   if (
+  //     quantity.type === "Bulk" &&
+  //     quantity.list.reduce((sum, item) => sum + item.value, 0) < minimumQuantity
+  //   ) {
+  //     notification.error(
+  //       "Please select a quantity that meets the minimum order quantity"
+  //     );
+  //   } else {
+  //     if (
+  //       quantity.list.reduce((sum, item) => sum + item.value, 0) <
+  //       minimumQuantity
+  //     ) {
+  //       notification.error(
+  //         "Please select a quantity that meets the minimum order quantity"
+  //       );
+  //     } else {
+  //       dispatch(changeOrderStep("preview"));
+  //     }
+  //   }
+  // };
+
   const handleNextStep = () => {
-    // if (
-    //   quantity.type === "Bulk" &&
-    //   quantity.list.reduce((sum, item) => sum + item.value, 0) < moq
-    // ) {
-    //   notification.error(
-    //     "Please select a quantity that meets the minimum order quantity"
-    //   );
-    // } else {
-    //   dispatch(changeOrderStep("delivery"));
-    // }
+    const totalQuantity = quantity.list.reduce(
+      (sum, item) => sum + item.value,
+      0
+    );
+
+    if (totalQuantity === 0) {
+      notification.error("Please select at least one quantity.");
+      return;
+    }
 
     if (
-      quantity.type === "Bulk" &&
-      quantity.list.reduce((sum, item) => sum + item.value, 0) < minimumQuantity
+      (orderType === "Custom clothing" || quantity.type === "Bulk") &&
+      totalQuantity < minimumQuantity
     ) {
       notification.error(
-        "Please select a quantity that meets the minimum order quantity"
+        `Please select a quantity that meets the minimum order quantity of ${minimumQuantity}.`
       );
-    } else {
-      if (
-        quantity.list.reduce((sum, item) => sum + item.value, 0) <
-        minimumQuantity
-      ) {
-        notification.error(
-          "Please select a quantity that meets the minimum order quantity"
-        );
-      } else {
-        dispatch(changeOrderStep("preview"));
-      }
+      return;
     }
+
+    dispatch(changeOrderStep("preview"));
   };
+
   const handleToggleMenu = (name: keyof typeof menuOpen) => {
     setMenuOpen((prev) => ({
       packageConfiguration: false,
@@ -123,7 +149,10 @@ const OrderPackage: FC = () => {
             borderEndEndRadius: "10px",
           }}
         >
-         €{(parseFloat(subtotal.toString()) * (totalqty > 0 ? totalqty : 1)).toFixed(2)}
+          €
+          {(
+            parseFloat(subtotal.toString()) * (totalqty > 0 ? totalqty : 1)
+          ).toFixed(2)}
         </p>
       ) : (
         <></>

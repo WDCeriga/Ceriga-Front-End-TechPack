@@ -14,7 +14,8 @@ export const mapOrderStateToParams = async (state: IOrderState) => {
   console.log("currentId==>", currentId);
   try {
     const response = await fetch(
-      "https://storage.googleapis.com/storage/v1/b/ceriga-storage-bucket/o?prefix="+ currentId
+      "https://storage.googleapis.com/storage/v1/b/ceriga-storage-bucket/o?prefix=" +
+        currentId
     );
 
     console.log("response15==>", response);
@@ -22,7 +23,8 @@ export const mapOrderStateToParams = async (state: IOrderState) => {
     console.log("data==>", data);
     if (Array.isArray(data.items)) {
       // const names = data?.items?.map((item) => item.name);
-      const names: Array<string> = data?.items?.map((item: { name: string }) => item.name) || [];
+      const names: Array<string> =
+        data?.items?.map((item: { name: string }) => item.name) || [];
 
       // Helper function to find a valid file link
       const findValidLink = (folder: string) => {
@@ -31,7 +33,7 @@ export const mapOrderStateToParams = async (state: IOrderState) => {
             name.startsWith(`${currentId}/${folder}/`) &&
             name !== `${currentId}/${folder}/`
         );
-        debugger;
+
         return folderContent.length > 0 ? folderContent[0] : "";
       };
 
@@ -41,7 +43,7 @@ export const mapOrderStateToParams = async (state: IOrderState) => {
       links.package = findValidLink("packageUploads");
       links.frontsize = findValidLink("frontlogoUploads");
       links.backsize = findValidLink("backlogoUploads");
-      debugger;
+
       // Update the links with the full URL
       // Object.keys(links).forEach((key) => {
       //   if (links[key]) {
@@ -53,11 +55,12 @@ export const mapOrderStateToParams = async (state: IOrderState) => {
 
       Object.keys(links).forEach((key) => {
         const k = key as keyof typeof links;
-       if (links[k]) {
-         links[k] = `https://storage.googleapis.com/ceriga-storage-bucket/${links[k]}`;
-       }
-     });
-
+        if (links[k]) {
+          links[
+            k
+          ] = `https://storage.googleapis.com/ceriga-storage-bucket/${links[k]}`;
+        }
+      });
     } else {
       console.error(
         "No items found or invalid items structure in the response."
@@ -173,16 +176,19 @@ export const mapOrderStateToParams = async (state: IOrderState) => {
           value: state.logodetails?.frontlogo
             ? state.logodetails?.frontlogo.toString()
             : "",
-            issize:true
+          issize: true,
         },
         {
           title: "Back Size",
           value: state.logodetails?.backlogo
             ? state.logodetails?.backlogo.toString()
             : "",
-            issize:true
+          issize: true,
         },
-        {title: "Extra Details", value: state?.logodetails?.description.toString() || "" },
+        {
+          title: "Extra Details",
+          value: state?.logodetails?.description.toString() || "",
+        },
         {
           title: "Front Image",
           isLink: true,

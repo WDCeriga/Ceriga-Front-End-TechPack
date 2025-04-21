@@ -5,7 +5,7 @@ import s from "./button.module.scss";
 
 interface IButtonOrder {
   onEvent: () => void;
-  text: "Go back" | "Next Step" | "Request Invoice";
+  text: "Go back" | "Next Step" | "Request Invoice" | "Pay for Tech Pack";
   type: "noBg" | "redBg";
   isDisabled?: boolean;
 }
@@ -19,7 +19,9 @@ const ButtonOrder: FC<IButtonOrder> = ({ text, type, onEvent, isDisabled }) => {
 
   return (
     <div className={s.container}>
-      {isDisabled && <p className={s.error}>Please fill in all fields to continue</p>}
+      {isDisabled && (
+        <p className={s.error}>Please fill in all fields to continue</p>
+      )}
       <button disabled={isDisabled} className={buttonClasses} onClick={onEvent}>
         {text}
       </button>

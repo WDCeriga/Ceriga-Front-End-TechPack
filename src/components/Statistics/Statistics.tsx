@@ -8,8 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { AppDispatch, RootState } from "@redux/store";
 import { setDataAnalyticsForUsers } from "@services/analitycs/users";
-import { setDataAnalyticsForOrders } from "@services/analitycs/orders";
-import { setDataAnalyticsForRevenue } from "@services/analitycs/revenue";
+import {
+  setNonClothingDataAnalyticsForOrders,
+  setDataAnalyticsForOrders,
+} from "@services/analitycs/orders";
+import {
+  setDataAnalyticsForRevenue,
+  setNonClothingDataAnalyticsForRevenue,
+} from "@services/analitycs/revenue";
 import Analytics from "@components/Analytics/Analytics";
 import Title from "@common/Title/Title";
 
@@ -36,32 +42,66 @@ const Statistics: FC = () => {
     }
   });
   return (
-    <section className={s.container}>
-      <Title text="Statistics" />
-      <ul className={s.list}>
-        <li className={s.list_item}>
-          {users.isUpload && (
-            <Analytics title="Users" items={setDataAnalyticsForUsers(users)} />
-          )}
-        </li>
-        <li className={s.list_item}>
-          {orders.isUpload && (
-            <Analytics
-              title="Orders"
-              items={setDataAnalyticsForOrders(orders)}
-            />
-          )}
-        </li>
-        <li className={s.list_item}>
-          {revenue.isUpload && (
-            <Analytics
-              title="Amount made"
-              items={setDataAnalyticsForRevenue(revenue)}
-            />
-          )}
-        </li>
-      </ul>
-    </section>
+    <div>
+      <section className={s.container}>
+        <Title text="Statistics" />
+        <ul className={s.list}>
+          <li className={s.list_item}>
+            {users.isUpload && (
+              <Analytics
+                title="Users"
+                items={setDataAnalyticsForUsers(users)}
+              />
+            )}
+          </li>
+          <li className={s.list_item}>
+            {orders.isUpload && (
+              <Analytics
+                title="Orders"
+                items={setDataAnalyticsForOrders(orders)}
+              />
+            )}
+          </li>
+          <li className={s.list_item}>
+            {revenue.isUpload && (
+              <Analytics
+                title="Amount made"
+                items={setDataAnalyticsForRevenue(revenue)}
+              />
+            )}
+          </li>
+        </ul>
+      </section>
+      <section className={s.container}>
+        <Title text="Tech Pack Statistics" />
+        <ul className={s.list}>
+          <li className={s.list_item}>
+            {users.isUpload && (
+              <Analytics
+                title="Users"
+                items={setDataAnalyticsForUsers(users)}
+              />
+            )}
+          </li>
+          <li className={s.list_item}>
+            {orders.isUpload && (
+              <Analytics
+                title="Orders"
+                items={setNonClothingDataAnalyticsForOrders(orders)}
+              />
+            )}
+          </li>
+          <li className={s.list_item}>
+            {revenue.isUpload && (
+              <Analytics
+                title="Amount made"
+                items={setNonClothingDataAnalyticsForRevenue(revenue)}
+              />
+            )}
+          </li>
+        </ul>
+      </section>
+    </div>
   );
 };
 

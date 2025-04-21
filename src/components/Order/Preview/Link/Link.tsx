@@ -16,8 +16,8 @@ const LinkPreview: FC<ILink> = ({ link }) => {
     //   <LinkIcon/>
     // </Link>
     <a href={link} className={s.link} target="_blank" rel="noopener noreferrer">
-     <p className={s.link_text}>Open link</p>
-      <LinkIcon/>
+      <p className={s.link_text}>Open link</p>
+      <LinkIcon />
     </a>
   );
 };

@@ -12,6 +12,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import routes from "@routes/index";
 
 const initialState: IDashboard = {
+  isLoading: false,
   users: [],
   search: "",
   filterByRole: "All Users",

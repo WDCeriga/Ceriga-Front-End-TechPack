@@ -305,6 +305,14 @@ const getOrderItemApi = async (orderId: string) => {
   return data;
 };
 
+const generatePdfApi = async (id: string, isOrder: boolean) => {
+  const response = await protectedApi.get(
+    `${routes.server.orders.genetaepdf}?id=${id}&isOrder=${isOrder}`,
+    { responseType: "blob" }
+  );
+  return response;
+};
+
 const paymentGenerateApi = async (orderId: number) => {
   const { data } = await protectedApi.post(
     `${routes.server.orders.payment}?orderId=${orderId}`
@@ -567,5 +575,6 @@ export {
   saveNewPriceInProductApi,
   getDeliveryInfoApi,
   uploadfrontlogoApi,
-  uploadbacklogoApi
+  uploadbacklogoApi,
+  generatePdfApi,
 };

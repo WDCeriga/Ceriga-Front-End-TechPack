@@ -11,11 +11,12 @@ export interface IUserDashboard {
   role: userRoleType;
   manufacturer?: string;
   lastActive?: Date;
-  amountOfOrders: number
+  amountOfOrders: number;
 }
 
 export interface IDashboard {
+  isLoading: false;
   users: IUserDashboard[] | [];
   search: string;
-  filterByRole: usersRoleWithAllType
+  filterByRole: usersRoleWithAllType;
 }

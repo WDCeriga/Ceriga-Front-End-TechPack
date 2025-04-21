@@ -1,12 +1,13 @@
 import classNames from "classnames";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { IProduct } from "@interfaces/bll/products.interface";
 import routes from "@routes/index";
 
 import Buttons from "./Buttons/Buttons";
 import s from "./product.module.scss";
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from "react-device-detect";
+import { isMobile as isMobileDevice } from "react-device-detect";
 
 interface IProductCard extends IProduct {
   size?: "small" | "default";
@@ -21,8 +22,9 @@ const Product: FC<IProductCard> = ({
   fits,
   startingPrice,
 }) => {
-  const imgSrc = `${routes.server.base}${images && images[0] ? images[0] : routes.server.products.defaultImg
-    }`;
+  const imgSrc = `${routes.server.base}${
+    images && images[0] ? images[0] : routes.server.products.defaultImg
+  }`;
   const [isMouseOver, setMouseOver] = useState<boolean>(false);
   const contentClasses = classNames(
     s.content,
@@ -39,6 +41,9 @@ const Product: FC<IProductCard> = ({
     setMouseOver(false);
   };
 
+  const isSmallScreen = window.innerWidth <= 980;
+
+  const isMobile = isMobileDevice || isSmallScreen;
 
   return (
     <div
@@ -57,17 +62,22 @@ const Product: FC<IProductCard> = ({
       {/* <div className={s.content_size}>
         {fits && fits.length !== 0 ? fits.length : 1} styles
       </div> */}
-      <div className={s.content_size}>
-      €{startingPrice ? startingPrice : 0}
-      </div>
+      <div className={s.content_size}>€{startingPrice ? startingPrice : 0}</div>
       <img
         crossOrigin="anonymous"
         className={imageClasses}
         src={imgSrc}
         alt={name}
       />
-      
-      {isMouseOver && <Buttons category={categories[0]} idProduct={_id} size={size || "default"} isMobile= {isMobile} />}
+      {/* <div style={{ fontSize: 25 }}>{window.innerWidth}</div> */}
+      {isMouseOver && (
+        <Buttons
+          category={categories[0]}
+          idProduct={_id}
+          size={size || "default"}
+          isMobile={isMobile}
+        />
+      )}
     </div>
   );
 };

@@ -12,24 +12,45 @@ import { IDraftCard } from "../../../../interfaces/Draft.interface";
 import { CloseIcon, MoreVerticalIcon } from "../../../Common/Icons/CommonIcon";
 import DraftItemMenu from "./menu/DraftItemMenu";
 import s from "./item.module.scss";
+import { isMobile as isMobileDevice } from "react-device-detect";
+import notification from "../../../../services/notification";
 
-const DraftItem: FC<IDraftCard> = ({ name, id, productType, createAt, color }) => {
+const DraftItem: FC<IDraftCard> = ({
+  name,
+  id,
+  productType,
+  createAt,
+  color,
+}) => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [isOpenMenu, setOpenMenu] = useState<boolean>(false);
   const handleToggleMenu = () => {
     setOpenMenu((prev) => !prev);
   };
+
+  const isSmallScreen = window.innerWidth <= 980;
+
+  const isMobile = isMobileDevice || isSmallScreen;
+
   const handleContinueOrder = async () => {
-    const res = await dispatch(continueOrder(id));
-    if (res.type === "continue-order/fulfilled") {
-      navigate(routes.order);
+    if (!isMobile) {
+      const res = await dispatch(continueOrder(id));
+      if (res.type === "continue-order/fulfilled") {
+        navigate(routes.order);
+      }
+    } else {
+      notification.error("Only available on laptop.");
     }
   };
   return (
     <li className={s.draftItem}>
       <div className={s.draftItem_img}>
-        <ProductWithColor color={color.hex} product={productType} path={color.path} />
+        <ProductWithColor
+          color={color.hex}
+          product={productType}
+          path={color.path}
+        />
       </div>
       <div className={s.draftItem_right}>
         <div className={s.draftItem_top}>

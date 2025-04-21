@@ -23,13 +23,14 @@ const CustomizeLabelsTop: FC<ICustomizeLabelsTop> = ({ handleClose }) => {
   const productinfo = useSelector(
     (state: RootState) => state.products.productOpen
   );
-
+  const { orderType } = useSelector((state: RootState) => state.order);
   // Fetch the minimum quantity and check if it's required
   const fadingOption = productinfo?.fadingOptions?.find(
     (item) => item.type === type
   );
   const fadingMinimumQuantity = fadingOption?.minimumQuantity;
-  const fadingIsMinimumRequired = fadingOption?.isMinimumRequired;
+  const fadingIsMinimumRequired =
+    orderType == "Custom clothing" ? fadingOption?.isMinimumRequired : false;
 
   return (
     <div className={s.top}>

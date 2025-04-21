@@ -1,14 +1,14 @@
 const routes = {
-   //baseURL: import.meta.env.VITE_BASE_URL || "http://localhost:5173",
+  //baseURL: import.meta.env.VITE_BASE_URL || "http://:5173",
   //baseURL: import.meta.env.VITE_BASE_URL || "http://www.ceriga.eagletechsolutions.uk.servepreview.net/",
-  fronturl:"http://www.ceriga.eagletechsolutions.uk.servepreview.net/",
+  fronturl: "http://www.ceriga.eagletechsolutions.uk.servepreview.net/",
   //API ROUTES
   server: {
     // base: "https://ceriga-backend-test.vercel.app",
     //base: "https://sudio-ceriga-backend.onrender.com",
-    base: "http://localhost:4000",
+    base: "http://192.168.1.9:4000",
     //base: "http://192.168.1.7:4000",
-    
+
     //base: "https://ceriga-back-end-main.vercel.app",
     auth: "/auth",
     refresh: "/auth/refresh",
@@ -53,6 +53,7 @@ const routes = {
       delete: "/orders/delete",
       edit: "/orders/edit",
       item: "/orders/item",
+      genetaepdf: "/orders/generate-pdf",
       payment: "/orders/create-checkout-session",
 
       //Only for admin and superAdmin
@@ -101,7 +102,7 @@ const routes = {
   order: "/order",
   orders: "/orders",
   orderPreview: "/order-preview/:id",
-  setting: "/change-password",//"/setting",
+  setting: "/change-password", //"/setting",
   changePassword: "/change-password",
   notification: "/notification",
   statistics: "/statistics",
@@ -133,7 +134,6 @@ const routes = {
   confirmSocial: "social/:id",
   dashboard: "/dashboard",
   changePrice: "/change-price",
-
 };
 
 export default routes;
