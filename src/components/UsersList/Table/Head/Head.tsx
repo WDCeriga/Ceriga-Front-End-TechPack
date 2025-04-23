@@ -6,33 +6,13 @@ const HeadUserTable: FC = () => {
   return (
     <thead className={s.header}>
       <tr className={s.header_row}>
-        <th className={s.header_row_item}>
-          <p className={s.header_row_item_text}>Name</p>
-        </th>
-        <th className={s.header_row_item}>
-          <p className={s.header_row_item_text}>Role</p>
-        </th>
-        <th className={s.header_row_item}>
-          <p className={s.header_row_item_text}>Manufactures</p>
-        </th>
-        <th className={s.header_row_item}>
-          <p className={s.header_row_item_text}>Email</p>
-        </th>
-        <th className={`${s.header_row_item} ${s.dates}`}>Last Dates</th>
-        <th className={s.header_row_item}>
-          <p className={s.header_row_item_text} style={{ textAlign: "center" }}>
-            Amount of orders
-          </p>
-        </th>
-      </tr>
-      {/* <tr className={s.header_row}>
         <th className={s.header_row_item}>Name</th>
-        <th className={s.header_row_item}>Role</th>
-        <th className={s.header_row_item}>Manufactures</th>
-        <th className={s.header_row_item}>Email</th>
-        <th className={s.header_row_item}>Last Dates</th>
-        <th className={s.header_row_item}>Amount of orders</th>
-      </tr> */}
+        <th className={`${s.header_row_item} ${s.email}`}>Email</th>
+        <th className={`${s.header_row_item}`}>Role</th>
+        <th className={`${s.header_row_item}`}>Last Dates</th>
+        <th className={`${s.header_row_item} ${s.price}`}>Manufactures</th>
+        <th className={`${s.header_row_item} ${s.status}`}>Amount of orders</th>
+      </tr>
     </thead>
   );
 };

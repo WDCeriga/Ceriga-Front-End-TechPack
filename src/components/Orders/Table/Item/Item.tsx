@@ -50,11 +50,11 @@ const OrderItem: FC<IOrderItem> = ({
       return null;
     }
   }
-  
-  const handlePay = async (id:number) => { 
+
+  const handlePay = async (id: number) => {
     const data = await paymentGenerateApi(id);
     window.location.href = data.url;
-  }
+  };
 
   return (
     <tr className={s.row}>
@@ -100,7 +100,12 @@ const OrderItem: FC<IOrderItem> = ({
       <td className={s.row_item}>
         <div className={s.row_item_line}>
           {orderStatus === "Submitted" && (
-            <button onClick={() => handlePay(id)} className={s.row_item_line_button}>Pay</button>
+            <button
+              onClick={() => handlePay(id)}
+              className={s.row_item_line_button}
+            >
+              Pay
+            </button>
           )}
           <MenuOrderItem
             id={id}

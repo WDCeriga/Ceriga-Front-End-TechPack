@@ -5,7 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "@redux/store";
 import { mapOrderStateToParams } from "@services/mapOrderStateToParams ";
 import { changeOrderStep } from "@redux/slices/order";
-import { getOrderItemApi, generatePdfApi } from "@api/requests/protected";
+import {
+  getOrderItemApi,
+  generatePdfApi,
+  paymentGenerateApi,
+} from "@api/requests/protected";
 import { IParamPreviewOrder } from "@interfaces/order/paramsPreview.interface";
 import ButtonSelect from "@common/ButtonSelect/ButtonSelect";
 // import formatCost from "@services/ formatCost";
@@ -100,6 +104,11 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
 
   const handleNextStep = async () => {
     dispatch(changeOrderStep("delivery"));
+  };
+
+  const handlePay = async (id: number) => {
+    const data = await paymentGenerateApi(id);
+    window.location.href = data.url;
   };
 
   if (previewData === null) {
@@ -239,7 +248,11 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
             <ButtonsOrder
               onlyNext={false}
               handlePrevStep={handlePrevStep}
-              handleNextStep={handleNextStep}
+              handleNextStep={() => {
+                orderType === "Custom clothing"
+                  ? handleNextStep()
+                  : handlePay(123);
+              }}
               isHaveNext={true}
               isPay={orderType === "Custom clothing" ? false : true}
             />

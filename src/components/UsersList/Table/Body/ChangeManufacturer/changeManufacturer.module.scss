@@ -1,8 +1,7 @@
 .container {
-  max-width: 100px;
-  min-width: 100%;
   display: flex;
   align-items: center;
+  justify-content: start;
 
   position: absolute;
   transform: translateY(-50%);

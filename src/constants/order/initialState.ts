@@ -1,12 +1,13 @@
 import { IOrderState } from "@interfaces/bll/order.interface";
 
 export const initialState: IOrderState = {
+  _id: null,
   draftId: null,
   name: null,
   orderStep: null,
   productType: null,
   dyeStyle: null,
-  printing: null,
+  printing: "No Printing",
   color: {
     hex: null,
     path: null,

@@ -14,10 +14,11 @@ export const getProductInfoApi = async (id: string) => {
 };
 
 export const getProductInfoApibyName = async (name: string) => {
-  const { data } = await defaultApi.get(`${routes.server.products.base}/productType/${name}`);
+  const { data } = await defaultApi.get(
+    `${routes.server.products.base}/productType/${name}`
+  );
   return data;
 };
-
 
 export const getColorsForProductApi = async (product: string) => {
   const { data } = await defaultApi.get(

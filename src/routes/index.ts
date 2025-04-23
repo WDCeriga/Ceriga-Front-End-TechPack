@@ -1,7 +1,8 @@
 const routes = {
   //baseURL: import.meta.env.VITE_BASE_URL || "http://:5173",
   //baseURL: import.meta.env.VITE_BASE_URL || "http://www.ceriga.eagletechsolutions.uk.servepreview.net/",
-  fronturl: "http://www.ceriga.eagletechsolutions.uk.servepreview.net/",
+  // fronturl: "http://www.ceriga.eagletechsolutions.uk.servepreview.net/",
+  fronturl: "http://192.168.1.9:5173/",
   //API ROUTES
   server: {
     // base: "https://ceriga-backend-test.vercel.app",

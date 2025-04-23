@@ -195,7 +195,7 @@ const uploadPackageApi = async (formData: FormData, draftId: string) => {
   }
 
   const { data } = await protectedApi.post(
-    `${routes.server.drafts.uploadbacklogo}?draftId=${draftId}`,
+    `${routes.server.drafts.uploadPackage}?draftId=${draftId}`,
     formData,
     {
       headers: {

@@ -8,5 +8,5 @@ export interface IOrdersState {
   activeFilter: filterType;
   selectedOrders: number[];
   ordersList: IOrderItem[];
-  sortType: sortType
+  sortType: sortType;
 }

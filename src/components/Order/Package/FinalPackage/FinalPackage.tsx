@@ -16,7 +16,7 @@ const FinalPackage: FC<IFinalPackage> = ({
   packageType,
   description,
   onEvent,
-  packageItems
+  packageItems,
 }) => {
   return (
     <FinalPreviewLayout title={title} onEvent={onEvent}>
@@ -28,7 +28,7 @@ const FinalPackage: FC<IFinalPackage> = ({
         <ItemFinal title="Description" value={description} />
       )}
       {packageItems && packageItems.length > 0 && (
-        <ItemFinal title="Upload Package" type="array" array={packageItems} />
+        <ItemFinal title="Uploaded Package" type="array" array={packageItems} />
       )}
     </FinalPreviewLayout>
   );

@@ -53,11 +53,9 @@ const ChangeOrderStatus: FC<IChangeManufacturer> = ({
       </button>
       {isOpen && (
         <ul className={s.container_list}>
-          {invoice.status === "not created" ||  invoice.status === "in confirm"
+          {invoice.status === "not created" || invoice.status === "in confirm"
             ? orderStatusStore
-                .filter(
-                  (item) => item === "Requires action"
-                )
+                .filter((item) => item === "Requires action")
                 .map((item) => (
                   <li
                     key={item}
@@ -68,9 +66,7 @@ const ChangeOrderStatus: FC<IChangeManufacturer> = ({
                   </li>
                 ))
             : orderStatusStore
-                .filter(
-                  (item) => item !== "Requires action"
-                )
+                .filter((item) => item !== "Requires action")
                 .map((item) => (
                   <li
                     key={item}

@@ -28,7 +28,12 @@ export const filterUsersByRole = (
   users: IUserDashboard[],
   role: usersRoleWithAllType
 ): IUserDashboard[] => {
-  return role === "All Users"
-    ? users
-    : users.filter((user) => user.role === role);
+  const filteredUsers =
+    role === "All Users"
+      ? users
+      : users.filter((user) => {
+          return user.role.trim().toLowerCase() === role.trim().toLowerCase();
+        });
+
+  return filteredUsers;
 };

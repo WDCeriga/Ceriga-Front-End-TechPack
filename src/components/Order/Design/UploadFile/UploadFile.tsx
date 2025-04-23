@@ -4,7 +4,7 @@ import {
   uploadNeck,
   uploadPackage,
   uploadbacklogo,
-  uploadfrontlogo
+  uploadfrontlogo,
 } from "@redux/slices/order";
 import { FC, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -77,7 +77,6 @@ const UploadFile: FC<IUploadFile> = ({ handleClose, type }) => {
       if (type === "backlogoUploads" && draftId) {
         await dispatch(uploadbacklogo({ formData, draftId }));
       }
-
     },
     [dispatch, draftId, type]
   );

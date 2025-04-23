@@ -10,7 +10,7 @@ const OrdersPage: FC = () => {
         <title>Orders</title>
       </Helmet>
       <MainLayout>
-        <Orders/>
+        <Orders />
       </MainLayout>
     </>
   );
