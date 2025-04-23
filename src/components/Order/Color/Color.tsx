@@ -48,7 +48,6 @@ const OrderColor: FC = () => {
 
   const handleNextStep = () => {
     dispatch(changeOrderStep("design"));
-
   };
 
   const isMinimumRequired = productinfo?.printing?.find(
@@ -63,29 +62,26 @@ const OrderColor: FC = () => {
         />
         <Progress value={25} />
       </div>
-      
+
       {subtotal ? (
-        <div style={{
-          height: 0,
-          border: "1px solid black",
-          padding: "20px",
-          borderEndStartRadius: "10px",
-          borderEndEndRadius: "10px",
-          marginTop: -16,
-          justifyContent: "center",
-          alignItems: "center"
-        }}>
-          <p
-            style={{ fontSize: "20px", marginTop: -12, }}
-          >
-            € {subtotal}
-          </p>
+        <div
+          style={{
+            height: 0,
+            border: "1px solid black",
+            padding: "20px",
+            borderEndStartRadius: "10px",
+            borderEndEndRadius: "10px",
+            marginTop: -16,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <p style={{ fontSize: "20px", marginTop: -12 }}>€ {subtotal}</p>
         </div>
       ) : (
         <></>
       )}
       <div className={sOrder.center}>
-       
         <DefaultImg />
       </div>
       <div className={sOrder.right}>

@@ -49,6 +49,9 @@ const Order: FC = () => {
 
   useEffect(() => {
     console.log("product==>", product);
+    console.log("draftId==>", draftId);
+    console.log("orderStep==>", orderStep);
+    console.log("hasCreatedDraft.current==>", hasCreatedDraft.current);
     const handleUpdateOrder = async () => {
       const subtotal = await updateDraftApi(order);
       if (subtotal) {
@@ -63,7 +66,7 @@ const Order: FC = () => {
     } else if (draftId) {
       handleUpdateOrder();
     }
-  }, [dispatch, order, draftId]);
+  }, [dispatch, order, draftId, orderStep]);
 
   const getorderqty = async (id: any) => {
     console.log(id);

@@ -37,6 +37,9 @@ const InvoiceAdmin: FC = () => {
     dispatch(getTotalCountInOrder(id || ""));
   }
 
+  console.log("totalCount=====>", totalCount);
+  console.log("invoiceOrder=====>", invoiceOrder);
+
   const handleGenerateTotalAmount = () => {
     if (invoiceOrder !== null && totalCount !== null) {
       const unitCost = Number(invoiceOrder.unitCost) || 0;

@@ -43,6 +43,7 @@ export const createNewDraft = createAsyncThunk<
   { state: RootState }
 >("create-draft", async ({ draft }) => {
   const data = await createNewDraftApi(draft);
+  console.log("data====>", data);
   return data;
 });
 
@@ -131,6 +132,9 @@ const orderSlice = createSlice({
       state.name = payload.productType;
       state.productType = payload.productType;
       state.orderType = payload.orderType;
+      state.cost = payload.cost;
+      state.subtotal = payload.cost;
+      state.totalcost = payload.cost;
     },
     loadOrder: (_, { payload }: PayloadAction<IOrderState>) => {
       return payload;
@@ -375,6 +379,7 @@ const orderSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(createNewDraft.fulfilled, (state, { payload }) => {
+      console.log("payload====>", payload);
       state.draftId = payload.id;
       state.color = {
         hex: null,

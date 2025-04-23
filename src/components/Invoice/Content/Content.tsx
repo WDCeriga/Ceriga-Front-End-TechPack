@@ -19,11 +19,11 @@ const InvoiceContent: FC<IInvoiceContent> = ({
   invoiceData,
   handleUpdateInvoice,
 }) => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const handleGoBack = () => {
     navigate(-1);
-    dispatch(resetAdminOrderList())
+    dispatch(resetAdminOrderList());
   };
   return (
     <div className={s.content}>
@@ -61,7 +61,6 @@ const InvoiceContent: FC<IInvoiceContent> = ({
         <LabelItemInvoice
           name={"totalPrice"}
           value={invoiceData.totalPrice}
-         
           label="Total Cost"
         />
       </ul>

@@ -62,6 +62,7 @@ const ModalProduct: FC = () => {
           createNewOrder({
             productType: product.categories[0],
             orderType: "Custom clothing",
+            cost: product.startingPrice,
           })
         );
       navigate(routes.order);

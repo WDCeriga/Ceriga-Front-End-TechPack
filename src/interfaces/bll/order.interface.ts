@@ -39,7 +39,6 @@ export interface IPackage {
 }
 
 export interface IOrderState {
-  _id: string | null;
   draftId: string | null;
   orderId?: string;
   name: string | null;
@@ -98,4 +97,5 @@ export interface ILogodetails {
 export interface ICreateNewOrder {
   productType: string;
   orderType: string;
+  cost: number;
 }

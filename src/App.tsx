@@ -97,11 +97,11 @@ const router = createBrowserRouter(
         />
         <Route path={routes.adminOrders} element={<AdminOrdersPage />} />
       </Route>
-    </>,
+    </>
   ),
   {
     basename: "/",
-  },
+  }
 );
 
 const App: FC = () => {

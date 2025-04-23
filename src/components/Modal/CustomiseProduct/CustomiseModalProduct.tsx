@@ -31,6 +31,8 @@ const CustomiseModalProduct: FC = () => {
     event.stopPropagation();
   };
 
+  console.log("product====>", product);
+
   const handleCloseModal = () => {
     dispatch(clearOpenProduct());
     dispatch(closeOrderTypeModal());
@@ -39,6 +41,7 @@ const CustomiseModalProduct: FC = () => {
   };
 
   const handleCreateclothingNewOrder = () => {
+    debugger;
     handleCloseModal();
     product &&
       productId &&
@@ -46,12 +49,14 @@ const CustomiseModalProduct: FC = () => {
         createNewOrder({
           productType: category ? category : product.categories[0],
           orderType: "Custom clothing",
+          cost: product.startingPrice,
         })
       );
 
     navigate(routes.order);
   };
   const handleCreateTechpackNewOrder = () => {
+    debugger;
     handleCloseModal();
     product &&
       productId &&
@@ -59,6 +64,7 @@ const CustomiseModalProduct: FC = () => {
         createNewOrder({
           productType: category ? category : product.categories[0],
           orderType: "",
+          cost: product.startingPrice,
         })
       );
 
