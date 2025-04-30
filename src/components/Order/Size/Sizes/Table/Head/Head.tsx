@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import s from "./head.module.scss"
+import s from "./head.module.scss";
 
 const HeadTableSize: FC = () => {
   return (
