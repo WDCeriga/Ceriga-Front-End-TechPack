@@ -70,12 +70,12 @@ const OrderDelivery: FC = () => {
   const handleFinishOrder = async () => {
     setIsTryContinue(true);
     const isValid = await validateDeliveryData(delivery);
-  
+
     if (!isValid) {
       notification.error("Please fix the validation errors before proceeding.");
       return;
     }
-  
+
     if (order.draftId) {
       try {
         const response = await createOrderApi(order.draftId);
@@ -93,7 +93,6 @@ const OrderDelivery: FC = () => {
       notification.error("Order draft ID is missing.");
     }
   };
-  
 
   // const handleNextStep = async () => {
   //   setIsTryContinue(true);

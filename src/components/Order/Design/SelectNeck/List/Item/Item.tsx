@@ -14,10 +14,14 @@ import s from "./item.module.scss";
 interface IItemSelectNeck {
   size: neckSizeType;
   isActive: boolean;
-  handleSelectNeck: (arg0: neckSizeType) => void
+  handleSelectNeck: (arg0: neckSizeType) => void;
 }
 
-const ItemSelectNeck: FC<IItemSelectNeck> = ({ size, isActive, handleSelectNeck }) => {
+const ItemSelectNeck: FC<IItemSelectNeck> = ({
+  size,
+  isActive,
+  handleSelectNeck,
+}) => {
   const iconsComponents: { [key: string]: FC } = {
     Neck50x18: () => <Neck5018Icon />,
     Neck45x45: () => <Neck4545Icon />,
@@ -33,7 +37,10 @@ const ItemSelectNeck: FC<IItemSelectNeck> = ({ size, isActive, handleSelectNeck 
   );
   return (
     <li className={s.item}>
-      <button onClick={() => handleSelectNeck(size)} className={buttonClassnames}>
+      <button
+        onClick={() => handleSelectNeck(size)}
+        className={buttonClassnames}
+      >
         <Icon />
         <p className={s.item_button_text}>{size} mm</p>
       </button>
