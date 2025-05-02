@@ -6,6 +6,21 @@
     padding: 32px;
     margin-top: 56px;
   }
+  &_text {
+    text-transform: uppercase;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 40px;
+    color: #000;
+    padding-bottom: 8px;
+    
+    @media (min-width: 768px) {
+      font-size: 44px;
+      line-height: 50px;
+    }
+  }
 
   .content {
     margin-top: 35px;
@@ -25,5 +40,34 @@
     display: flex;
     justify-content: flex-end;
   }
+
+  .tabHeader {
+    display: flex;
+    margin-bottom: 16px;
+    border-bottom: 2px solid white;
+  }
+  
+  .tabTitle {
+    width: 50%;
+    text-align: center;
+    cursor: pointer;
+    padding: 12px 0;
+    background-color: white;
+    transition: background-color 0.3s;
+  }
+  
+  .tabTitle:hover {
+    background-color: white;
+  }
+  
+  .tabTitle.active {
+    background-color: #f5f5f5;
+    color: white;
+    border-bottom: 2px solid #ccc;
+    :global(h2) {
+      color: white; // If your Title renders an h2 or similar
+    }
+  }
+  
 }
 

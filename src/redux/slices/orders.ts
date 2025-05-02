@@ -32,6 +32,7 @@ export const getOrdersList = createAsyncThunk<
   { state: RootState }
 >("orders-list", async () => {
   const data = await getOrdersListApi();
+  console.log("data====>", data);
   return data;
 });
 

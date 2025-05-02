@@ -20,6 +20,7 @@ const OrderItem: FC<IOrderItem> = ({
   tracking,
   orderStatus,
   orderData,
+  isTechPack,
 }) => {
   const { activeFilter } = useSelector((state: RootState) => state.orders);
 
@@ -52,7 +53,7 @@ const OrderItem: FC<IOrderItem> = ({
   }
 
   const handlePay = async (id: number) => {
-    const data = await paymentGenerateApi(id);
+    const data = await paymentGenerateApi(id, isTechPack);
     window.location.href = data.url;
   };
 
@@ -112,6 +113,7 @@ const OrderItem: FC<IOrderItem> = ({
             orderStatus={orderStatus}
             openMenu={openMenu}
             handleToggleMenu={handleToggleMenu}
+            isTechPack={isTechPack}
           />
           <button
             onClick={handleToggleMenu}

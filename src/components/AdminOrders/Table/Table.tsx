@@ -10,9 +10,10 @@ import s from "./table.module.scss";
 
 interface IAdminTableOrders {
   list: IAdminOrder[];
+  isTechPack: boolean;
 }
 
-const AdminTableOrders: FC<IAdminTableOrders> = ({ list }) => {
+const AdminTableOrders: FC<IAdminTableOrders> = ({ list, isTechPack }) => {
   const { search, isSearch } = useSelector(
     (state: RootState) => state.adminOrders
   );
@@ -42,7 +43,7 @@ const AdminTableOrders: FC<IAdminTableOrders> = ({ list }) => {
     : list;
   return (
     <table className={s.table}>
-      <AdminHeadTableOrders />
+      <AdminHeadTableOrders isTechPack={isTechPack} />
       <tbody className={s.table_body}>
         {listOrders.map((order) => (
           <AdminOrderItem
@@ -54,6 +55,7 @@ const AdminTableOrders: FC<IAdminTableOrders> = ({ list }) => {
             handleChangeManufactory={handleChangeManufactory}
             handleChangeMenuStatus={handleChangeMenuStatus}
             menuStatus={menuStatus}
+            isTechPack={isTechPack}
           />
         ))}
       </tbody>

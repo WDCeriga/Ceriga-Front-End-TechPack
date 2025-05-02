@@ -9,6 +9,7 @@ import {
   getOrderItemApi,
   generatePdfApi,
   paymentGenerateApi,
+  createOrderTechPackApi,
 } from "@api/requests/protected";
 import { IParamPreviewOrder } from "@interfaces/order/paramsPreview.interface";
 import ButtonSelect from "@common/ButtonSelect/ButtonSelect";
@@ -25,6 +26,7 @@ import TitlePreview from "./Title/Title";
 import s from "./preview.module.scss";
 import sOrder from "../order.module.scss";
 import Progress from "@common/Progress/Progress";
+import notification from "@services/notification";
 
 interface IOrderPreview {
   isOrder?: boolean;
@@ -85,29 +87,32 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
     navigate(routes.catalog);
   };
 
-  // const handleFinishOrder = async () => {
-  //   if (order.draftId) {
-  //     try {
-  //       const response = await createOrderApi(order.draftId);
-  //       if (response.status === 200) {
-  //         navigate(routes.orders);
-  //       } else {
-  //         notification.error("Error creating order");
-  //         console.error("Error creating order", response);
-  //       }
-  //     } catch (error) {
-  //       notification.error("Failed to create order");
-  //       console.error("Order creation failed", error);
-  //     }
-  //   }
-  // };
-
   const handleNextStep = async () => {
     dispatch(changeOrderStep("delivery"));
   };
 
+  const handleFinishOrder = async () => {
+    if (order.draftId) {
+      try {
+        const response = await createOrderTechPackApi(order.draftId);
+        console.log("response====>", response);
+        if (response.status === 200) {
+          handlePay(response.data.orderId);
+        } else {
+          notification.error("Error creating order");
+          console.error("Error creating order", response);
+        }
+      } catch (error) {
+        notification.error("Failed to create order");
+        console.error("Order creation failed", error);
+      }
+    } else {
+      notification.error("Order draft ID is missing.");
+    }
+  };
+
   const handlePay = async (id: number) => {
-    const data = await paymentGenerateApi(id);
+    const data = await paymentGenerateApi(id, true);
     window.location.href = data.url;
   };
 
@@ -251,7 +256,7 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
               handleNextStep={() => {
                 orderType === "Custom clothing"
                   ? handleNextStep()
-                  : handlePay(123);
+                  : handleFinishOrder();
               }}
               isHaveNext={true}
               isPay={orderType === "Custom clothing" ? false : true}

@@ -63,7 +63,7 @@ const CustomiseModalProduct: FC = () => {
       dispatch(
         createNewOrder({
           productType: category ? category : product.categories[0],
-          orderType: "",
+          orderType: "Tech Pack",
           cost: product.startingPrice,
         })
       );

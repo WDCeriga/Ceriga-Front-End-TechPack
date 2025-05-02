@@ -23,6 +23,7 @@ interface IAdminOrderComponent extends IAdminOrder {
   handleToggleMenu: () => void;
   handleChangeManufactory: (id: string) => void;
   handleChangeMenuStatus: (id: string) => void;
+  isTechPack: boolean;
 }
 
 const AdminOrderItem: FC<IAdminOrderComponent> = ({
@@ -40,6 +41,7 @@ const AdminOrderItem: FC<IAdminOrderComponent> = ({
   handleChangeMenuStatus,
   menuOpenId,
   handleToggleMenu,
+  isTechPack,
 }) => {
   const role = localGetItem("role") || "";
   const { activeFilter } = useSelector((state: RootState) => state.orders);
@@ -100,18 +102,22 @@ const AdminOrderItem: FC<IAdminOrderComponent> = ({
           />
         )}
       </td>
-      <td className={`${s.row_item} ${s.row_item__price}`}>
-        {role === "superAdmin" ? (
-          <ChangeManufacturer
-            id={id}
-            isOpenManufactory={id === openManufactory}
-            handleChangeManufactory={handleChangeManufactory}
-            manufacturer={manufacturer}
-          />
-        ) : (
-          `${Number(subtotal).toFixed(2)}$`
-        )}
-      </td>
+      {!isTechPack ? (
+        <td className={`${s.row_item} ${s.row_item__price}`}>
+          {role === "superAdmin" ? (
+            <ChangeManufacturer
+              id={id}
+              isOpenManufactory={id === openManufactory}
+              handleChangeManufactory={handleChangeManufactory}
+              manufacturer={manufacturer}
+            />
+          ) : (
+            `${Number(subtotal).toFixed(2)}$`
+          )}
+        </td>
+      ) : (
+        ""
+      )}
       <td className={`${s.row_item} ${s.invoice}`}>
         <div className={s.invoice_wrap}>
           <div className={s.invoice_status}>{invoice && invoice.status}</div>

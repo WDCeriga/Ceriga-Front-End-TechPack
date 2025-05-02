@@ -264,6 +264,12 @@ const createOrderApi = async (draftId: string) => {
   });
   return res;
 };
+const createOrderTechPackApi = async (draftId: string) => {
+  const res = await protectedApi.post(routes.server.orders.createtechpack, {
+    draftId,
+  });
+  return res;
+};
 
 const getOrdersListApi = async () => {
   const { data } = await protectedApi.get(routes.server.orders.list);
@@ -313,9 +319,13 @@ const generatePdfApi = async (id: string, isOrder: boolean) => {
   return response;
 };
 
-const paymentGenerateApi = async (orderId: number) => {
+const paymentGenerateApi = async (orderId: number, isTechPack: boolean) => {
   const { data } = await protectedApi.post(
-    `${routes.server.orders.payment}?orderId=${orderId}`
+    `${
+      isTechPack
+        ? routes.server.orders.paymenttechpack
+        : routes.server.orders.payment
+    }?orderId=${orderId}`
   );
   return data;
 };
@@ -577,4 +587,5 @@ export {
   uploadfrontlogoApi,
   uploadbacklogoApi,
   generatePdfApi,
+  createOrderTechPackApi,
 };

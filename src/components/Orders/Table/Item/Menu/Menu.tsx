@@ -19,6 +19,7 @@ interface IMenuOrderItem {
   orderStatus: orderStatusType;
   openMenu: boolean;
   handleToggleMenu: () => void;
+  isTechPack: boolean;
 }
 
 const MenuOrderItem: FC<IMenuOrderItem> = ({
@@ -26,6 +27,7 @@ const MenuOrderItem: FC<IMenuOrderItem> = ({
   openMenu,
   orderStatus,
   id,
+  isTechPack,
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -53,7 +55,7 @@ const MenuOrderItem: FC<IMenuOrderItem> = ({
     }
 
     if (name === "Pay") {
-      const data = await paymentGenerateApi(id);
+      const data = await paymentGenerateApi(id, isTechPack);
       window.location.href = data.url;
     }
 

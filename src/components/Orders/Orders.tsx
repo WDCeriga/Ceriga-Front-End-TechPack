@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import Title from "@common/Title/Title";
 
@@ -9,14 +9,37 @@ import s from "./orders.module.scss";
 import "./common.scss";
 
 const Orders: FC = () => {
+  const [activeTab, setActiveTab] = useState<"orders" | "techPack">("orders");
+
   return (
     <section className={s.container}>
-      <div>
-        <Title text="Orders" />
+      {/* Tab Titles */}
+      <div className={s.tabHeader}>
+        <div
+          className={`${s.tabTitle} ${activeTab === "orders" ? s.active : ""}`}
+          onClick={() => setActiveTab("orders")}
+        >
+          <h2 className={s.container_text} style={{ color: "#333" }}>
+            Custom clothing Orders
+          </h2>
+        </div>
+        <div
+          className={`${s.tabTitle} ${
+            activeTab === "techPack" ? s.active : ""
+          }`}
+          onClick={() => setActiveTab("techPack")}
+        >
+          <h2 className={s.container_text} style={{ color: "#333" }}>
+            Tech Pack Orders
+          </h2>
+        </div>
       </div>
+
+      {/* Tab Content */}
       <div className={s.wrapper}>
         <Filter />
-        <TableOrders />
+        {activeTab === "orders" && <TableOrders isTechPack={false} />}
+        {activeTab === "techPack" && <TableOrders isTechPack={true} />}
       </div>
     </section>
   );

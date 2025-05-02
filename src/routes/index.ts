@@ -1,16 +1,16 @@
 const routes = {
   //baseURL: import.meta.env.VITE_BASE_URL || "http://:5173",
   //baseURL: import.meta.env.VITE_BASE_URL || "http://www.ceriga.eagletechsolutions.uk.servepreview.net/",
-  // fronturl: "http://www.ceriga.eagletechsolutions.uk.servepreview.net/",
-  fronturl: "http://192.168.1.9:5173/",
+  fronturl: "http://www.ceriga.eagletechsolutions.uk.servepreview.net/",
+  // fronturl: "http://192.168.1.9:5173/",
   //API ROUTES
   server: {
     // base: "https://ceriga-backend-test.vercel.app",
     //base: "https://sudio-ceriga-backend.onrender.com",
-    base: "http://192.168.1.9:4000",
+    // base: "http://192.168.1.9:4000",
     //base: "http://192.168.1.7:4000",
+    base: "https://ceriga-back-end-main.vercel.app",
 
-    //base: "https://ceriga-back-end-main.vercel.app",
     auth: "/auth",
     refresh: "/auth/refresh",
 
@@ -48,6 +48,7 @@ const routes = {
     },
     orders: {
       create: "/orders/create",
+      createtechpack: "/orders/create-tech-pack",
       list: "/orders/list",
       listForAdmin: "orders/list-for-admin",
       duplicate: "/orders/duplicate",
@@ -56,6 +57,7 @@ const routes = {
       item: "/orders/item",
       genetaepdf: "/orders/generate-pdf",
       payment: "/orders/create-checkout-session",
+      paymenttechpack: "/orders/create-checkout-session-tech-pack",
 
       //Only for admin and superAdmin
       allList: "/orders/all-list",
