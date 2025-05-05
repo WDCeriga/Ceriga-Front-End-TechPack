@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 import react from "@vitejs/plugin-react";
+import routes from "./src/routes";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -26,13 +27,13 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/public": {
-        target: "http://192.168.1.9:4000",
+        target: routes.server.base,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/public/, ""),
       },
 
       "/api": {
-        target: "http://192.168.1.9:4000",
+        target: routes.server.base,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

@@ -18,6 +18,7 @@ import ButtonUploadFile from "./Button/Button";
 import Dropzone from "./Dropzone/Dropzone";
 import FilesList from "./Files/Files";
 import s from "./uploadFile.module.scss";
+import { removeFile } from "@redux/slices/order";
 
 interface IUploadFile {
   type: uploadFileType;
@@ -81,6 +82,74 @@ const UploadFile: FC<IUploadFile> = ({ handleClose, type }) => {
     [dispatch, draftId, type]
   );
 
+  const handelRemoveFile = async (file: string) => {
+    console.log("filemhdfs===>", file);
+    if (type === "uploadDesign" && draftId) {
+      await dispatch(
+        removeFile({
+          draftId: draftId,
+          field: "designUploads",
+          fileUrl: file,
+          type: type,
+        })
+      );
+    }
+
+    if (type === "uploadLabel" && draftId) {
+      await dispatch(
+        removeFile({
+          draftId: draftId,
+          field: "labelUploads",
+          fileUrl: file,
+          type: type,
+        })
+      );
+    }
+
+    if (type === "uploadNeck" && draftId) {
+      await dispatch(
+        removeFile({
+          draftId: draftId,
+          field: "neckUploads",
+          fileUrl: file,
+          type: type,
+        })
+      );
+    }
+
+    if (type === "uploadPackageDesign" && draftId) {
+      await dispatch(
+        removeFile({
+          draftId: draftId,
+          field: "packageUploads",
+          fileUrl: file,
+          type: type,
+        })
+      );
+    }
+
+    if (type === "frontlogoUploads" && draftId) {
+      await dispatch(
+        removeFile({
+          draftId: draftId,
+          field: "frontlogoUploads",
+          fileUrl: file,
+          type: type,
+        })
+      );
+    }
+    if (type === "backlogoUploads" && draftId) {
+      await dispatch(
+        removeFile({
+          draftId: draftId,
+          field: "backlogoUploads",
+          fileUrl: file,
+          type: type,
+        })
+      );
+    }
+  };
+
   return (
     <ModalLayout handleClose={handleClose}>
       <div className={s.content}>
@@ -89,7 +158,15 @@ const UploadFile: FC<IUploadFile> = ({ handleClose, type }) => {
         </button>
         <h2 className={s.content_title}>Upload</h2>
         <Dropzone onDrop={handleDropFile} />
-        {files && files.length !== 0 && <FilesList files={files} />}
+        {files && files.length !== 0 && (
+          <FilesList
+            files={files}
+            removeFile={(file) => {
+              console.log("file====>dsfg", file);
+              handelRemoveFile(file);
+            }}
+          />
+        )}
         <ButtonUploadFile handleClose={handleClose} />
       </div>
     </ModalLayout>

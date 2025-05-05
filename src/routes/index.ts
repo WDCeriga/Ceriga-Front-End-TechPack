@@ -7,9 +7,10 @@ const routes = {
   server: {
     // base: "https://ceriga-backend-test.vercel.app",
     //base: "https://sudio-ceriga-backend.onrender.com",
-    // base: "http://192.168.1.9:4000",
+    // base: "https://ceriga-backend-git-main-praveen-upadhyays-projects.vercel.app
+    base: "http://192.168.1.9:4000",
     //base: "http://192.168.1.7:4000",
-    base: "https://ceriga-back-end-main.vercel.app",
+    // base: "https://ceriga-back-end-main.vercel.app",
 
     auth: "/auth",
     refresh: "/auth/refresh",
@@ -45,6 +46,7 @@ const routes = {
       loadDelivery: "/user/get-delivery",
       uploadfrontlogo: "/drafts/upload-frontlogo",
       uploadbacklogo: "/drafts/upload-backlogo",
+      removeFile: "/drafts/remove-file",
     },
     orders: {
       create: "/orders/create",

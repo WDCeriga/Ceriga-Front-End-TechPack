@@ -16,6 +16,7 @@ import {
   continueOrderApi,
   createNewDraftApi,
   loadDeliveryApi,
+  removeFileApi,
   uploadbacklogoApi,
   uploadDesignApi,
   uploadfrontlogoApi,
@@ -117,6 +118,15 @@ export const loadDelivery = createAsyncThunk<
 >("load-delivery", async () => {
   const data: IDelivery = await loadDeliveryApi();
   return data;
+});
+
+export const removeFile = createAsyncThunk<
+  { fileUrl: string; type: string },
+  { draftId: string; field: string; fileUrl: string; type: string },
+  { state: RootState }
+>("remove-file", async ({ draftId, field, fileUrl, type }) => {
+  await removeFileApi(draftId, field, fileUrl);
+  return { fileUrl, type };
 });
 
 const orderSlice = createSlice({
@@ -439,6 +449,7 @@ const orderSlice = createSlice({
         state.packageUploads = [payload];
       }
     );
+
     builder.addCase(
       loadDelivery.fulfilled,
       (state: IOrderState, { payload }: PayloadAction<IDelivery>) => {
@@ -462,6 +473,29 @@ const orderSlice = createSlice({
         }
       }
     );
+
+    builder.addCase(removeFile.fulfilled, (state, action) => {
+      const { type } = action.payload;
+      if (type === "uploadDesign") {
+        state.designUploads = [];
+      }
+      if (type === "uploadLabel") {
+        state.labelUploads = [];
+      }
+      if (type === "uploadNeck") {
+        state.neckUploads = [];
+      }
+      if (type === "uploadPackageDesign") {
+        state.packageUploads = [];
+      }
+      if (type === "frontlogoUploads") {
+        state.frontlogoUploads = [];
+      }
+      if (type === "backlogoUploads") {
+        state.backlogoUploads = [];
+      }
+      state.designUploads = [];
+    });
   },
 });
 

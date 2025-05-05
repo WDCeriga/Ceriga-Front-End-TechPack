@@ -4,7 +4,7 @@ import { IProductSvg } from "./products.interface";
 
 export const ZipUpHoodieSvg: FC<IProductSvg> = ({ color }) => (
   <svg
-    style={{top:"8px"}}
+    style={{ top: "8px" }}
     viewBox="0 0 603 574"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

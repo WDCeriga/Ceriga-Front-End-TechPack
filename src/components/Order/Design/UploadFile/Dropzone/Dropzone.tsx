@@ -9,7 +9,7 @@ interface IDropzone {
   onDrop: (arg0: File[]) => void;
 }
 
-const Dropzone: FC<IDropzone> = ({onDrop}) => {
+const Dropzone: FC<IDropzone> = ({ onDrop }) => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (

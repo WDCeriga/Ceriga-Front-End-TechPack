@@ -140,6 +140,30 @@ const uploadDesignApi = async (formData: FormData, draftId: string) => {
   return data.fileUrl; // Changed from data.file.filename to data.fileUrl
 };
 
+const removeFileApi = async (
+  draftId: string,
+  field: string,
+  fileUrl: string
+) => {
+  console.log("draftId===>", draftId);
+  console.log("field===>", field);
+  console.log("fileUrl===>", fileUrl);
+  const jsonData = {
+    draftId: draftId,
+    field: field,
+    fileUrl: fileUrl,
+  };
+
+  const { data } = await protectedApi.delete(
+    `${routes.server.drafts.removeFile}`,
+    {
+      data: jsonData,
+    }
+  );
+
+  return data;
+};
+
 const uploadLabelApi = async (formData: FormData, draftId: string) => {
   const fileField = formData.get("file");
   if (!fileField) {
@@ -588,4 +612,5 @@ export {
   uploadbacklogoApi,
   generatePdfApi,
   createOrderTechPackApi,
+  removeFileApi,
 };
