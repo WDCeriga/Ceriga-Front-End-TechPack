@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { CloseIcon, ErrorIcon } from "@common/Icons/CommonIcon";
 import { AppDispatch, RootState } from "@redux/store";
-import { closeModal } from "@redux/slices/ui";
+import { closeModal, openModal, openOrderTypeModal } from "@redux/slices/ui";
 import { clearOpenProduct, getProductInfo } from "@redux/slices/products";
 import { createNewOrder } from "@redux/slices/order";
 import { resetColors } from "@redux/slices/colors";
@@ -52,20 +52,27 @@ const ModalProduct: FC = () => {
   //     );
   //   navigate(routes.order);
   // };
-  console.log("isMobileDevice==>", isMobileDevice);
   const handleCreateNewOrder = () => {
     if (!isMobile) {
-      dispatch(resetColors());
+      // dispatch(resetColors());
+      // product &&
+      //   productId &&
+      //   dispatch(
+      //     createNewOrder({
+      //       productType: product.categories[0],
+      //       orderType: "Custom clothing",
+      //       cost: product.startingPrice,
+      //     })
+      //   );
+      // navigate(routes.order);
       product &&
         productId &&
         dispatch(
-          createNewOrder({
-            productType: product.categories[0],
-            orderType: "Custom clothing",
-            cost: product.startingPrice,
+          openOrderTypeModal({
+            productId: productId,
+            category: product?.categories[0],
           })
         );
-      navigate(routes.order);
     } else {
       notification.error("Only available on laptop.");
     }

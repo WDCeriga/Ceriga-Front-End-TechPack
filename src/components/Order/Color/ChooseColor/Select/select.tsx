@@ -15,24 +15,27 @@ const SelectColorStyle: FC = () => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const selectRef = useRef<HTMLDivElement>(null);
   const productinfo = useSelector(
-    (state: RootState) => state.products.productOpen,
+    (state: RootState) => state.products.productOpen
   );
 
-  useEffect(() => {
-  }, [active, dispatch]);
+  useEffect(() => {}, [active, dispatch]);
 
   const toggleMenu = () => {
     setMenuIsOpen((prev) => !prev);
   };
 
   const handleSelect = (style: string) => {
+    console.log("style====>", style);
     dispatch(updateDeyStyle(style));
     setMenuIsOpen(false);
   };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
+      if (
+        selectRef.current &&
+        !selectRef.current.contains(event.target as Node)
+      ) {
         setMenuIsOpen(false);
       }
     };
@@ -52,7 +55,7 @@ const SelectColorStyle: FC = () => {
     <div className={s.select} ref={selectRef}>
       <button className={s.select_btn} onClick={toggleMenu}>
         <p className={s.select_btn_text}>
-          {active ? (active || "Select an option") : "Select an option"}
+          {active ? active || "Select an option" : "Select an option"}
         </p>
         <div className={s.select_btn_icon}>
           <ArrowVerticalIcon

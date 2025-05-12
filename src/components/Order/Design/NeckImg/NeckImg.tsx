@@ -10,8 +10,6 @@ const NeckImg: FC = () => {
   if (neck.noLabels) {
     return <DefaultImg />;
   }
-  console.log("productType====>", productType);
-  console.log("neck.type====>", neck.type);
   return (
     <img
       src={`/img/neck/${productType}/${neck.type}.png`}

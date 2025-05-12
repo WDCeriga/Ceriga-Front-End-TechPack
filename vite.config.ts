@@ -23,7 +23,7 @@ export default defineConfig({
     outDir: "dist",
   },
   server: {
-    host: "192.168.1.9",
+    host: "192.168.1.21",
     port: 5173,
     proxy: {
       "/public": {

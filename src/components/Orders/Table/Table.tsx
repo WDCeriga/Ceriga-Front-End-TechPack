@@ -21,14 +21,11 @@ const TableOrders: FC<TableOrdersProps> = ({ isTechPack }) => {
     dispatch(getOrdersList());
   }, [dispatch]);
 
-  console.log("ordersList====>", ordersList);
   const finalOrderList = useMemo(() => {
     return isTechPack
       ? ordersList.filter((item) => item?.orderType !== "Custom clothing")
       : ordersList.filter((item) => item?.orderType === "Custom clothing");
   }, [ordersList, isTechPack]);
-
-  console.log("finalOrderList====>", finalOrderList);
 
   const currentOrdersList = useMemo(() => {
     let list = finalOrderList;

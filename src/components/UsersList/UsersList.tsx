@@ -16,14 +16,11 @@ const UsersList: FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
   const dispatch = useDispatch<AppDispatch>();
-  console.log("search===>", search);
-  console.log("filterByRole===>", filterByRole);
   useEffect(() => {
     dispatch(getUsersList());
   }, [dispatch]);
   const { users } = useSelector((state: RootState) => state.dashboard);
   const filterUsersStoreByRole = filterUsersByRole(users, filterByRole);
-  console.log("filterUsersStoreByRole===>", filterUsersStoreByRole);
   const filteredUsers =
     search.length > 0
       ? filterUsersBySearch(filterUsersStoreByRole, search)
@@ -40,8 +37,6 @@ const UsersList: FC = () => {
       (currentPage - 1) * itemsPerPage,
       currentPage * itemsPerPage
     ) || [];
-
-  console.log("paginatedList=====>", paginatedList);
 
   return (
     <section className={s.section}>

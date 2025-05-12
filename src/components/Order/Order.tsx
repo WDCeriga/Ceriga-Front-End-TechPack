@@ -48,10 +48,6 @@ const Order: FC = () => {
   }, [orderStep]);
 
   useEffect(() => {
-    console.log("product==>", product);
-    console.log("draftId==>", draftId);
-    console.log("orderStep==>", orderStep);
-    console.log("hasCreatedDraft.current==>", hasCreatedDraft.current);
     const handleUpdateOrder = async () => {
       const subtotal = await updateDraftApi(order);
       if (subtotal) {
@@ -69,7 +65,6 @@ const Order: FC = () => {
   }, [dispatch, order, draftId, orderStep]);
 
   const getorderqty = async (id: any) => {
-    console.log(id);
     if (id != null && id !== "" && id !== null) {
       const data: IOrderState = await continueOrderApi(id);
       dispatch(
@@ -107,10 +102,6 @@ const Order: FC = () => {
   }, [dispatch, list, order.color.hex]);
 
   const renderOrderStep = () => {
-    console.log(
-      "Current orderStep =======================================> ",
-      orderStep
-    );
     switch (orderStep) {
       case "size":
         return <OrderSize />;

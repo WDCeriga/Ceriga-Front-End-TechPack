@@ -83,7 +83,6 @@ const UploadFile: FC<IUploadFile> = ({ handleClose, type }) => {
   );
 
   const handelRemoveFile = async (file: string) => {
-    console.log("filemhdfs===>", file);
     if (type === "uploadDesign" && draftId) {
       await dispatch(
         removeFile({
@@ -162,7 +161,6 @@ const UploadFile: FC<IUploadFile> = ({ handleClose, type }) => {
           <FilesList
             files={files}
             removeFile={(file) => {
-              console.log("file====>dsfg", file);
               handelRemoveFile(file);
             }}
           />

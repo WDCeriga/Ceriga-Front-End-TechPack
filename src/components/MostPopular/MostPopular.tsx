@@ -17,10 +17,10 @@ const MostPopular: FC = () => {
       <section className={s.container}>
         <Title text="most popular items" />
         <p className={s.container_description}>
-          Represent your brand and vision with the highest quality clothing in the
-          industry
+          Represent your brand and vision with the highest quality clothing in
+          the industry
         </p>
-        <MostPopularSlider/>
+        <MostPopularSlider />
       </section>
     </>
   );

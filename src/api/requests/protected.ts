@@ -145,9 +145,6 @@ const removeFileApi = async (
   field: string,
   fileUrl: string
 ) => {
-  console.log("draftId===>", draftId);
-  console.log("field===>", field);
-  console.log("fileUrl===>", fileUrl);
   const jsonData = {
     draftId: draftId,
     field: field,

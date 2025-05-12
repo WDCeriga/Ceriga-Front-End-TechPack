@@ -34,8 +34,6 @@ const AdminOrders: FC = () => {
     }
   }, [list, role, manufacturer, dispatch]);
 
-  console.log("list=======>", list);
-
   const filteredList =
     list?.filter((order) =>
       activeTab === "orders"

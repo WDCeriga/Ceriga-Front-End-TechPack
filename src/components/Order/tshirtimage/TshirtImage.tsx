@@ -39,8 +39,6 @@ const TshirtImage = () => {
   const backsize = order?.logodetails?.backlogo ?? "";
   const extradescription = order?.logodetails?.description ?? "";
 
-  console.log("order?.logodetails?===>", order?.logodetails);
-
   const productinfo = useSelector(
     (state: RootState) => state.products.productOpen
   );
@@ -53,13 +51,10 @@ const TshirtImage = () => {
     ? productinfo?.frontlogo.find((x) => x.type == frontsize)
     : "";
 
-  console.log("frontstickers:", frontstickers);
 
   const backstickers = backsize
     ? productinfo?.backlogo.find((x) => x.type == backsize)
     : "";
-
-  console.log("backstickers:", backstickers);
 
   const backimageurl = backsize
     ? productinfo?.backlogo.find((x) => x.type == backsize)?.backlogoImgUrl
@@ -240,7 +235,6 @@ const TshirtImage = () => {
                     onDragEnd={(e) => {
                       const newX = e.target.x();
                       const newY = e.target.y();
-                      console.log("New position:", newX, newY);
                       // Update state with new position if needed
                     }}
                   />
@@ -286,7 +280,6 @@ const TshirtImage = () => {
                     onDragEnd={(e) => {
                       const newX = e.target.x();
                       const newY = e.target.y();
-                      console.log("New position:", newX, newY);
                       // Update state with new position if needed
                     }}
                   />

@@ -10,7 +10,6 @@ interface ILink {
 }
 
 const LinkPreview: FC<ILink> = ({ link }) => {
-  console.log("link=====>sdfs", link);
   return (
     // <Link className={s.link} to={link || "#"}>
     //   <p className={s.link_text}>Open link</p>

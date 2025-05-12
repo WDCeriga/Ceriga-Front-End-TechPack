@@ -26,7 +26,6 @@ const TableUsers: FC<TableUsersProps> = ({ users }) => {
         <tbody className={s.table_body}>
           {users.map(
             (user) => (
-              console.log("user=====>", user),
               (
                 <BodyUsersTable
                   key={user?._id}

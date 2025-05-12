@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { CloseIcon, ErrorIcon } from "@common/Icons/CommonIcon";
 import { AppDispatch, RootState } from "@redux/store";
-import { closeOrderTypeModal } from "@redux/slices/ui";
+import { closeModal, closeOrderTypeModal } from "@redux/slices/ui";
 import { clearOpenProduct, getProductInfo } from "@redux/slices/products";
 
 import { createNewOrder, resetOrderState } from "@redux/slices/order";
@@ -31,18 +31,24 @@ const CustomiseModalProduct: FC = () => {
     event.stopPropagation();
   };
 
-  console.log("product====>", product);
-
   const handleCloseModal = () => {
-    dispatch(clearOpenProduct());
+    // dispatch(clearOpenProduct());
     dispatch(closeOrderTypeModal());
     dispatch(resetOrderState());
     dispatch(resetColors());
   };
 
+  const handleCloseModalCreate = () => {
+    dispatch(clearOpenProduct());
+    dispatch(closeOrderTypeModal());
+    dispatch(resetOrderState());
+    dispatch(resetColors());
+    dispatch(closeModal());
+  };
+
   const handleCreateclothingNewOrder = () => {
     debugger;
-    handleCloseModal();
+    handleCloseModalCreate();
     product &&
       productId &&
       dispatch(
@@ -57,7 +63,7 @@ const CustomiseModalProduct: FC = () => {
   };
   const handleCreateTechpackNewOrder = () => {
     debugger;
-    handleCloseModal();
+    handleCloseModalCreate();
     product &&
       productId &&
       dispatch(

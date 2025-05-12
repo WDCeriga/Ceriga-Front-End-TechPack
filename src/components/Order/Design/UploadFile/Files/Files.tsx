@@ -36,7 +36,6 @@ const FilesList: FC<IFilesList> = ({ files, removeFile }) => {
           >
             <button
               onClick={() => {
-                console.log("file====>dsfg39", file);
                 removeFile(file);
               }}
               style={{

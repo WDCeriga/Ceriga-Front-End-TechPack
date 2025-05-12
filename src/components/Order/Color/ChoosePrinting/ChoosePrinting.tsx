@@ -18,10 +18,6 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
     (state: RootState) => state.order
   );
 
-  console.log(
-    "orderRP====>",
-    useSelector((state: RootState) => state.order)
-  );
   const handleChoosePrinting = (value: string) => {
     dispatch(updatePrinting(value));
   };
@@ -33,8 +29,6 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
   const handleItemClick = (itemName: string) => {
     handleChoosePrinting(itemName);
   };
-
-  console.log("orderType====>", orderType);
 
   const isMinimumRequired =
     orderType === "Custom clothing"

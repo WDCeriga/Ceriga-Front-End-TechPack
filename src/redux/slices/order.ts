@@ -44,7 +44,6 @@ export const createNewDraft = createAsyncThunk<
   { state: RootState }
 >("create-draft", async ({ draft }) => {
   const data = await createNewDraftApi(draft);
-  console.log("data====>", data);
   return data;
 });
 
@@ -54,7 +53,6 @@ export const continueOrder = createAsyncThunk<
   { state: RootState }
 >("continue-order", async (draftId) => {
   const data: IOrderState = await continueOrderApi(draftId);
-  console.log("data==>", data);
   return data;
 });
 
@@ -295,12 +293,9 @@ const orderSlice = createSlice({
       state.quantity.type = "Sample Selection";
 
       let minimumQuantity = state?.minimumQuantity;
-      console.log("minimumQuantity==>", minimumQuantity);
       const totalQuantity = state.quantity.list.reduce((sum, item) => {
         return sum + (item.value || 0);
       }, 0);
-
-      console.log("totalQuantity==>", totalQuantity);
 
       if (
         minimumQuantity &&
@@ -389,7 +384,6 @@ const orderSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(createNewDraft.fulfilled, (state, { payload }) => {
-      console.log("payload====>", payload);
       state.draftId = payload.id;
       state.color = {
         hex: null,

@@ -13,9 +13,7 @@ const ParamMainPreview: FC<IParamPreviewOrder> = ({
   paramsType,
   subparameters,
 }) => {
-  console.log("title===>", title);
   if (paramsType === "listsize" && Array.isArray(subparameters)) {
-    console.log("listsize==>", subparameters);
   }
 
   return (

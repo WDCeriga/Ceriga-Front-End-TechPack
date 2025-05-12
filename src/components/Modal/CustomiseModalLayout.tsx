@@ -12,9 +12,9 @@ const CustomiseModalLayout: FC = () => {
     dispatch(closeOrderTypeModal());
   };
   return (
-      <section onClick={handleCloseModal} className={s.container}>
-        <CustomiseModalProduct />
-      </section>
+    <section onClick={handleCloseModal} className={s.container}>
+      <CustomiseModalProduct />
+    </section>
   );
 };
 
