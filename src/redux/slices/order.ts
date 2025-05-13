@@ -24,7 +24,6 @@ import {
   uploadNeckApi,
   uploadPackageApi,
 } from "@api/requests/protected";
-import { FadingType, StitchingType } from "@interfaces/order/design.interface";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { neckSizeType } from "@interfaces/order/selectNeck.interface";
 import { RootState } from "@redux/store";
@@ -32,9 +31,6 @@ import { initialState as firstState } from "@constants/order/initialState";
 import { IDelivery } from "@interfaces/Delivery.interface";
 import { ITableSizeRow } from "@interfaces/order/sizes.interface";
 import { ICountrySelect } from "@interfaces/order/delivery.interface";
-import { printingType } from "@interfaces/order/printing.interface";
-
-import { selectStyleType } from "../../interfaces/order/selectStyle.interface";
 
 const initialState: IOrderState = firstState;
 

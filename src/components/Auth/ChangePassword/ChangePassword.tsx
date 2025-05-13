@@ -45,7 +45,7 @@ const ChangePassword: FC = () => {
 
   useEffect(() => {
     if (code) {
-      checkForgetPassApi({ code })
+      checkForgetPassApi({ code: code, userId: "", password: "" })
         .then(({ info }) => {
           const data = info;
           setUserInfo({
@@ -59,7 +59,7 @@ const ChangePassword: FC = () => {
         .catch(() => {
           setUserInfo((prev) => ({ ...prev, isFulfilled: true }));
           navigate(routes.auth);
-          window.location.reload()
+          window.location.reload();
         });
     } else {
       navigate(routes.auth);
@@ -73,10 +73,10 @@ const ChangePassword: FC = () => {
     })
       .then(() => {
         notification.success("All ok");
-        setTimeout(() => { 
-          navigate(routes.auth)
-          window.location.reload()
-        }, 4000)
+        setTimeout(() => {
+          navigate(routes.auth);
+          window.location.reload();
+        }, 4000);
       })
       .catch((e) => {
         console.error(e);

@@ -21,19 +21,15 @@ import OrderPreview from "./Preview/Preview";
 import OrderSize from "./Size/Size";
 import s from "./order.module.scss";
 import { getProductInfobyName } from "@redux/slices/products";
-// import { continueOrder } from "@redux/slices/order";
-// import { initialState as firstState } from "@constants/order/initialState";
 import { IOrderState } from "../../interfaces/bll/order.interface";
 import { continueOrderApi } from "@api/requests/protected";
 import TshirtImage from "./tshirtimage/TshirtImage";
-// const initialState: IOrderState = firstState;
 const Order: FC = () => {
   const hasCreatedDraft = useRef(false);
   const dispatch = useDispatch<AppDispatch>();
   const { order } = useSelector((state: RootState) => state);
   const { product, list } = useSelector((state: RootState) => state.colors);
   const { orderStep, draftId } = order;
-  // const packageInfo = useSelector((state: RootState) => state.order.package);
 
   useEffect(() => {
     if (order.productType) {

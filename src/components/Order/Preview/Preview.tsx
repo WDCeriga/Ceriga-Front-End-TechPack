@@ -28,6 +28,7 @@ import sOrder from "../order.module.scss";
 import Progress from "@common/Progress/Progress";
 import notification from "@services/notification";
 import SizeTable from "../Size/Sizes/Table/Table";
+import { Loading } from "notiflix";
 
 interface IOrderPreview {
   isOrder?: boolean;
@@ -49,23 +50,28 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
     const fetchOrderData = async () => {
       try {
         if (isOrder && id) {
+          Loading.standard();
           const data = await getOrderItemApi(id);
           console.log("data===Orderre===>", data);
           setPhoto(data.productType || "");
           setColor(data.color.hex);
           const mappedData = await mapOrderStateToParams(data);
           setPreviewData(mappedData);
+          Loading.remove();
         } else if (previewData === null) {
           setPhoto(order.productType || "");
           setColor(order.color.hex || "#333");
           console.log("data===previewData===>", order);
           const mappedData = await mapOrderStateToParams(order);
           setPreviewData(mappedData);
+          Loading.remove();
         } else {
           console.log("data===previewData=dsf==>", previewData);
+          Loading.remove();
         }
       } catch (error) {
         console.error("Error fetching order data:", error);
+        Loading.remove();
       }
     };
 
@@ -90,6 +96,7 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
 
   const handleFinishOrder = async () => {
     if (order.draftId) {
+      Loading.standard();
       try {
         const response = await createOrderTechPackApi(order.draftId);
         if (response.status === 200) {
@@ -97,10 +104,12 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
         } else {
           notification.error("Error creating order");
           console.error("Error creating order", response);
+          Loading.remove();
         }
       } catch (error) {
         notification.error("Failed to create order");
         console.error("Order creation failed", error);
+        Loading.remove();
       }
     } else {
       notification.error("Order draft ID is missing.");
@@ -110,6 +119,7 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
   const handlePay = async (id: number) => {
     const data = await paymentGenerateApi(id, true);
     window.location.href = data.url;
+    Loading.remove();
   };
 
   if (previewData === null) {
@@ -119,10 +129,9 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
   const handleDownloadPDF = async () => {
     let idToUse = isOrder && id ? id : order?.draftId;
     let isOrderFlag = !!(isOrder && id);
-
     if (!idToUse) return;
-
     try {
+      Loading.standard();
       const response = await generatePdfApi(idToUse, isOrderFlag);
       const blob = new Blob([response.data], { type: "application/pdf" });
       const url = window.URL.createObjectURL(blob);
@@ -134,8 +143,10 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
       link.click();
       link.remove();
       window.URL.revokeObjectURL(url);
+      Loading.remove();
     } catch (error) {
       console.error("PDF download error:", error);
+      Loading.remove();
     }
   };
 
