@@ -24,12 +24,14 @@ import { getProductInfobyName } from "@redux/slices/products";
 import { IOrderState } from "../../interfaces/bll/order.interface";
 import { continueOrderApi } from "@api/requests/protected";
 import TshirtImage from "./tshirtimage/TshirtImage";
+import { useNavigate } from "react-router-dom";
 const Order: FC = () => {
   const hasCreatedDraft = useRef(false);
   const dispatch = useDispatch<AppDispatch>();
   const { order } = useSelector((state: RootState) => state);
   const { product, list } = useSelector((state: RootState) => state.colors);
   const { orderStep, draftId } = order;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (order.productType) {
@@ -39,9 +41,9 @@ const Order: FC = () => {
 
   useEffect(() => {
     if (orderStep === null) {
-      window.location.href = "/";
+      navigate("/");
     }
-  }, [orderStep]);
+  }, [orderStep, navigate]);
 
   useEffect(() => {
     const handleUpdateOrder = async () => {

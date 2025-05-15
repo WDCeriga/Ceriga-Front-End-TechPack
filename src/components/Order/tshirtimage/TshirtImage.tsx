@@ -51,7 +51,6 @@ const TshirtImage = () => {
     ? productinfo?.frontlogo.find((x) => x.type == frontsize)
     : "";
 
-
   const backstickers = backsize
     ? productinfo?.backlogo.find((x) => x.type == backsize)
     : "";
@@ -339,9 +338,9 @@ const TshirtImage = () => {
               {activeModal !== "front" && (
                 <ItemFinalDesign title="Front Size" value={frontsize} />
               )}
-              {activeModal !== "front" && (
+              {/* {activeModal !== "front" && (
                 <ItemFinalDesign title="Uploaded Design" value={frontsize} />
-              )}
+              )} */}
             </div>
 
             <div className="tshirt-modal" style={{ marginTop: "3rem" }}>
@@ -419,7 +418,7 @@ const TshirtImage = () => {
           handlePrevStep={handlePrevStep}
           handleNextStep={handleNextStep}
           onlyNext={false}
-          isHaveNext={true}
+          isHaveNext={frontsize.length !== 0 && backsize.length !== 0}
         />
       </div>
     </>

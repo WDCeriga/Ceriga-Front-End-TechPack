@@ -158,7 +158,11 @@ const OrderDesign: FC = () => {
           handlePrevStep={handlePrevStep}
           handleNextStep={handleNextStep}
           onlyNext={false}
-          isHaveNext={stitching.type.length !== 0 && neck.type !== ""}
+          isHaveNext={
+            stitching.type.length !== 0 &&
+            fading.type.length !== 0 &&
+            neck.type !== ""
+          }
         />
       </div>
     </>

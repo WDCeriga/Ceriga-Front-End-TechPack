@@ -7,6 +7,7 @@ interface IOrderLayout {
 }
 
 const OrderLayout: FC<IOrderLayout> = ({ children }) => {
+  console.log("PraveenUpadhyay1");
   return <section className={s.layout}>{children}</section>;
 };
 

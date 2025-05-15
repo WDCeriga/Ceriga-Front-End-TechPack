@@ -154,10 +154,15 @@ export const mapOrderStateToParams = async (state: IOrderState) => {
         value: item.value.toString(),
       })),
     },
+    // {
+    //   title: "Total Price",
+    //   paramsType: "cost",
+    //   subparameters: state.totalcost.toString(),
+    // },
     {
       title: "Total Price",
       paramsType: "cost",
-      subparameters: state.totalcost.toString(),
+      subparameters: state.subtotal.toString(),
     },
     {
       title: "Size",

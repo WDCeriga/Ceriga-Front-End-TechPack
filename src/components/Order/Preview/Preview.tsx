@@ -41,6 +41,7 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
   const [previewData, setPreviewData] = useState<IParamPreviewOrder[] | null>(
     null
   );
+  const [orderId, setOrderId] = useState<number>();
   const { orderType } = useSelector((state: RootState) => state.order);
   const { order } = useSelector((state: RootState) => state);
   const navigate = useNavigate();
@@ -95,24 +96,30 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
   };
 
   const handleFinishOrder = async () => {
-    if (order.draftId) {
-      Loading.standard();
-      try {
-        const response = await createOrderTechPackApi(order.draftId);
-        if (response.status === 200) {
-          handlePay(response.data.orderId);
-        } else {
-          notification.error("Error creating order");
-          console.error("Error creating order", response);
+    console.log("orderId=====>", orderId);
+    if (orderId) {
+      handlePay(orderId);
+    } else {
+      if (order.draftId) {
+        Loading.standard();
+        try {
+          const response = await createOrderTechPackApi(order.draftId);
+          if (response.status === 200) {
+            setOrderId(response.data.orderId);
+            handlePay(response.data.orderId);
+          } else {
+            notification.error("Error creating order");
+            console.error("Error creating order", response);
+            Loading.remove();
+          }
+        } catch (error) {
+          notification.error("Failed to create order");
+          console.error("Order creation failed", error);
           Loading.remove();
         }
-      } catch (error) {
-        notification.error("Failed to create order");
-        console.error("Order creation failed", error);
-        Loading.remove();
+      } else {
+        notification.error("Order draft ID is missing.");
       }
-    } else {
-      notification.error("Order draft ID is missing.");
     }
   };
 
