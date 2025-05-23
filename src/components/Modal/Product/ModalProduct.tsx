@@ -54,17 +54,6 @@ const ModalProduct: FC = () => {
   // };
   const handleCreateNewOrder = () => {
     if (!isMobile) {
-      // dispatch(resetColors());
-      // product &&
-      //   productId &&
-      //   dispatch(
-      //     createNewOrder({
-      //       productType: product.categories[0],
-      //       orderType: "Custom clothing",
-      //       cost: product.startingPrice,
-      //     })
-      //   );
-      // navigate(routes.order);
       product &&
         productId &&
         dispatch(
@@ -74,7 +63,7 @@ const ModalProduct: FC = () => {
           })
         );
     } else {
-      notification.error("Only available on laptop.");
+      navigate("/mobile-redirect"); // Redirect to mobile warning page
     }
   };
   if (!product) {

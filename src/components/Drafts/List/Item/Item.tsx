@@ -40,7 +40,7 @@ const DraftItem: FC<IDraftCard> = ({
         navigate(routes.order);
       }
     } else {
-      notification.error("Only available on laptop.");
+      navigate("/mobile-redirect"); // Redirect to mobile warning page
     }
   };
   return (

@@ -42,11 +42,9 @@ const Buttons: FC<IButtons> = ({ size, idProduct, category, isMobile }) => {
   let timeoutId: NodeJS.Timeout;
   // let timeoutId: any;
   const handleMobileMessage = () => {
-    // clearTimeout(timeoutId);
-    // setMobileMsgVisible(true);
-    // timeoutId = setTimeout(() => setMobileMsgVisible(false), 4000);
-    notification.error("Only available on laptop.");
+    navigate("/mobile-redirect"); // Redirect to MobileRedirect page
   };
+
   return (
     <div className={groupClasses}>
       <Button
