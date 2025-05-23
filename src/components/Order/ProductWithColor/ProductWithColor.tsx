@@ -15,9 +15,28 @@ interface IProductWithColor {
   color: string;
   product: string;
   path: string | null;
+  showStaticGif?: boolean; // Add this
 }
 
-const ProductWithColor: FC<IProductWithColor> = ({ color, product, path }) => {
+const ProductWithColor: FC<IProductWithColor> = ({
+  color,
+  product,
+  path,
+  showStaticGif,
+}) => {
+  if (showStaticGif) {
+    return (
+      <section className={s.container}>
+        <img
+          src="/img/static-product.gif"
+          alt="Static Product"
+          width={500}
+          height={500}
+          style={{ objectFit: "contain", margin: 85 }}
+        />
+      </section>
+    );
+  }
   if (path) {
     return (
       <section className={s.container}>

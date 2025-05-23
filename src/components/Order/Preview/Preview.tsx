@@ -179,12 +179,25 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
               paddingTop: "100px", // Add padding
             }}
           >
-            <ProductWithColor
-              color={color}
-              product={photo}
-              path={order.color.path}
-            />
-            {orderType !== "Custom clothing" && (
+            {/* {orderType !== "Custom clothing" ? (
+              <section className={s.preview_gifContainer}>
+                <img
+                  src="/img/static-product.gif" // <-- Place your GIF in the public/img folder
+                  alt="Static Product"
+                  width={500}
+                  height={500}
+                  style={{ objectFit: "contain" }}
+                />
+              </section>
+            ) : ( */}
+              <ProductWithColor
+                color={color}
+                product={photo}
+                path={order.color.path}
+                showStaticGif={orderType !== "Custom clothing"}
+              />
+            {/* )} */}
+            {/* {orderType !== "Custom clothing" && (
               <div
                 className={s.uplodefilebtn}
                 style={{
@@ -234,7 +247,7 @@ const OrderPreview: FC<IOrderPreview> = ({ isOrder, id }) => {
                   </svg>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
           <div className={s.preview_right}>
             <TitlePreview product={order.productType || ""} />

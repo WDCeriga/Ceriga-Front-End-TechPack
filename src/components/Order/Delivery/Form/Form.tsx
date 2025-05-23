@@ -9,6 +9,9 @@ import InputForm from "@common/Form/Input/Input";
 import notification from "@services/notification";
 import SelectLCountry from "@common/Form/Select/SelectCountry";
 import SelectRegion from "@common/Form/Select/SelectState";
+import Tooltip from "react-bootstrap/Tooltip";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import InfoIcon from "@mui/icons-material/Info";
 
 import s from "./form.module.scss";
 
@@ -69,15 +72,63 @@ const DeliveryForm: FC<IDeliveryForm> = ({ delivery, validationErrors }) => {
         />
         <InputForm
           onChange={handleChange}
-          label="BOL Number"
+          label={
+            <>
+              BOL Number
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip
+                    id="tooltip-bolNumber"
+                    style={{
+                      fontSize: "10px",
+                      color: "#fff",
+                      backgroundColor: "#e33c12",
+                      padding: "8px 12px",
+                      borderRadius: "8px",
+                      boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
+                      maxWidth: "200px",
+                      textAlign: "center",
+                      position: "relative",
+                    }}
+                  >
+                    {"Please enter the BOL number here."}
+                    <div
+                      style={{
+                        content: "''",
+                        position: "absolute",
+                        bottom: "-8px",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        width: 0,
+                        height: 0,
+                        borderLeft: "8px solid transparent",
+                        borderRight: "8px solid transparent",
+                        borderTop: "8px solid #e33c12",
+                      }}
+                    />
+                  </Tooltip>
+                }
+              >
+                <span
+                  style={{
+                    marginLeft: 6,
+                    cursor: "pointer",
+                    verticalAlign: "middle",
+                  }}
+                >
+                  <InfoIcon
+                    style={{ fontSize: "14px", color: "#444", marginTop: 5 }}
+                  />
+                </span>
+              </OverlayTrigger>
+            </>
+          }
           name="bolNumber"
           initialValue={delivery.bolNumber}
           error={validationErrors.bolNumber}
         />
-        <SelectLCountry
-          initialValue={delivery.country || null}
-
-        />
+        <SelectLCountry initialValue={delivery.country || null} />
         {delivery.country !== null && (
           <SelectRegion
             onChange={handleChange}

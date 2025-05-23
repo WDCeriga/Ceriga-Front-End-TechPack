@@ -289,6 +289,7 @@ const createOrderTechPackApi = async (draftId: string) => {
   const res = await protectedApi.post(routes.server.orders.createtechpack, {
     draftId,
   });
+  console.log("====>", res);
   return res;
 };
 
