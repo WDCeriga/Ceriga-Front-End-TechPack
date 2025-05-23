@@ -23,19 +23,15 @@ const OrderPackage: FC = () => {
     subtotal,
     minimumQuantity,
     totalcost,
+    orderType,
   } = useSelector((state: RootState) => state.order);
   const packageInfo = useSelector((state: RootState) => state.order.package);
 
   const totalqty = quantity.list.reduce((sum, item) => sum + item.value, 0);
-  console.log("totalqty==>", totalqty)
   const [menuOpen, setMenuOpen] = useState({
     packageConfiguration: false,
     quantity: false,
   });
-  console.log(
-    "state.order==>",
-    useSelector((state: RootState) => state.order)
-  );
   const dispatch = useDispatch<AppDispatch>();
 
   const handlePrevStep = () => {
@@ -43,37 +39,29 @@ const OrderPackage: FC = () => {
   };
 
   const handleNextStep = () => {
-    // if (
-    //   quantity.type === "Bulk" &&
-    //   quantity.list.reduce((sum, item) => sum + item.value, 0) < moq
-    // ) {
-    //   notification.error(
-    //     "Please select a quantity that meets the minimum order quantity"
-    //   );
-    // } else {
-    //   dispatch(changeOrderStep("delivery"));
-    // }
+    const totalQuantity = quantity.list.reduce(
+      (sum, item) => sum + item.value,
+      0
+    );
+
+    if (totalQuantity === 0) {
+      notification.error("Please select at least one quantity.");
+      return;
+    }
 
     if (
-      quantity.type === "Bulk" &&
-      quantity.list.reduce((sum, item) => sum + item.value, 0) < minimumQuantity
+      (orderType === "Custom clothing" || quantity.type === "Bulk") &&
+      totalQuantity < minimumQuantity
     ) {
       notification.error(
-        "Please select a quantity that meets the minimum order quantity"
+        `Please select a quantity that meets the minimum order quantity of ${minimumQuantity}.`
       );
-    } else {
-      if (
-        quantity.list.reduce((sum, item) => sum + item.value, 0) <
-        minimumQuantity
-      ) {
-        notification.error(
-          "Please select a quantity that meets the minimum order quantity"
-        );
-      } else {
-        dispatch(changeOrderStep("preview"));
-      }
+      return;
     }
+
+    dispatch(changeOrderStep("preview"));
   };
+
   const handleToggleMenu = (name: keyof typeof menuOpen) => {
     setMenuOpen((prev) => ({
       packageConfiguration: false,
@@ -91,25 +79,6 @@ const OrderPackage: FC = () => {
         />
         <Progress value={70} />
       </div>
-      {/* {totalcost ? (
-        <p
-          style={{
-            position: "absolute",
-            top: "50px",
-            right: "49%",
-            fontSize: "20px",
-            border: "1px solid black",
-            padding: "15px",
-            borderEndStartRadius: "10px",
-            borderEndEndRadius: "10px",
-          }}
-        >
-          € {totalcost}
-        </p>
-      ) : (
-        <></>
-      )} */}
-
       {subtotal ? (
         <p
           style={{
@@ -123,7 +92,7 @@ const OrderPackage: FC = () => {
             borderEndEndRadius: "10px",
           }}
         >
-         €{(parseFloat(subtotal.toString()) * (totalqty > 0 ? totalqty : 1)).toFixed(2)}
+          €{parseFloat(subtotal.toString()).toFixed(2)}
         </p>
       ) : (
         <></>

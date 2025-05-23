@@ -19,9 +19,18 @@ const ItemFinal: FC<IItemFinal> = ({ title, value, type, array }) => {
       {type === "array" &&
         array &&
         array.map((item) => (
-          <p key={item} className={s.container_text}>
-            {item}
-          </p>
+          // <p key={item} className={s.container_text}>
+          //   {item}
+          // </p>
+          <img
+            src={item}
+            style={{
+              borderRadius: 10,
+              objectFit: "contain",
+              maxHeight: 100,
+              maxWidth: 100,
+            }}
+          />
         ))}
       {!type && <p className={s.container_text}>{value}</p>}
     </div>

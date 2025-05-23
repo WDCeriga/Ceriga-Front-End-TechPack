@@ -4,9 +4,11 @@ import { deliveryType, IDelivery } from "@interfaces/Delivery.interface";
 import ErrorMessage from "@components/Auth/Error/Error";
 
 import s from "./input.module.scss";
+import { ReactNode } from "react";
+
 
 interface IInputSetting {
-  label: string;
+  label: ReactNode;
   name?: deliveryType; 
   register?: object; 
   type?: string;

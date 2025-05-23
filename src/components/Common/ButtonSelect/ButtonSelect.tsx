@@ -1,4 +1,4 @@
-import s from "./buttonSelect.module.scss"
+import s from "./buttonSelect.module.scss";
 
 import { FC } from "react";
 
@@ -9,7 +9,7 @@ interface IChooseChange {
   onEvent: () => void;
 }
 
-const ButtonSelect: FC<IChooseChange> = ({ text,onEvent }) => {
+const ButtonSelect: FC<IChooseChange> = ({ text, onEvent }) => {
   return (
     <div className={s.container}>
       <button onClick={onEvent} className={s.container_button}>

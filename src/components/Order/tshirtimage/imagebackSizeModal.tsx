@@ -16,25 +16,25 @@ const imagebackSizeModal: React.FC<ImageSizeModalProps> = ({
   setSelectedSize,
   selectedSize,
 }) => {
-
-  const productinfo = useSelector((state: RootState) => state.products.productOpen);
+  const productinfo = useSelector(
+    (state: RootState) => state.products.productOpen
+  );
   const handleSizeClick = (size: string): void => {
     setSelectedSize(size);
   };
-
-
 
   return (
     <div className="modal-overlay">
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="size-grid">
-
           {productinfo?.backlogo.map((size) => {
             const [width, height] = size.type.split("x").map(Number);
             return (
               <div
                 key={size.type}
-                className={`size-option ${selectedSize === size.type ? "selected" : ""}`}
+                className={`size-option ${
+                  selectedSize === size.type ? "selected" : ""
+                }`}
                 onClick={() => handleSizeClick(size.type)}
               >
                 <div
@@ -44,7 +44,12 @@ const imagebackSizeModal: React.FC<ImageSizeModalProps> = ({
                     height: `${height / 2.5}px`,
                   }}
                 ></div>
-                <span className="size-label">{size.type + " mm"}</span>
+                {size?.type === "No Design" ? (
+                  <span className="size-label">{size?.type}</span>
+                ) : (
+                  <span className="size-label">{size.type + " mm"}</span>
+                )}
+                {/* <span className="size-label">{size.type + " mm"}</span> */}
               </div>
             );
           })}

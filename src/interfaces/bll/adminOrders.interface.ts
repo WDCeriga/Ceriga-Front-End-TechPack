@@ -6,7 +6,7 @@ export type manufacturerType =
   | "Türkiye manufacturer"
   | "Spain manufacturer";
 
-export type sortType = "Oldest First" | "Newest First"
+export type sortType = "Oldest First" | "Newest First";
 
 export interface IAdminOrder {
   id: string;
@@ -16,8 +16,8 @@ export interface IAdminOrder {
   orderStatus: orderStatusType;
   manufacturer: manufacturerType;
   subtotal: string;
-  invoice: IInvoice
-
+  invoice: IInvoice;
+  orderType: string;
 }
 
 export interface IAdminOrdersState {
@@ -26,5 +26,5 @@ export interface IAdminOrdersState {
   isSearch: boolean;
   invoiceOrder: IInvoice | null;
   totalCount: number | null;
-  sortType: sortType
+  sortType: sortType;
 }

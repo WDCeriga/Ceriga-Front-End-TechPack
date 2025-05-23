@@ -5,7 +5,11 @@ import {
 } from "@interfaces/bll/products.interface";
 import { Loading } from "notiflix";
 
-import { getListProductsApi, getProductInfoApi, getProductInfoApibyName } from "@api/requests/default";
+import {
+  getListProductsApi,
+  getProductInfoApi,
+  getProductInfoApibyName,
+} from "@api/requests/default";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@redux/store";
 

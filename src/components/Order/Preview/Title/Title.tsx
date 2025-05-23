@@ -8,11 +8,12 @@ interface ITitlePreview {
   product: productType | string;
 }
 
-const TitlePreview: FC<ITitlePreview> = ({product}) => {
+const TitlePreview: FC<ITitlePreview> = ({ product }) => {
   return (
     <div className={s.container}>
       <h2 className={s.container_text}>
-        Clothing Type:<span className={s.container_text__product}>{product}</span>
+        Clothing Type:
+        <span className={s.container_text__product}>{product}</span>
       </h2>
     </div>
   );

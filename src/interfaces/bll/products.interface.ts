@@ -14,7 +14,7 @@ interface DyeStyle {
 interface LabelOption {
   type: string;
   cost?: number;
-  minimumQuantity: number,
+  minimumQuantity: number;
   isMinimumRequired: boolean;
 }
 
@@ -27,16 +27,15 @@ interface StitchingOption {
   type: string;
   cost: number;
   stitchingImgUrl: string;
-  minimumQuantity: number,
+  minimumQuantity: number;
   isMinimumRequired: boolean;
-
 }
 
 interface FadingOption {
   type: string;
   cost: number;
   fadingImgUrl: string;
-  minimumQuantity: number,
+  minimumQuantity: number;
   isMinimumRequired: boolean;
 }
 
@@ -48,7 +47,6 @@ interface Printing {
   printingImgUrl: string;
 }
 
-
 export interface IProduct {
   _id: string;
   name: string;
@@ -58,26 +56,25 @@ export interface IProduct {
   startingPrice: string[];
 }
 
-
 interface IFrontlogo {
   type: string;
   cost: number;
   frontlogoImgUrl: string;
-  frontX: number
-  frontY: number
-  frontWidth: number
-  frontHeight: number
-  frontRotation: number
+  frontX: number;
+  frontY: number;
+  frontWidth: number;
+  frontHeight: number;
+  frontRotation: number;
 }
 interface IBacklogo {
   type: string;
   cost: number;
   backlogoImgUrl: string;
-  backX: number
-  backY: number
-  backWidth: number
-  backHeight: number
-  backRotation: number
+  backX: number;
+  backY: number;
+  backWidth: number;
+  backHeight: number;
+  backRotation: number;
 }
 
 export interface IProductFull {
@@ -100,9 +97,9 @@ export interface IProductFull {
   images?: string[];
   createdAt?: Date;
   stitchingPdfUrl: string;
-  printing: Printing[],
-  frontlogo: IFrontlogo[],
-  backlogo: IBacklogo[]
+  printing: Printing[];
+  frontlogo: IFrontlogo[];
+  backlogo: IBacklogo[];
 }
 
 export interface IProductsState {

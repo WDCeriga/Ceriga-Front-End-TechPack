@@ -23,7 +23,7 @@ const AdminDashboard: FC = () => {
       <UsersList />
       {modalOpen && (
         <ModalLayout handleClose={handleToggleModal}>
-          <InviteAdmin handleClose={handleToggleModal}/>
+          <InviteAdmin handleClose={handleToggleModal} />
         </ModalLayout>
       )}
     </section>

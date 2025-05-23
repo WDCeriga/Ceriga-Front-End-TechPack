@@ -18,6 +18,7 @@ const SubParamItemOrderPreview: FC<ISubparametersPreviewOrder> = ({
     s.item_title,
     titleStyle === "bold" && s.item_title__bold
   );
+
   return (
     <li className={s.item}>
       {title && <h4 className={titleClassnames}>{title} </h4>}

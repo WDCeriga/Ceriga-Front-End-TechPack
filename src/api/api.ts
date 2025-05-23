@@ -20,16 +20,17 @@ export const authApi = axios.create({
   },
 });
 
-export const defaultApi = axios.create({ 
-  baseURL: routes.server.base
-})
+export const defaultApi = axios.create({
+  baseURL: routes.server.base,
+});
 
 export const protectedApi = axios.create({
   baseURL: routes.server.base,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  // headers: {
+  //   "Content-Type": "application/json",
+  // },
 });
+
 protectedApi.interceptors.request.use((config) => {
   const token = localGetItem("token");
   if (config.headers && token) {

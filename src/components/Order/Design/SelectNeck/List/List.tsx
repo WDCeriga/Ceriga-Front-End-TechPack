@@ -10,15 +10,20 @@ import ItemSelectNeck from "./Item/Item";
 import s from "./list.module.scss";
 
 const ListSelectNeck: FC = () => {
-  const dispatch = useDispatch<AppDispatch>()
-  const {type} = useSelector((state:RootState) => state.order.neck)
+  const dispatch = useDispatch<AppDispatch>();
+  const { type } = useSelector((state: RootState) => state.order.neck);
   const handleSelectNeck = (neckType: neckSizeType) => {
-    dispatch(changeNeckType(neckType))
-  }
+    dispatch(changeNeckType(neckType));
+  };
   return (
     <ul className={s.list}>
       {neckSizeStore.map((item) => (
-        <ItemSelectNeck handleSelectNeck={handleSelectNeck} key={item} size={item} isActive={type === item}/>
+        <ItemSelectNeck
+          handleSelectNeck={handleSelectNeck}
+          key={item}
+          size={item}
+          isActive={type === item}
+        />
       ))}
     </ul>
   );

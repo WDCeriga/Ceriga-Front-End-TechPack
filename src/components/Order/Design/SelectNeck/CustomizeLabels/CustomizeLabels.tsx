@@ -15,7 +15,7 @@ const CustomizeLabels: FC<ICustomizeLabels> = ({ handleClose }) => {
   return (
     <section className={s.container}>
       <CustomizeLabelsTop handleClose={handleClose} />
-      <h3 className={s.container_title}>Customize care Labels</h3>
+      {/* <h3 className={s.container_title}>Customize care Labels</h3> */}
       {/* <ButtonCustomizeLabel handleOpenModal={handleToggleModal} />
       {modalOpen && <UploadFile type="uploadLabel" handleClose={handleToggleModal} />} */}
     </section>

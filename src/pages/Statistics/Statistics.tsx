@@ -11,7 +11,7 @@ const StatisticsPage: FC = () => {
         <title>Statistics</title>
       </Helmet>
       <MainLayout>
-        <Statistics/>
+        <Statistics />
       </MainLayout>
     </>
   );

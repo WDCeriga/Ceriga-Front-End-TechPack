@@ -1,4 +1,4 @@
-import { FC} from "react";
+import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CloseIcon } from "@common/Icons/CommonIcon";
 import { AppDispatch, RootState } from "@redux/store";
@@ -14,7 +14,10 @@ interface IChoosePrinting {
 const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { printing } = useSelector((state: RootState) => state.order);
+  const { printing, orderType } = useSelector(
+    (state: RootState) => state.order
+  );
+
   const handleChoosePrinting = (value: string) => {
     dispatch(updatePrinting(value));
   };
@@ -27,14 +30,15 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
     handleChoosePrinting(itemName);
   };
 
-  const isMinimumRequired = productinfo?.printing?.find(
-    (x) => x.type == printing
-  )?.isMinimumRequired;
+  const isMinimumRequired =
+    orderType === "Custom clothing"
+      ? productinfo?.printing?.find((x) => x.type === printing)
+          ?.isMinimumRequired
+      : false;
 
   const minimumquantity = productinfo?.printing?.find(
     (x) => x.type == printing
   )?.minimumQuantity;
-
 
   return (
     <section className={s.container}>
@@ -46,10 +50,12 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
       </div>
 
       {isMinimumRequired && (
-        <p style={{ marginTop: "1.5rem", color: "red", fontSize: "14px" }}>{`Minimum order quantity for ${printing} is ${minimumquantity}`}</p>)
-      }
+        <p
+          style={{ marginTop: "1.5rem", color: "red", fontSize: "14px" }}
+        >{`Minimum order quantity for ${printing} is ${minimumquantity}`}</p>
+      )}
 
-      <ul className={s.container_list} style={{ marginTop: '0.5rem' }}>
+      <ul className={s.container_list} style={{ marginTop: "0.5rem" }}>
         {productinfo?.printing?.map((item) => (
           <PrintingItem
             key={item.type}
@@ -58,7 +64,9 @@ const ChoosePrinting: FC<IChoosePrinting> = ({ onClose }) => {
             cost={item.cost}
             isActive={printing === item.type}
             handleClick={handleItemClick}
-            isMinimumRequired={item.isMinimumRequired}
+            isMinimumRequired={
+              orderType === "Custom clothing" ? item.isMinimumRequired : false
+            }
             minimumQuantity={item.minimumQuantity}
           />
         ))}

@@ -25,12 +25,23 @@ const initialState: IAnalyticsState = {
     totalOrdersUpdatedThisWeek: 0,
     totalOrdersUpdatedThisMonth: 0,
     totalCompletedOrders: 0,
+    nonCustomClothingAnalytics: {
+      totalOrders: 0,
+      totalOrdersUpdatedThisWeek: 0,
+      totalOrdersUpdatedThisMonth: 0,
+      totalCompletedOrders: 0,
+    },
   },
   revenue: {
     isUpload: false,
     totalRevenue: 0,
     revenueThisWeek: 0,
     revenueThisMonth: 0,
+    nonCustomClothingRevenue: {
+      totalRevenue: 0,
+      revenueThisWeek: 0,
+      revenueThisMonth: 0,
+    },
   },
 };
 

@@ -21,21 +21,18 @@ import OrderPreview from "./Preview/Preview";
 import OrderSize from "./Size/Size";
 import s from "./order.module.scss";
 import { getProductInfobyName } from "@redux/slices/products";
-// import { continueOrder } from "@redux/slices/order";
-// import { initialState as firstState } from "@constants/order/initialState";
 import { IOrderState } from "../../interfaces/bll/order.interface";
 import { continueOrderApi } from "@api/requests/protected";
 import TshirtImage from "./tshirtimage/TshirtImage";
-// const initialState: IOrderState = firstState;
+import { useNavigate } from "react-router-dom";
 const Order: FC = () => {
   const hasCreatedDraft = useRef(false);
   const dispatch = useDispatch<AppDispatch>();
   const { order } = useSelector((state: RootState) => state);
   const { product, list } = useSelector((state: RootState) => state.colors);
   const { orderStep, draftId } = order;
-  // const packageInfo = useSelector((state: RootState) => state.order.package);
+  const navigate = useNavigate();
 
-  
   useEffect(() => {
     if (order.productType) {
       dispatch(getProductInfobyName(order.productType || ""));
@@ -44,12 +41,11 @@ const Order: FC = () => {
 
   useEffect(() => {
     if (orderStep === null) {
-      window.location.href = "/";
+      navigate("/");
     }
-  }, [orderStep]);
+  }, [orderStep, navigate]);
 
   useEffect(() => {
-    console.log("product==>", product);
     const handleUpdateOrder = async () => {
       const subtotal = await updateDraftApi(order);
       if (subtotal) {
@@ -64,10 +60,9 @@ const Order: FC = () => {
     } else if (draftId) {
       handleUpdateOrder();
     }
-  }, [dispatch, order, draftId]);
+  }, [dispatch, order, draftId, orderStep]);
 
   const getorderqty = async (id: any) => {
-    console.log(id);
     if (id != null && id !== "" && id !== null) {
       const data: IOrderState = await continueOrderApi(id);
       dispatch(
@@ -105,10 +100,6 @@ const Order: FC = () => {
   }, [dispatch, list, order.color.hex]);
 
   const renderOrderStep = () => {
-    console.log(
-      "Current orderStep =======================================> ",
-      orderStep
-    );
     switch (orderStep) {
       case "size":
         return <OrderSize />;

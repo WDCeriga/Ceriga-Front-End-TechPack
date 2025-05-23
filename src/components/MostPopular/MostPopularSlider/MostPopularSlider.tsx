@@ -1,4 +1,4 @@
-import { FC} from "react";
+import { FC } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -11,16 +11,16 @@ import { useSelector } from "react-redux";
 const PrevArrow = ({ onClick }: { onClick?: () => void }) => {
   return (
     <button onClick={onClick} className={`${s.btn} ${s.left} `}>
-    <ArrowIcon color="#FFF" width="24px" height="24px" type="left" />
-  </button>
+      <ArrowIcon color="#FFF" width="24px" height="24px" type="left" />
+    </button>
   );
 };
 
 const NextArrow = ({ onClick }: { onClick?: () => void }) => {
   return (
     <button onClick={onClick} className={`${s.btn} ${s.right} `}>
-    <ArrowIcon color="#FFF" width="24px" height="24px" type="right" />
-  </button>
+      <ArrowIcon color="#FFF" width="24px" height="24px" type="right" />
+    </button>
   );
 };
 
@@ -28,47 +28,47 @@ const MostPopularSlider: FC = () => {
   const settings = {
     dots: false,
     infinite: true,
-    centerMode: true, 
-    centerPadding: '16px', 
+    centerMode: true,
+    centerPadding: "16px",
     slidesToShow: 4,
     slidesToScroll: 1,
     speed: 700,
     responsive: [
       {
-        breakpoint: 400, 
+        breakpoint: 400,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerPadding: '16px',
-        }
+          centerPadding: "16px",
+        },
       },
       {
-        breakpoint: 768, 
+        breakpoint: 768,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerPadding: '16px',
-        }
+          centerPadding: "16px",
+        },
       },
       {
-        breakpoint: 1060, 
+        breakpoint: 1060,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          centerPadding: '16px',
-        }
+          centerPadding: "16px",
+        },
       },
       {
-        breakpoint: 1365, 
+        breakpoint: 1365,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          centerPadding: '16px',
-        }
+          centerPadding: "16px",
+        },
       },
     ],
-    prevArrow: <PrevArrow />, 
-    nextArrow: <NextArrow />, 
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
   };
 
   const { list } = useSelector((state: RootState) => state.products);
@@ -90,6 +90,5 @@ const MostPopularSlider: FC = () => {
     </div>
   );
 };
-
 
 export default MostPopularSlider;

@@ -18,4 +18,6 @@ export interface IOrderItem {
   orderData: string;
   orderStatus: orderStatusType;
   subtotal: string;
+  orderType: string;
+  isTechPack: boolean;
 }

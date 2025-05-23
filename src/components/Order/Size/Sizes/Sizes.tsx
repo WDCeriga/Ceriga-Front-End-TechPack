@@ -29,7 +29,6 @@ const SizesSettings: FC<ISizesSettings> = ({ handleClose }) => {
     tableType !== null ? tableType : firstType
   );
 
-
   const tableValuesAll =
     productType && productType in tableSizes
       ? tableSizes[productType as keyof typeof tableSizes]
@@ -59,8 +58,8 @@ const SizesSettings: FC<ISizesSettings> = ({ handleClose }) => {
         style={{
           position: "absolute",
           textAlign: "left", // Aligns the text to the left
-          fontWeight: 400,   // Customizes font weight
-          fontSize: "24px",  // Sets the font size
+          fontWeight: 400, // Customizes font weight
+          fontSize: "24px", // Sets the font size
           left: "14px", // Adds spacing below the title
         }}
       >

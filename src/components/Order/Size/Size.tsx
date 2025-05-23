@@ -48,25 +48,23 @@ const OrderSize: FC = () => {
         <Progress value={10} />
       </div>
       {subtotal ? (
-            <div style={{
-              height: 0,
-              border: "1px solid black",
-              padding: "20px",
-              borderEndStartRadius: "10px",
-              borderEndEndRadius: "10px",
-              marginTop: -16,
-              justifyContent: "center",
-              alignItems: "center"
-            }}>
-              <p
-                style={{ fontSize: "20px", marginTop: -12, }}
-              >
-                € {subtotal}
-              </p>
-            </div>
-          ) : (
-            <></>
-          )}
+        <div
+          style={{
+            height: 0,
+            border: "1px solid black",
+            padding: "20px",
+            borderEndStartRadius: "10px",
+            borderEndEndRadius: "10px",
+            marginTop: -16,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <p style={{ fontSize: "20px", marginTop: -12 }}>€ {subtotal}</p>
+        </div>
+      ) : (
+        <></>
+      )}
       {!sizeOpen ? (
         <>
           <div className={sOrder.center}>
@@ -78,7 +76,6 @@ const OrderSize: FC = () => {
           <ImageSize product={productType || ""} />
         </div>
       )}
-      
 
       <div className={sOrder.right}>
         <div className={s.params}>

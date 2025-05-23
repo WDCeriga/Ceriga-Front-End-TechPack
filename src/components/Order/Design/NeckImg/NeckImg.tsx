@@ -8,7 +8,7 @@ const NeckImg: FC = () => {
   const { neck, productType } = useSelector((state: RootState) => state.order);
 
   if (neck.noLabels) {
-    return <DefaultImg/>
+    return <DefaultImg />;
   }
   return (
     <img

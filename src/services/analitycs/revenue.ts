@@ -25,3 +25,45 @@ export const setDataAnalyticsForRevenue = (
     },
   ];
 };
+
+export const setNonClothingDataAnalyticsForRevenue = (
+  revenueAnalytics: IAnalyticsRevenue
+): IAnalyticsItem[] => {
+  return [
+    {
+      text: "Total revenue",
+      data: [
+        {
+          value: revenueAnalytics.nonCustomClothingRevenue.totalRevenue,
+          color: "#C80F0F",
+        },
+      ],
+    },
+    {
+      text: "Revenue this month",
+      data: [
+        {
+          value: revenueAnalytics.nonCustomClothingRevenue.revenueThisMonth,
+          color: "#C80F0F",
+        },
+        {
+          value: revenueAnalytics.nonCustomClothingRevenue.totalRevenue,
+          color: "#f5f5f5",
+        },
+      ],
+    },
+    {
+      text: "Revenue this week",
+      data: [
+        {
+          value: revenueAnalytics.nonCustomClothingRevenue.revenueThisWeek,
+          color: "#C80F0F",
+        },
+        {
+          value: revenueAnalytics.nonCustomClothingRevenue.totalRevenue,
+          color: "#f5f5f5",
+        },
+      ],
+    },
+  ];
+};

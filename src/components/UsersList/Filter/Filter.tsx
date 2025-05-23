@@ -8,7 +8,7 @@ const FilterUsersDashboard: FC = () => {
   return (
     <div className={s.container}>
       <SearchUsersDashboard />
-      <FilterUsersByRole/>
+      <FilterUsersByRole />
     </div>
   );
 };

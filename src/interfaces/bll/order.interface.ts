@@ -39,7 +39,7 @@ export interface IPackage {
 }
 
 export interface IOrderState {
-  _id:string | null;
+  _id: string | null;
   draftId: string | null;
   orderId?: string;
   name: string | null;
@@ -50,9 +50,9 @@ export interface IOrderState {
   color: {
     hex: string | null;
     path: string | null;
-    name: string,
-    cost: number,
-    colortype: string
+    name: string;
+    cost: number;
+    colortype: string;
     description: string;
   };
   material: IMaterial;
@@ -82,6 +82,7 @@ export interface IOrderState {
   logodetails: ILogodetails;
   frontlogoUploads: string[];
   backlogoUploads: string[];
+  orderType: string | null;
 }
 
 export interface ILogodetails {
@@ -96,4 +97,6 @@ export interface ILogodetails {
 
 export interface ICreateNewOrder {
   productType: string;
+  orderType: string;
+  cost: number;
 }

@@ -3,6 +3,7 @@ import { materialValue } from "./material.interface";
 export type titleType =
   | "Fabrics"
   | "Colour"
+  | "Printing"
   | "Neck label"
   | "Care label"
   | "Design"

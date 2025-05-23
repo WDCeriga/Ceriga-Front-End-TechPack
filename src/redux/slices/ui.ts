@@ -19,10 +19,15 @@ interface IState {
   modal: {
     isActive: boolean;
     productId: string | null;
-  },
-  tableSize:{ 
-    activeChar: string
-  }
+  };
+  tableSize: {
+    activeChar: string;
+  };
+  ordermodal: {
+    CustomiseisActive: boolean;
+    productId: string | null;
+    category: string | null;
+  };
 }
 
 interface IChangePage {
@@ -31,6 +36,10 @@ interface IChangePage {
 
 interface IOpenModal {
   productId: string;
+}
+interface ICsOpenModal {
+  productId: string;
+  category: string;
 }
 
 const initialState: IState = {
@@ -51,9 +60,14 @@ const initialState: IState = {
     isActive: false,
     productId: null,
   },
-  tableSize: { 
+  tableSize: {
     activeChar: "",
-  }
+  },
+  ordermodal: {
+    CustomiseisActive: false,
+    productId: null,
+    category: "",
+  },
 };
 
 const uiSlice = createSlice({
@@ -100,9 +114,25 @@ const uiSlice = createSlice({
       state.modal.isActive = false;
       state.modal.productId = null;
     },
-    changeActiveCharInTableSize: (state:IState, { payload }: PayloadAction<string>) => { 
+    changeActiveCharInTableSize: (
+      state: IState,
+      { payload }: PayloadAction<string>
+    ) => {
       state.tableSize.activeChar = payload;
-    }
+    },
+    openOrderTypeModal: (
+      state: IState,
+      { payload }: PayloadAction<ICsOpenModal>
+    ) => {
+      state.ordermodal.CustomiseisActive = true;
+      state.ordermodal.productId = payload.productId;
+      state.ordermodal.category = payload.category;
+    },
+    closeOrderTypeModal: (state: IState) => {
+      state.ordermodal.CustomiseisActive = false;
+      state.ordermodal.productId = null;
+      state.ordermodal.category = null;
+    },
   },
 });
 
@@ -112,7 +142,9 @@ export const {
   updateAdditionalContent,
   openModal,
   closeModal,
-  changeActiveCharInTableSize
+  changeActiveCharInTableSize,
+  openOrderTypeModal,
+  closeOrderTypeModal,
 } = uiSlice.actions;
 
 export default uiSlice.reducer;

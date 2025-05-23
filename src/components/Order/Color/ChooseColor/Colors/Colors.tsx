@@ -10,7 +10,6 @@ const Colors: FC = () => {
   const { list } = useSelector((state: RootState) => state.colors);
   const { material, color } = useSelector((state: RootState) => state.order);
 
-
   const getFilteredColors = () => {
     const gsm = material.value || 0;
 

@@ -1,38 +1,41 @@
-import { defineConfig } from 'vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 
-import react from '@vitejs/plugin-react';
+import react from "@vitejs/plugin-react";
+import routes from "./src/routes";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/',
+  base: "/",
   optimizeDeps: {
-    include: ['@emotion/react', '@emotion/styled', '@mui/material/Tooltip'],
+    include: ["@emotion/react", "@emotion/styled", "@mui/material/Tooltip"],
   },
   plugins: [
     react({
-      jsxImportSource: '@emotion/react',
+      jsxImportSource: "@emotion/react",
       babel: {
-        plugins: ['@emotion/babel-plugin'],
+        plugins: ["@emotion/babel-plugin"],
       },
     }),
     tsconfigPaths(),
   ],
   build: {
-    outDir: 'dist',
+    outDir: "dist",
   },
   server: {
+    host: "192.168.1.5",
+    port: 5173,
     proxy: {
-      '/public': {
-        target: 'http://localhost:4000',
+      "/public": {
+        target: routes.server.base,
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/public/, ''),
+        rewrite: (path) => path.replace(/^\/public/, ""),
       },
 
-      '/api': {
-        target: 'http://localhost:4000',
+      "/api": {
+        target: routes.server.base,
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },

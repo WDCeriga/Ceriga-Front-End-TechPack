@@ -5,7 +5,7 @@ export type filterType =
   | "accepted"
   | "processing"
   | "shipping"
-  | "completed"
+  | "completed";
 
 export type filterText =
   | "All"
@@ -15,10 +15,10 @@ export type filterText =
   | "On the way"
   | "Ready to ship"
   | "Priced"
-  | "Accepted" 
+  | "Accepted"
   | "Processing"
   | "Shipping"
-  | "Completed"
+  | "Completed";
 
 export interface IFilterItem {
   type: filterType;

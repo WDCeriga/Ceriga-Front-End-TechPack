@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { IImageFrame } from "../imageFrame.interface";
-import styles from "./TShirt.module.scss"
+import styles from "./TShirt.module.scss";
 
 const {
   short,
@@ -46,11 +46,17 @@ const {
   arrow_i_head_left,
 } = styles;
 
-const TShirtSize: FC<IImageFrame>  = ({activeChar,handleChangeActiveChar}) => {
-
+const TShirtSize: FC<IImageFrame> = ({
+  activeChar,
+  handleChangeActiveChar,
+}) => {
   return (
     <div className={short}>
-      <img src="/img/productsSize/T-shirt.jpg" alt="t-short-man" className={img} />
+      <img
+        src="/img/productsSize/T-shirt.jpg"
+        alt="t-short-man"
+        className={img}
+      />
       <div
         className={`${line} ${arrow_a} ${
           activeChar === "A" ? active_line : ""
@@ -239,6 +245,5 @@ const TShirtSize: FC<IImageFrame>  = ({activeChar,handleChangeActiveChar}) => {
     </div>
   );
 };
-
 
 export default TShirtSize;

@@ -11,6 +11,12 @@ export interface IAnalyticsOrders {
   totalOrdersUpdatedThisWeek: number;
   totalOrdersUpdatedThisMonth: number;
   totalCompletedOrders: number;
+  nonCustomClothingAnalytics: {
+    totalOrders: number;
+    totalOrdersUpdatedThisWeek: number;
+    totalOrdersUpdatedThisMonth: number;
+    totalCompletedOrders: number;
+  };
 }
 
 export interface IAnalyticsRevenue {
@@ -18,6 +24,11 @@ export interface IAnalyticsRevenue {
   totalRevenue: number;
   revenueThisWeek: number;
   revenueThisMonth: number;
+  nonCustomClothingRevenue: {
+    totalRevenue: number;
+    revenueThisWeek: number;
+    revenueThisMonth: number;
+  };
 }
 
 export interface IAnalyticsState {

@@ -4,12 +4,12 @@ import { useDispatch } from "react-redux";
 import { CameraIcon, CloseIcon } from "@common/Icons/CommonIcon";
 import { formatRole } from "@services/formatRole";
 import { usersRoleWithAllType } from "@interfaces/bll/dashboard.interface";
-import { LogOutIcon, } from "@common/Icons/UserHeaderMenu";
+import { LogOutIcon } from "@common/Icons/UserHeaderMenu";
 import { AppDispatch } from "@redux/store";
 import { uploadUserProfile } from "@redux/slices/user";
 
 import s from "./headerMenu.module.scss";
-import routes  from "../../../../routes/index";
+import routes from "../../../../routes/index";
 
 interface IMenuInfo {
   name: string;
@@ -45,9 +45,8 @@ const HeaderMenu: FC<IMenuInfo> = ({
   const handleLogOut = () => {
     localStorage.clear();
     // window.location.href = "https://ceriga.co/";
-    window.location.href = routes.fronturl +"auth/sign-in";
+    window.location.href = routes.fronturl + "auth/sign-in";
     // redirect to link
-
   };
   const onDrop = async (files: File[]) => {
     const formData = new FormData();

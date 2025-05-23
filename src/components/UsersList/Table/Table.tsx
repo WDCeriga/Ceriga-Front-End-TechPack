@@ -9,12 +9,10 @@ import ChangeManufacturerModal from "./ModalContent/ModalContent";
 import s from "./table.module.scss";
 
 interface TableUsersProps {
-  currentPage: number;
-  itemsPerPage: number;
-  users: IUserDashboard[]
+  users: IUserDashboard[];
 }
 
-const TableUsers: FC<TableUsersProps> = ({ currentPage, itemsPerPage, users }) => {
+const TableUsers: FC<TableUsersProps> = ({ users }) => {
   const [modalOpen, setModalOpen] = useState<string>("");
 
   const handleToggleModal = (id: string) => {
@@ -25,12 +23,35 @@ const TableUsers: FC<TableUsersProps> = ({ currentPage, itemsPerPage, users }) =
     <>
       <table className={s.table}>
         <HeadUserTable />
-        <BodyUsersTable
-         users={users}
+        <tbody className={s.table_body}>
+          {users.map(
+            (user) => (
+              (
+                <BodyUsersTable
+                  key={user?._id}
+                  // {...user}
+                  _id={user?._id}
+                  amountOfOrders={user?.amountOfOrders}
+                  company={user?.company}
+                  email={user?.email}
+                  lastActive={
+                    user?.lastActive ? user?.lastActive?.toString() : ""
+                  }
+                  manufacturer={user?.manufacturer ? user?.manufacturer : ""}
+                  name={user?.name}
+                  role={user?.role}
+                  handleToggleModal={handleToggleModal}
+                />
+              )
+            )
+          )}
+        </tbody>
+        {/* <BodyUsersTable
           handleToggleModal={handleToggleModal}
           currentPage={currentPage}
           itemsPerPage={itemsPerPage}
-        />
+          users={users}
+        /> */}
       </table>
       {modalOpen !== "" && (
         <ModalLayout handleClose={() => handleToggleModal("")}>

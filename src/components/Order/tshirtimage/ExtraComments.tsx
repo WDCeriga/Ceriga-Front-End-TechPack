@@ -18,7 +18,6 @@ const ExtraComments: React.FC<ExtraCommentsModalProps> = ({
     (state: RootState) => state.order.logodetails
   );
 
-  console.log("description===>", description)
   const [comment, setComment] = useState<string>(
     description ? description.toString() : ""
   );

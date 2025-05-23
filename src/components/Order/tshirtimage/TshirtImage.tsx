@@ -26,8 +26,14 @@ const TshirtImage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { order } = useSelector((state: RootState) => state);
   const { subtotal } = useSelector((state: RootState) => state.order);
-  const [imagefrontSize, setImagefrontSize] = useState({ width: 500, height: 500 });
-  const [imagebackSize, setImagebackSize] = useState({ width: 500, height: 500 });
+  const [imagefrontSize, setImagefrontSize] = useState({
+    width: 500,
+    height: 500,
+  });
+  const [imagebackSize, setImagebackSize] = useState({
+    width: 500,
+    height: 500,
+  });
 
   const frontsize = order?.logodetails?.frontlogo ?? "";
   const backsize = order?.logodetails?.backlogo ?? "";
@@ -45,14 +51,9 @@ const TshirtImage = () => {
     ? productinfo?.frontlogo.find((x) => x.type == frontsize)
     : "";
 
-  console.log("frontstickers:", frontstickers);
-
-
   const backstickers = backsize
     ? productinfo?.backlogo.find((x) => x.type == backsize)
     : "";
-
-  console.log("backstickers:", backstickers);
 
   const backimageurl = backsize
     ? productinfo?.backlogo.find((x) => x.type == backsize)?.backlogoImgUrl
@@ -86,8 +87,14 @@ const TshirtImage = () => {
     }
   };
 
-  const [frontImage] = useImage(`${routes.server.base}${frontimageurl}`, "anonymous");
-  const [backImage] = useImage(`${routes.server.base}${backimageurl}`, "anonymous");
+  const [frontImage] = useImage(
+    `${routes.server.base}${frontimageurl}`,
+    "anonymous"
+  );
+  const [backImage] = useImage(
+    `${routes.server.base}${backimageurl}`,
+    "anonymous"
+  );
 
   useEffect(() => {
     if (backImage) {
@@ -113,7 +120,7 @@ const TshirtImage = () => {
       const maxHeight = 500;
       let width = frontImage.width;
       let height = frontImage.height;
-      frontImage
+      frontImage;
       if (width > maxWidth || height > maxHeight) {
         const scale = Math.min(maxWidth / width, maxHeight / height);
         width *= scale;
@@ -135,21 +142,19 @@ const TshirtImage = () => {
         />
         <Progress value={55} />
       </div>
-      <div style={{
-        height: 0,
-        border: "1px solid black",
-        padding: "20px",
-        borderEndStartRadius: "10px",
-        borderEndEndRadius: "10px",
-        marginTop: -16,
-        justifyContent: "center",
-        alignItems: "center"
-      }}>
-        <p
-          style={{ fontSize: "20px", marginTop: -12, }}
-        >
-          € {subtotal}
-        </p>
+      <div
+        style={{
+          height: 0,
+          border: "1px solid black",
+          padding: "20px",
+          borderEndStartRadius: "10px",
+          borderEndEndRadius: "10px",
+          marginTop: -16,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <p style={{ fontSize: "20px", marginTop: -12 }}>€ {subtotal}</p>
       </div>
 
       {/* {activeModal === "front" ? (
@@ -194,26 +199,41 @@ const TshirtImage = () => {
         </div>
       )} */}
 
-
       {activeModal === "front" ? (
         <div className={sOrder.center}>
           {frontimageurl && frontImage ? (
             <div className="flex flex-col items-center">
-              <Stage width={imagefrontSize.width} height={imagefrontSize.height} className="border p-2" style={{ marginTop: "-5vw" }}>
+              <Stage
+                width={imagefrontSize.width}
+                height={imagefrontSize.height}
+                className="border p-2"
+                style={{ marginTop: "-5vw" }}
+              >
                 <Layer>
-                  <KonvaImage image={frontImage} x={0} y={0} width={imagefrontSize.width} height={imagefrontSize.height} />
+                  <KonvaImage
+                    image={frontImage}
+                    x={0}
+                    y={0}
+                    width={imagefrontSize.width}
+                    height={imagefrontSize.height}
+                  />
                   <Rect
                     x={frontstickers ? frontstickers?.frontX : 0}
                     y={frontstickers ? frontstickers?.frontY : 0}
                     width={frontstickers ? frontstickers?.frontWidth : 0}
                     height={frontstickers ? frontstickers?.frontHeight : 0}
                     fill="red"
-                    rotation={frontstickers ? frontstickers?.frontRotation ? frontstickers?.frontRotation : 0 : 0}
+                    rotation={
+                      frontstickers
+                        ? frontstickers?.frontRotation
+                          ? frontstickers?.frontRotation
+                          : 0
+                        : 0
+                    }
                     draggable={false}
                     onDragEnd={(e) => {
                       const newX = e.target.x();
                       const newY = e.target.y();
-                      console.log("New position:", newX, newY);
                       // Update state with new position if needed
                     }}
                   />
@@ -228,21 +248,37 @@ const TshirtImage = () => {
         <div className={sOrder.center}>
           {backimageurl && backImage ? (
             <div className="flex flex-col items-center">
-              <Stage width={imagebackSize.width} height={imagebackSize.height} className="border p-2" style={{ marginTop: "-5vw" }}>
+              <Stage
+                width={imagebackSize.width}
+                height={imagebackSize.height}
+                className="border p-2"
+                style={{ marginTop: "-5vw" }}
+              >
                 <Layer>
-                  <KonvaImage image={backImage} x={0} y={0} width={imagebackSize.width} height={imagebackSize.height} />
+                  <KonvaImage
+                    image={backImage}
+                    x={0}
+                    y={0}
+                    width={imagebackSize.width}
+                    height={imagebackSize.height}
+                  />
                   <Rect
                     x={backstickers ? backstickers?.backX : 0}
                     y={backstickers ? backstickers?.backY : 0}
                     width={backstickers ? backstickers?.backWidth : 0}
                     height={backstickers ? backstickers?.backHeight : 0}
                     fill="red"
-                    rotation={backstickers ? backstickers?.backRotation ? backstickers?.backRotation : 0 : 0}
+                    rotation={
+                      backstickers
+                        ? backstickers?.backRotation
+                          ? backstickers?.backRotation
+                          : 0
+                        : 0
+                    }
                     draggable={false}
                     onDragEnd={(e) => {
                       const newX = e.target.x();
                       const newY = e.target.y();
-                      console.log("New position:", newX, newY);
                       // Update state with new position if needed
                     }}
                   />
@@ -273,8 +309,9 @@ const TshirtImage = () => {
           >
             <div className="tshirt-modal" style={{ marginTop: "3rem" }}>
               <div
-                className={`modal-header ${activeModal === "front" ? "no-border" : "with-border"
-                  }`}
+                className={`modal-header ${
+                  activeModal === "front" ? "no-border" : "with-border"
+                }`}
               >
                 <h3>
                   {activeModal === "front"
@@ -301,12 +338,16 @@ const TshirtImage = () => {
               {activeModal !== "front" && (
                 <ItemFinalDesign title="Front Size" value={frontsize} />
               )}
+              {/* {activeModal !== "front" && (
+                <ItemFinalDesign title="Uploaded Design" value={frontsize} />
+              )} */}
             </div>
 
             <div className="tshirt-modal" style={{ marginTop: "3rem" }}>
               <div
-                className={`modal-header ${activeModal === "back" ? "no-border" : "with-border"
-                  }`}
+                className={`modal-header ${
+                  activeModal === "back" ? "no-border" : "with-border"
+                }`}
               >
                 <h3>
                   {activeModal === "back"
@@ -337,8 +378,9 @@ const TshirtImage = () => {
 
             <div className="tshirt-modal" style={{ marginTop: "3rem" }}>
               <div
-                className={`modal-header ${activeModal === "extraComments" ? "no-border" : "with-border"
-                  }`}
+                className={`modal-header ${
+                  activeModal === "extraComments" ? "no-border" : "with-border"
+                }`}
               >
                 <h3>
                   {activeModal === "extraComments"
@@ -376,7 +418,7 @@ const TshirtImage = () => {
           handlePrevStep={handlePrevStep}
           handleNextStep={handleNextStep}
           onlyNext={false}
-          isHaveNext={true}
+          isHaveNext={frontsize.length !== 0 && backsize.length !== 0}
         />
       </div>
     </>

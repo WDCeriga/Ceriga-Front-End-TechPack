@@ -36,6 +36,7 @@ import ConfirmAuthPage from "./components/Auth/ConfirmAuth/ConfirmAuth";
 import PrivateRoutes from "./guard/PrivateRoutes/PrivateRoutes";
 import TestComponents from "./pages/TestComponents/TestComponents";
 import routes from "./routes";
+import MobileRedirect from "@components/IsMobile/MobileRedirect";
 
 import "./App.css";
 
@@ -97,11 +98,12 @@ const router = createBrowserRouter(
         />
         <Route path={routes.adminOrders} element={<AdminOrdersPage />} />
       </Route>
-    </>,
+      <Route path="/mobile-redirect" element={<MobileRedirect />} />
+    </>
   ),
   {
     basename: "/",
-  },
+  }
 );
 
 const App: FC = () => {

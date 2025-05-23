@@ -140,6 +140,27 @@ const uploadDesignApi = async (formData: FormData, draftId: string) => {
   return data.fileUrl; // Changed from data.file.filename to data.fileUrl
 };
 
+const removeFileApi = async (
+  draftId: string,
+  field: string,
+  fileUrl: string
+) => {
+  const jsonData = {
+    draftId: draftId,
+    field: field,
+    fileUrl: fileUrl,
+  };
+
+  const { data } = await protectedApi.delete(
+    `${routes.server.drafts.removeFile}`,
+    {
+      data: jsonData,
+    }
+  );
+
+  return data;
+};
+
 const uploadLabelApi = async (formData: FormData, draftId: string) => {
   const fileField = formData.get("file");
   if (!fileField) {
@@ -195,7 +216,7 @@ const uploadPackageApi = async (formData: FormData, draftId: string) => {
   }
 
   const { data } = await protectedApi.post(
-    `${routes.server.drafts.uploadbacklogo}?draftId=${draftId}`,
+    `${routes.server.drafts.uploadPackage}?draftId=${draftId}`,
     formData,
     {
       headers: {
@@ -264,6 +285,13 @@ const createOrderApi = async (draftId: string) => {
   });
   return res;
 };
+const createOrderTechPackApi = async (draftId: string) => {
+  const res = await protectedApi.post(routes.server.orders.createtechpack, {
+    draftId,
+  });
+  console.log("====>", res);
+  return res;
+};
 
 const getOrdersListApi = async () => {
   const { data } = await protectedApi.get(routes.server.orders.list);
@@ -305,9 +333,21 @@ const getOrderItemApi = async (orderId: string) => {
   return data;
 };
 
-const paymentGenerateApi = async (orderId: number) => {
+const generatePdfApi = async (id: string, isOrder: boolean) => {
+  const response = await protectedApi.get(
+    `${routes.server.orders.genetaepdf}?id=${id}&isOrder=${isOrder}`,
+    { responseType: "blob" }
+  );
+  return response;
+};
+
+const paymentGenerateApi = async (orderId: number, isTechPack: boolean) => {
   const { data } = await protectedApi.post(
-    `${routes.server.orders.payment}?orderId=${orderId}`
+    `${
+      isTechPack
+        ? routes.server.orders.paymenttechpack
+        : routes.server.orders.payment
+    }?orderId=${orderId}`
   );
   return data;
 };
@@ -567,5 +607,8 @@ export {
   saveNewPriceInProductApi,
   getDeliveryInfoApi,
   uploadfrontlogoApi,
-  uploadbacklogoApi
+  uploadbacklogoApi,
+  generatePdfApi,
+  createOrderTechPackApi,
+  removeFileApi,
 };
