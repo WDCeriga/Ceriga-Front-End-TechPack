@@ -79,7 +79,7 @@ const OrderPackage: FC = () => {
         />
         <Progress value={70} />
       </div>
-      {subtotal ? (
+      {subtotal !== undefined && subtotal !== null ? (
         <p
           style={{
             position: "absolute",
@@ -92,27 +92,17 @@ const OrderPackage: FC = () => {
             borderEndEndRadius: "10px",
           }}
         >
-          €{parseFloat(subtotal.toString()).toFixed(2)}
+          €{orderType === "Custom clothing"
+            ? totalqty > 1
+              ? (parseFloat(subtotal.toString()) * totalqty).toFixed(2)
+              : parseFloat(subtotal.toString()).toFixed(2)
+            : parseFloat(subtotal.toString()).toFixed(2)}
         </p>
       ) : (
         <></>
       )}
       <div className={`${sOrder.center} ${s.packageWrap}`}>
         <img src="/img/package.png" alt="package" className={s.packageImg} />
-        {/* {subtotal ? (
-          <p
-            style={{
-              position: "absolute",
-              left: "45%",
-              bottom: 0,
-              height: "auto",
-            }}
-          >
-            € {subtotal}
-          </p>
-        ) : (
-          <></>
-        )} */}
       </div>
       <div className={sOrder.right}>
         <div className={s.params}>

@@ -54,6 +54,11 @@ export const mapOrderStateToParams = async (state: IOrderState) => {
     console.error("Error fetching data:", error);
   }
 
+  const totalqty = state.quantity.list.reduce(
+    (sum, item) => sum + item.value,
+    0
+  );
+
   const data: IParamPreviewOrder[] = [
     {
       title: "Fabrics",
@@ -162,7 +167,12 @@ export const mapOrderStateToParams = async (state: IOrderState) => {
     {
       title: "Total Price",
       paramsType: "cost",
-      subparameters: state.subtotal.toString(),
+      subparameters:
+        state.orderType === "Custom clothing"
+          ? totalqty > 1
+            ? (parseFloat(state.subtotal.toString()) * totalqty).toFixed(2)
+            : parseFloat(state.subtotal.toString()).toFixed(2)
+          : parseFloat(state.subtotal.toString()).toFixed(2),
     },
     {
       title: "Size",
