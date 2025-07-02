@@ -1,13 +1,13 @@
 const routes = {
   //baseURL: import.meta.env.VITE_BASE_URL || "http://:5173",
   //baseURL: import.meta.env.VITE_BASE_URL || "http://www.ceriga.eagletechsolutions.uk.servepreview.net/",
-  fronturl: "https://ceriga-front-end-tech-pack.vercel.app/",
+  fronturl: "https://ceriga-front-end-tech-pack.vercel.app",
   // fronturl: "http://192.168.1.8:5173/",
   //API ROUTES
   server: {
     // base: "https://ceriga-backend-test.vercel.app",
     //base: "https://sudio-ceriga-backend.onrender.com",
-    base: "https://ceriga-back-end-tech-pack.vercel.app/",
+    base: "https://ceriga-back-end-tech-pack.vercel.app",
     // base: "http://192.168.1.8:4000",
     // base: "https://ceriga-back-end-main.vercel.app",
 
