@@ -7,9 +7,9 @@ const routes = {
   server: {
     // base: "https://ceriga-backend-test.vercel.app",
     //base: "https://sudio-ceriga-backend.onrender.com",
-    base: "https://ceriga-back-end-tech-pack.vercel.app",
+    // base: "https://ceriga-back-end-tech-pack.vercel.app",
     // base: "http://192.168.1.8:4000",
-    // base: "https://ceriga-back-end-main.vercel.app",
+    base: "https://ceriga-back-end-main.vercel.app",
 
     auth: "/auth",
     refresh: "/auth/refresh",
